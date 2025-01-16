@@ -6,6 +6,11 @@
 		"alcohol": 40
 	  },
 	  {
+		"name": "Sör",
+		"price": 1.5,
+		"alcohol": 40
+	  },
+	  {
 		"name": "Whiskey",
 		"price": 3.0,
 		"alcohol": 45
@@ -57,6 +62,16 @@
 	  }
 	],
 	"drinks": [
+		{
+		"name": "Sör",
+		"price": 600,
+		"ingredients": [
+		  "Sör"
+		],
+		"amounts": [
+		  500
+		]
+	  },
 	  {
 		"name": "Mojito",
 		"price": 2500,
@@ -180,7 +195,7 @@
 		"money": 9000,
 		"drunkness": 30,
 		"age": 23,
-		"stinkness": 10,
+		"stinkness": 100,
 		"img": "https://randomuser.me/api/portraits/men/16.jpg"
 	  },
 	  {
