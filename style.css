@@ -1,9 +1,33 @@
 html,body {
     height: 100%;
+    font-family: 'Comic Sans MS';
 }
 
 :root {
     --header-height: 180px; 
+}
+
+#orders {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+}
+
+.order {
+    display: inline-block; 
+    width: 100px;  
+    height: 100px; 
+}
+
+.customerImg{
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.customerName{
+    text-align: center;
 }
 
 

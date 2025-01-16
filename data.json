@@ -1,145 +1,160 @@
 {
 	"ingredients": [
-	  {
-		"name": "Vodka",
-		"price": 2.4,
-		"alcohol": 40
-	  },
-	  {
-		"name": "Sör",
-		"price": 1.5,
-		"alcohol": 40
-	  },
-	  {
-		"name": "Whiskey",
-		"price": 3.0,
-		"alcohol": 45
-	  },
-	  {
-		"name": "Rum",
-		"price": 2.2,
-		"alcohol": 38
-	  },
-	  {
-		"name": "Gin",
-		"price": 2.6,
-		"alcohol": 42
-	  },
-	  {
-		"name": "Tequila",
-		"price": 2.8,
-		"alcohol": 40
-	  },
-	  {
-		"name": "Triple Sec",
-		"price": 2.0,
-		"alcohol": 30
-	  },
-	  {
-		"name": "Lime Juice",
-		"price": 0.4,
-		"alcohol": 0
-	  },
-	  {
-		"name": "Cola",
-		"price": 0.3,
-		"alcohol": 0
-	  },
-	  {
-		"name": "Tonic Water",
-		"price": 0.4,
-		"alcohol": 0
-	  },
-	  {
-		"name": "Orange Juice",
-		"price": 0.5,
-		"alcohol": 0
-	  },
-	  {
-		"name": "Grenadine",
-		"price": 0.6,
-		"alcohol": 0
-	  }
+		{
+			"name": "Vodka",
+			"price": 2.4,
+			"alcohol": 40
+		},
+		{
+			"name": "Jagermeister",
+			"price": 5.0,
+			"alcohol": 35
+		},
+		{
+			"name": "Sör",
+			"price": 1.5,
+			"alcohol": 5
+		},
+		{
+			"name": "Whiskey",
+			"price": 3.0,
+			"alcohol": 45
+		},
+		{
+			"name": "Rum",
+			"price": 2.2,
+			"alcohol": 38
+		},
+		{
+			"name": "Gin",
+			"price": 2.6,
+			"alcohol": 42
+		},
+		{
+			"name": "Tequila",
+			"price": 2.8,
+			"alcohol": 40
+		},
+		{
+			"name": "Triple Sec",
+			"price": 2.0,
+			"alcohol": 30
+		},
+		{
+			"name": "Limelé",
+			"price": 0.4,
+			"alcohol": 0
+		},
+		{
+			"name": "Cola",
+			"price": 0.3,
+			"alcohol": 0
+		},
+		{
+			"name": "Tonic",
+			"price": 0.4,
+			"alcohol": 0
+		},
+		{
+			"name": "Narancslé",
+			"price": 0.5,
+			"alcohol": 0
+		},
+		{
+			"name": "Grenadine",
+			"price": 0.6,
+			"alcohol": 0
+		}
 	],
 	"drinks": [
 		{
-		"name": "Sör",
-		"price": 600,
-		"ingredients": [
-		  "Sör"
-		],
-		"amounts": [
-		  500
-		]
-	  },
-	  {
-		"name": "Mojito",
-		"price": 2500,
-		"ingredients": [
-		  "Rum",
-		  "Lime Juice",
-		  "Tonic Water"
-		],
-		"amounts": [
-		  50,
-		  30,
-		  120
-		]
-	  },
-	  {
-		"name": "Tequila Sunrise",
-		"price": 2700,
-		"ingredients": [
-		  "Tequila",
-		  "Orange Juice",
-		  "Grenadine"
-		],
-		"amounts": [
-		  50,
-		  100,
-		  20
-		]
-	  },
-	  {
-		"name": "Whiskey Sour",
-		"price": 3000,
-		"ingredients": [
-		  "Whiskey",
-		  "Lime Juice",
-		  "Triple Sec"
-		],
-		"amounts": [
-		  60,
-		  30,
-		  10
-		]
-	  },
-	  {
-		"name": "Gin and Tonic",
-		"price": 2300,
-		"ingredients": [
-		  "Gin",
-		  "Tonic Water",
-		  "Lime Juice"
-		],
-		"amounts": [
-		  50,
-		  150,
-		  10
-		]
-	  },
-	  {
-		"name": "Vodka Cola",
-		"price": 2200,
-		"ingredients": [
-		  "Vodka",
-		  "Cola"
-		],
-		"amounts": [
-		  50,
-		  150
-		]
-	  }
+			"name": "Sör",
+			"price": 600,
+			"ingredients": [
+				"Sör"
+			],
+			"amounts": [
+				500
+			]
+		},
+		{
+			"name": "Jagermeister",
+			"price": 2500,
+			"ingredients": [
+				"Jagermeister"
+			],
+			"amounts": [
+				50
+			]
+		},
+		{
+			"name": "Mojito",
+			"price": 2500,
+			"ingredients": [
+				"Rum",
+				"Lime Juice",
+				"Tonic Water"
+			],
+			"amounts": [
+				50,
+				30,
+				120
+			]
+		},
+		{
+			"name": "Whiskey Sour",
+			"price": 3000,
+			"ingredients": [
+				"Whiskey",
+				"Lime Juice",
+				"Triple Sec"
+			],
+			"amounts": [
+				60,
+				30,
+				10
+			]
+		},
+		{
+			"name": "Gin & Tonic",
+			"price": 2300,
+			"ingredients": [
+				"Gin",
+				"Tonic Water",
+				"Lime Juice"
+			],
+			"amounts": [
+				50,
+				150,
+				10
+			]
+		},
+		{
+			"name": "Tequila Sunrise",
+			"price": 2700,
+			"ingredients": [
+				"Tequila",
+				"Orange Juice",
+				"Grenadine"
+			],
+			"amounts": [
+				50,
+				100,
+				20
+			]
+		},
+		{
+			"name": "Vodka Cola",
+			"price": 2200,
+			"ingredients": [
+				"Vodka",
+				"Cola"
+			],
+			"amounts": [
+				50,
+				150
+			]
+		}
 	],
 	"guests": [
 	  {
@@ -215,7 +230,7 @@
 		"img": "https://randomuser.me/api/portraits/men/18.jpg"
 	  },
 	  {
-		"name": "Barackos Béla",
+		"name": "Csorosz Lacika",
 		"money": 10200,
 		"drunkness": 55,
 		"age": 26,
@@ -223,7 +238,7 @@
 		"img": "https://randomuser.me/api/portraits/men/19.jpg"
 	  },
 	  {
-		"name": "Körte Lajos",
+		"name": "Brájen Lajos",
 		"money": 8900,
 		"drunkness": 65,
 		"age": 31,
@@ -231,7 +246,7 @@
 		"img": "https://randomuser.me/api/portraits/men/20.jpg"
 	  },
 	  {
-		"name": "Büfögő Tibor",
+		"name": "Kannaváró Tibor",
 		"money": 7700,
 		"drunkness": 75,
 		"age": 38,
