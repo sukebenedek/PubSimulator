@@ -39,8 +39,17 @@ function receiveOrder() {
     let sum = document.getElementById("sum");
     sum!.innerHTML = `
     <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
-    <h3 id="currentOrder" class="text-center">${queue[0].name}</h3>
+    <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
+    <ul class="h4" id="orderList">
+        ${queue[0].order.map(drink => `<li class="drinkListItem" id="${drink.name}">${drink.name} - ${drink.price}Ft</li>`).join('')}
+    </ul>
+    <button>nem</button>
+    <button>igen</button>
+
     `; 
+    document.getElementById("currentOrder")!.onmouseover = () => {
+        document.getElementById("currentOrder")!.style.cursor = "pointer";
+    };
     document.getElementById("currentOrder")!.onclick = () => {
         getCustomerData();
     };
@@ -56,9 +65,12 @@ function getCustomerData() {
     customerDataDiv.classList.add('customerData');
     customerDataDiv.innerHTML = `
         <h2>Információk</h2>
-        <img src="${customer.img}"/>
+        <img style = "border-radius:20px;" src="${customer.img}"/>
         <p>Név: ${customer.name}</p>
-        <p>asd</p>
+        <p>Életkor: ${customer.age} év</p>
+        <p>Vagyon: ${customer.money}Ft</p>
+        <p>Részegség: ${customer.drunkness}%</p>
+        <p>Büdösség: ${customer.stinkness}%</p>
         <button class="closeBtn">Bezár</button>
     `;
 
@@ -72,7 +84,10 @@ function getCustomerData() {
 }
 
 incomingOrder();
-setInterval(incomingOrder, 1000);
+function moreRandom(){
+    setInterval(incomingOrder, randomNum(1000));
+}
+setInterval(moreRandom, randomNum(50000));
 receiveOrder();
 
 

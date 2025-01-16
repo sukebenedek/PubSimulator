@@ -22,6 +22,6 @@ function backToChoose() {
 }
 LoginButton === null || LoginButton === void 0 ? void 0 : LoginButton.addEventListener("click", showLogin);
 RegisterButton === null || RegisterButton === void 0 ? void 0 : RegisterButton.addEventListener("click", showRegister);
-Array.from(BackButton).forEach(element => {
-    element.addEventListener("click", backToChoose);
+Array.from(BackButton).forEach(e => {
+    e.addEventListener("click", backToChoose);
 });

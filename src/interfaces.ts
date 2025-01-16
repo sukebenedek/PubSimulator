@@ -12,12 +12,14 @@ interface Ingredient {
     price: number,
     alcohol: number,
     img : string,
+    amount: number,
 }
 
 interface Drink {
     name: string,
     price: number,
-    ingredients: Ingredient[],
+    ingredientsRequired: Ingredient[],
+    ingredientsInCup: Ingredient[],
     amounts: number[]
 }
 
