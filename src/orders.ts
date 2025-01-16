@@ -1,5 +1,5 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
-import { fetchData, randomNum } from './functions.js';
+import { fetchData, randomNum, randomRandomNum } from './functions.js';
 
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
@@ -43,10 +43,10 @@ function receiveOrder() {
     <ul class="h4" id="orderList">
         ${queue[0].order.map(drink => `<li class="drinkListItem" id="${drink.name}">${drink.name} - ${drink.price}Ft</li>`).join('')}
     </ul>
-    <button>nem</button>
-    <button>igen</button>
-
-    `; 
+    <input type="number" id="money" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;">
+    <button id="decline" class="btn btn-success" style = "margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
+    <button id="accept" class="btn btn-danger" style = "margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
+    `;
     document.getElementById("currentOrder")!.onmouseover = () => {
         document.getElementById("currentOrder")!.style.cursor = "pointer";
     };
@@ -60,7 +60,7 @@ function getCustomerData() {
     sum!.innerHTML = "";
     const customer = queue[0];
     console.log(customer.name);
-    
+
     const customerDataDiv = document.createElement('div');
     customerDataDiv.classList.add('customerData');
     customerDataDiv.innerHTML = `
@@ -79,15 +79,12 @@ function getCustomerData() {
     const closeBtn = customerDataDiv.querySelector('.closeBtn');
     closeBtn!.addEventListener('click', () => {
         sum!.removeChild(customerDataDiv);
-        receiveOrder(); 
+        receiveOrder();
     });
 }
 
 incomingOrder();
-function moreRandom(){
-    setInterval(incomingOrder, randomNum(1000));
-}
-setInterval(moreRandom, randomNum(50000));
+setInterval(incomingOrder, randomRandomNum(50000));
 receiveOrder();
 
 
