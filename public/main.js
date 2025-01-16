@@ -1,2 +1,2 @@
-"use strict";
-console.log('ok');
+import { initializeCanvas } from './canvas.js';
+initializeCanvas();
