@@ -33,6 +33,9 @@ function receiveOrder() {
     <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
     <h3 id="currentOrder" class="text-center">${queue[0].name}</h3>
     `;
+    document.getElementById("currentOrder").onclick = () => {
+        getCustomerData();
+    };
 }
 function getCustomerData() {
     let sum = document.getElementById('sum');
@@ -58,6 +61,3 @@ function getCustomerData() {
 incomingOrder();
 setInterval(incomingOrder, 1000);
 receiveOrder();
-document.getElementById("currentOrder").onclick = () => {
-    getCustomerData();
-};
