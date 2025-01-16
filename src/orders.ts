@@ -1,4 +1,5 @@
-import {User, Ingredient, Drink, Guest, Order, load, fetchData} from './interfaces.js';
+import {User, Ingredient, Drink, Guest, Order,} from './interfaces.js';
+import {fetchData, randomNum} from './functions.js';
 
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
@@ -7,9 +8,11 @@ let queue: Guest[] = [];
 
 function incomingOrder() {
 let orders = document.getElementById("orders");
-let random = Math.floor(Math.random() * allGuests.length);
     if (queue.length < 10) {
-        let randomGuest = allGuests[random];
+        let randomGuest = allGuests[randomNum(allGuests.length)];
+        while(queue.includes(randomGuest)) {
+            randomGuest = allGuests[randomNum(allGuests.length)];
+        }
         queue.push(randomGuest);
         orders!.innerHTML += 
         `<div class="order">

@@ -159,7 +159,7 @@
 	"guests": [
 	  {
 		"name": "Kristály Zolika",
-		"money": 10000,
+		"money": 10600,
 		"drunkness": 70,
 		"age": 28,
 		"stinkness": 30,
@@ -167,15 +167,15 @@
 	  },
 	  {
 		"name": "Gipszkarton Emil",
-		"money": 15000,
+		"money": 15900,
 		"drunkness": 40,
 		"age": 24,
 		"stinkness": 10,
 		"img": "https://randomuser.me/api/portraits/men/11.jpg"
 	  },
 	  {
-		"name": "Esztebán",
-		"money": 5000,
+		"name": "Kanalas Esztebán",
+		"money": 5100,
 		"drunkness": 90,
 		"age": 35,
 		"stinkness": 50,
@@ -183,7 +183,7 @@
 	  },
 	  {
 		"name": "Halálhozó Szkófild",
-		"money": 8000,
+		"money": 8900,
 		"drunkness": 20,
 		"age": 30,
 		"stinkness": 15,
@@ -191,7 +191,7 @@
 	  },
 	  {
 		"name": "Fogatlan Árpád",
-		"money": 12000,
+		"money": 12200,
 		"drunkness": 50,
 		"age": 27,
 		"stinkness": 20,
@@ -199,7 +199,7 @@
 	  },
 	  {
 		"name": "Jóreggelt Péter",
-		"money": 7000,
+		"money": 7600,
 		"drunkness": 60,
 		"age": 29,
 		"stinkness": 25,
@@ -207,7 +207,7 @@
 	  },
 	  {
 		"name": "Csongika",
-		"money": 9000,
+		"money": 9900,
 		"drunkness": 30,
 		"age": 23,
 		"stinkness": 100,
@@ -222,7 +222,7 @@
 		"img": "https://randomuser.me/api/portraits/men/17.jpg"
 	  },
 	  {
-		"name": "Hörgő Dezső",
+		"name": "Matovics Dezső",
 		"money": 4800,
 		"drunkness": 85,
 		"age": 42,
@@ -260,6 +260,70 @@
 		"age": 29,
 		"stinkness": 15,
 		"img": "https://randomuser.me/api/portraits/women/22.jpg"
+	  },
+	  {
+		"name": "Duguláselhárító Kálmán",
+		"money": 8900,
+		"drunkness": 40,
+		"age": 65,
+		"stinkness": 80,
+		"img": "https://randomuser.me/api/portraits/men/23.jpg"
+	  },
+	  {
+		"name": "Orsós Giuseppe",
+		"money": 12000,
+		"drunkness": 30,
+		"age": 29,
+		"stinkness": 60,
+		"img": "https://randomuser.me/api/portraits/men/24.jpg"
+	  },
+	  {
+		"name": "Sztojka Sámuel",
+		"money": 3200,
+		"drunkness": 20,
+		"age": 59,
+		"stinkness": 40,
+		"img": "https://randomuser.me/api/portraits/men/25.jpg"
+	  },
+	  {
+		"name": "Hungarocel Henrik",
+		"money": 2500,
+		"drunkness": 10,
+		"age": 28,
+		"stinkness": 30,
+		"img": "https://randomuser.me/api/portraits/men/26.jpg"
+	  },
+	  {
+		"name": "Ytong Imre",
+		"money": 3400,
+		"drunkness": 30,
+		"age": 63,
+		"stinkness": 40,
+		"img": "https://randomuser.me/api/portraits/men/27.jpg"
+	  },
+	  {
+		"name": "Glettvas Márió",
+		"money": 5100,
+		"drunkness": 25,
+		"age": 75,
+		"stinkness": 70,
+		"img": "https://randomuser.me/api/portraits/men/28.jpg"
+	  },
+	  {
+		"name": "Fazekas Herold",
+		"money": 5900,
+		"drunkness": 20,
+		"age": 63,
+		"stinkness": 47,
+		"img": "https://randomuser.me/api/portraits/men/29.jpg"
+	  },
+	  {
+		"name": "Lakatos Tejszelet",
+		"money": 15000,
+		"drunkness": 40,
+		"age": 19,
+		"stinkness": 20,
+		"img": "https://randomuser.me/api/portraits/men/30.jpg"
 	  }
 	]
   }
