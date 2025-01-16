@@ -27,12 +27,8 @@ interface Guest {
     drunkness: number,
     age: number,
     stinkness: number,
-    img: string
+    img: string,
+    order: Drink[]
 }
 
-interface Order {
-    customer: Guest,
-    drinks: Drink[]
-}
-
-export { User, Ingredient, Drink, Guest, Order,};
+export { User, Ingredient, Drink, Guest,};

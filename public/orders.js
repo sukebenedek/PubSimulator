@@ -10,13 +10,10 @@ function incomingOrder() {
         for (let i = 0; i < randomNum(4); i++) {
             randomDrinks.push(allDrinks[randomNum(allDrinks.length)]);
         }
-        let order = {
-            customer: randomGuest,
-            drinks: randomDrinks
-        };
         while (queue.includes(randomGuest)) {
             randomGuest = allGuests[randomNum(allGuests.length)];
         }
+        randomGuest.order = randomDrinks;
         queue.push(randomGuest);
         orders.innerHTML +=
             `<div class="order">
