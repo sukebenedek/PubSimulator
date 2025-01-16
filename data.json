@@ -1,0 +1,236 @@
+{
+	"ingredients": [
+	  {
+		"name": "Vodka",
+		"price": 2.4,
+		"alcohol": 40
+	  },
+	  {
+		"name": "Whiskey",
+		"price": 3.0,
+		"alcohol": 45
+	  },
+	  {
+		"name": "Rum",
+		"price": 2.2,
+		"alcohol": 38
+	  },
+	  {
+		"name": "Gin",
+		"price": 2.6,
+		"alcohol": 42
+	  },
+	  {
+		"name": "Tequila",
+		"price": 2.8,
+		"alcohol": 40
+	  },
+	  {
+		"name": "Triple Sec",
+		"price": 2.0,
+		"alcohol": 30
+	  },
+	  {
+		"name": "Lime Juice",
+		"price": 0.4,
+		"alcohol": 0
+	  },
+	  {
+		"name": "Cola",
+		"price": 0.3,
+		"alcohol": 0
+	  },
+	  {
+		"name": "Tonic Water",
+		"price": 0.4,
+		"alcohol": 0
+	  },
+	  {
+		"name": "Orange Juice",
+		"price": 0.5,
+		"alcohol": 0
+	  },
+	  {
+		"name": "Grenadine",
+		"price": 0.6,
+		"alcohol": 0
+	  }
+	],
+	"drinks": [
+	  {
+		"name": "Mojito",
+		"price": 2500,
+		"ingredients": [
+		  "Rum",
+		  "Lime Juice",
+		  "Tonic Water"
+		],
+		"amounts": [
+		  50,
+		  30,
+		  120
+		]
+	  },
+	  {
+		"name": "Tequila Sunrise",
+		"price": 2700,
+		"ingredients": [
+		  "Tequila",
+		  "Orange Juice",
+		  "Grenadine"
+		],
+		"amounts": [
+		  50,
+		  100,
+		  20
+		]
+	  },
+	  {
+		"name": "Whiskey Sour",
+		"price": 3000,
+		"ingredients": [
+		  "Whiskey",
+		  "Lime Juice",
+		  "Triple Sec"
+		],
+		"amounts": [
+		  60,
+		  30,
+		  10
+		]
+	  },
+	  {
+		"name": "Gin and Tonic",
+		"price": 2300,
+		"ingredients": [
+		  "Gin",
+		  "Tonic Water",
+		  "Lime Juice"
+		],
+		"amounts": [
+		  50,
+		  150,
+		  10
+		]
+	  },
+	  {
+		"name": "Vodka Cola",
+		"price": 2200,
+		"ingredients": [
+		  "Vodka",
+		  "Cola"
+		],
+		"amounts": [
+		  50,
+		  150
+		]
+	  }
+	],
+	"quests": [
+	  {
+		"name": "Kristály Zolika",
+		"money": 10000,
+		"drunkness": 70,
+		"age": 28,
+		"stinkness": 30,
+		"img": "https://randomuser.me/api/portraits/men/10.jpg"
+	  },
+	  {
+		"name": "Gipszkarton Emil",
+		"money": 15000,
+		"drunkness": 40,
+		"age": 24,
+		"stinkness": 10,
+		"img": "https://randomuser.me/api/portraits/men/11.jpg"
+	  },
+	  {
+		"name": "Esztebán",
+		"money": 5000,
+		"drunkness": 90,
+		"age": 35,
+		"stinkness": 50,
+		"img": "https://randomuser.me/api/portraits/men/12.jpg"
+	  },
+	  {
+		"name": "Halálhozó Szkófild",
+		"money": 8000,
+		"drunkness": 20,
+		"age": 30,
+		"stinkness": 15,
+		"img": "https://randomuser.me/api/portraits/men/13.jpg"
+	  },
+	  {
+		"name": "Fogatlan Árpád",
+		"money": 12000,
+		"drunkness": 50,
+		"age": 27,
+		"stinkness": 20,
+		"img": "https://randomuser.me/api/portraits/men/14.jpg"
+	  },
+	  {
+		"name": "Jóreggelt Péter",
+		"money": 7000,
+		"drunkness": 60,
+		"age": 29,
+		"stinkness": 25,
+		"img": "https://randomuser.me/api/portraits/men/15.jpg"
+	  },
+	  {
+		"name": "Csongika",
+		"money": 9000,
+		"drunkness": 30,
+		"age": 23,
+		"stinkness": 10,
+		"img": "https://randomuser.me/api/portraits/men/16.jpg"
+	  },
+	  {
+		"name": "Szódásszifon Ernő",
+		"money": 6500,
+		"drunkness": 45,
+		"age": 34,
+		"stinkness": 35,
+		"img": "https://randomuser.me/api/portraits/men/17.jpg"
+	  },
+	  {
+		"name": "Hörgő Dezső",
+		"money": 4800,
+		"drunkness": 85,
+		"age": 42,
+		"stinkness": 60,
+		"img": "https://randomuser.me/api/portraits/men/18.jpg"
+	  },
+	  {
+		"name": "Barackos Béla",
+		"money": 10200,
+		"drunkness": 55,
+		"age": 26,
+		"stinkness": 25,
+		"img": "https://randomuser.me/api/portraits/men/19.jpg"
+	  },
+	  {
+		"name": "Körte Lajos",
+		"money": 8900,
+		"drunkness": 65,
+		"age": 31,
+		"stinkness": 40,
+		"img": "https://randomuser.me/api/portraits/men/20.jpg"
+	  },
+	  {
+		"name": "Büfögő Tibor",
+		"money": 7700,
+		"drunkness": 75,
+		"age": 38,
+		"stinkness": 50,
+		"img": "https://randomuser.me/api/portraits/men/21.jpg"
+	  },
+	  {
+		"name": "Pohártörő Jolán",
+		"money": 12000,
+		"drunkness": 30,
+		"age": 29,
+		"stinkness": 15,
+		"img": "https://randomuser.me/api/portraits/women/22.jpg"
+	  }
+	]
+  }
+  

@@ -10,7 +10,8 @@ interface User {
 interface Ingredient {
     name: string,
     price: number,
-    alcohol: number
+    alcohol: number,
+    img : string,
 }
 
 interface Drink {
@@ -20,7 +21,7 @@ interface Drink {
     amounts: number[]
 }
 
-interface Quest {
+interface Guest {
     name: string,
     money: number,
     drunkness: number,
@@ -30,8 +31,8 @@ interface Quest {
 }
 
 interface Order {
-    customer: Quest,
+    customer: Guest,
     drinks: Drink[]
 }
 
-export { User, Ingredient, Drink, Quest, Order }
+export { User, Ingredient, Drink, Guest, Order };
