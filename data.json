@@ -325,6 +325,16 @@
 		"stinkness": 20,
 		"img": "https://randomuser.me/api/portraits/men/30.jpg"
 	  }
+	],
+	"users": [
+	  {
+		"username": "admin",
+		"password": "admin",
+		"money": 100000000000,
+    	"drunkness": 0,
+    	"img": "https://randomuser.me/api/portraits/men/31.jpg",
+    	"role": true
+	  }
 	]
   }
   
