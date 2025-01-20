@@ -1,5 +1,5 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
-import { fetchData, randomNum, randomRandomNum } from './functions.js';
+import { fetchData, randomNum, } from './functions.js';
 
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
@@ -7,6 +7,7 @@ const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drink
 let queue: Guest[] = [];
 
 function incomingOrder() {
+    receiveOrder();
     let orders = document.getElementById("orders");
     if (queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
@@ -23,11 +24,15 @@ function incomingOrder() {
         randomGuest.order = randomDrinks
         queue.push(randomGuest);
 
-        orders!.innerHTML +=
+        orders!.innerHTML = "";
+        queue.forEach(customer => {
+            orders!.innerHTML +=
             `<div class="order">
-            <img class="customerImg" src="${randomGuest.img}"/>
-            <p class="customerName">${randomGuest.name}</p>
+            <img class="customerImg" src="${customer.img}"/>
+            <p class="customerName">${customer.name}</p>
         </div>`;
+        });
+
 
         //console.log(order);
         //console.log(randomDrinks);
@@ -35,24 +40,48 @@ function incomingOrder() {
     }
 }
 
+function randomIncomingOrder() {
+    receiveOrder();
+    const randomDelay = randomNum(10000);
+    setTimeout(() => {
+        incomingOrder();
+        randomIncomingOrder();
+    }, randomDelay);
+}
+
 function receiveOrder() {
     let sum = document.getElementById("sum");
-    sum!.innerHTML = `
-    <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
-    <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
-    <ul class="h4" id="orderList">
-        ${queue[0].order.map(drink => `<li class="drinkListItem" id="${drink.name}">${drink.name} - ${drink.price}Ft</li>`).join('')}
-    </ul>
-    <input type="number" id="money" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;">
-    <button id="decline" class="btn btn-success" style = "margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
-    <button id="accept" class="btn btn-danger" style = "margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
-    `;
-    document.getElementById("currentOrder")!.onmouseover = () => {
-        document.getElementById("currentOrder")!.style.cursor = "pointer";
-    };
-    document.getElementById("currentOrder")!.onclick = () => {
-        getCustomerData();
-    };
+    if(queue.length == 0){
+        sum!.innerHTML = "Nincs rendelés!";
+    }
+    else{
+        sum!.innerHTML = `
+        <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
+        <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
+        <ul class="h4" id="orderList">
+            ${queue[0].order.map(drink => `<li class="drinkListItem" id="${drink.name}">${drink.name} - ${drink.price}Ft</li>`).join('')}
+        </ul>
+        <input type="number" id="money" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;">
+        <button id="accept" class="btn btn-success" style = "margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
+        <button id="decline" class="btn btn-danger" style = "margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
+        `;
+        const declineBtn = document.getElementById("decline");
+        declineBtn!.onclick = () => {
+            declineOrder();
+        };
+    
+        const acceptBtn = document.getElementById("accept");
+        acceptBtn!.onclick = () => {
+            acceptOrder();
+        };
+    
+        document.getElementById("currentOrder")!.onmouseover = () => {
+            document.getElementById("currentOrder")!.style.cursor = "pointer";
+        };
+        document.getElementById("currentOrder")!.onclick = () => {
+            getCustomerData();
+        };
+    }
 }
 
 function getCustomerData() {
@@ -83,10 +112,27 @@ function getCustomerData() {
     });
 }
 
+function acceptOrder() {
+
+}
+
+function declineOrder() {
+    queue.shift();
+    let orders = document.getElementById("orders");
+    orders!.innerHTML = "";
+    queue.forEach(customer => {
+        orders!.innerHTML +=
+        `<div class="order">
+        <img class="customerImg" src="${customer.img}"/>
+        <p class="customerName">${customer.name}</p>
+    </div>`;
+    });
+    receiveOrder();
+    console.log("asd");
+}
+
 incomingOrder();
-setInterval(incomingOrder, randomRandomNum(50000));
+randomIncomingOrder();
 receiveOrder();
-
-
 
 

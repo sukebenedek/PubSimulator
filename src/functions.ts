@@ -16,6 +16,3 @@ export function randomNum(max: number){
     return Math.floor(Math.random() * max);
 }
 
-export function randomRandomNum(max: number){
-    return randomNum(max);
-}
