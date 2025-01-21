@@ -41,29 +41,53 @@ async function Login(event: any) {
 
     const users: User[] = await fetchData("http://localhost:3000/users");
     const user = userFinder(unsername, users);
-    console.log(user);    
     if (user != null && (<User>user).password == password) {
         succes();
     }
     else {
-        console.log("nem jó");        
+        document.getElementById("error")!.innerHTML = "Hibás felhasználónév/jelszó!"
     }
 }
 
 async function Register(event: any) {
     event?.preventDefault();
+    document.getElementById("usernameError")!.innerHTML = "";
+    document.getElementById("passwordHelpBlock")!.innerHTML = "A jelszó maximum 20 karaktert tartalmazhat.";
+    document.getElementById("passwordHelpBlock")?.classList.remove("text-danger");
+    document.getElementById("passwordHelpBlock")?.classList.add("text-white");
+
     const unsername = (<HTMLInputElement>document.getElementById("usernameInput1")!).value;
     const password = (<HTMLInputElement>document.getElementById("passwordInput1")!).value;
 
-    const users: User[] = await fetchData("http://localhost:3000/users");
-    if (userFinder(unsername, users) == null) {
-        
+    if (unsername == "") {
+        document.getElementById("usernameError")!.innerHTML = "Kötelező felhasználónevet megadni!";
     }
-        
+    else {
+        const users: User[] = await fetchData("http://localhost:3000/users");
+        if (userFinder(unsername, users) == null) {
+            if (password.length > 0) {
+                if (password.length > 20){
+                    document.getElementById("passwordHelpBlock")?.classList.remove("text-white");
+                    document.getElementById("passwordHelpBlock")?.classList.add("text-danger");
+                }
+                else {
+                    //TODO
+                }
+            }
+            else {
+                document.getElementById("passwordHelpBlock")?.classList.remove("text-white");
+                document.getElementById("passwordHelpBlock")?.classList.add("text-danger");
+                document.getElementById("passwordHelpBlock")!.innerHTML = "Kötelező jelszót megadni!";
+            }
+        }
+        else {
+            document.getElementById("usernameError")!.innerHTML = "A felhasználónév már foglalt.";
+        }   
+    }
 }
 
 function succes() {
-    console.log("hurrá");
+    window.location.replace("./index.html");
 }
 
 LoginButton?.addEventListener("click", showLogin);
@@ -72,4 +96,4 @@ Array.from(BackButton).forEach(e => {
     e.addEventListener("click", backToChoose);
 });
 SubmitLogin?.addEventListener("click", Login);
-RegisterButton?.addEventListener("click", Register);
+SubmitRegister?.addEventListener("click", Register);
