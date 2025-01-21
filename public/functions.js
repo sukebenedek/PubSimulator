@@ -13,6 +13,3 @@ export async function fetchData(url) {
 export function randomNum(max) {
     return Math.floor(Math.random() * max);
 }
-export function randomRandomNum(max) {
-    return randomNum(max);
-}

@@ -70,7 +70,7 @@
 		{
 			"name": "Sör",
 			"price": 600,
-			"ingredients": [
+			"ingredientsRequired": [
 				"Sör"
 			],
 			"amounts": [
@@ -80,7 +80,7 @@
 		{
 			"name": "Jagermeister",
 			"price": 2500,
-			"ingredients": [
+			"ingredientsRequired": [
 				"Jagermeister"
 			],
 			"amounts": [
@@ -90,7 +90,7 @@
 		{
 			"name": "Mojito",
 			"price": 2500,
-			"ingredients": [
+			"ingredientsRequired": [
 				"Rum",
 				"Lime Juice",
 				"Tonic Water"
@@ -104,7 +104,7 @@
 		{
 			"name": "Whiskey Sour",
 			"price": 3000,
-			"ingredients": [
+			"ingredientsRequired": [
 				"Whiskey",
 				"Lime Juice",
 				"Triple Sec"
@@ -118,7 +118,7 @@
 		{
 			"name": "Gin & Tonic",
 			"price": 2300,
-			"ingredients": [
+			"ingredientsRequired": [
 				"Gin",
 				"Tonic Water",
 				"Lime Juice"
@@ -132,7 +132,7 @@
 		{
 			"name": "Tequila Sunrise",
 			"price": 2700,
-			"ingredients": [
+			"ingredientsRequired": [
 				"Tequila",
 				"Orange Juice",
 				"Grenadine"
@@ -146,7 +146,7 @@
 		{
 			"name": "Vodka Cola",
 			"price": 2200,
-			"ingredients": [
+			"ingredientsRequired": [
 				"Vodka",
 				"Cola"
 			],
@@ -324,6 +324,30 @@
 		"age": 19,
 		"stinkness": 20,
 		"img": "https://randomuser.me/api/portraits/men/30.jpg"
+	  },
+	  {
+		"name": "Oláh Gesztenyedió",
+		"money": 4300,
+		"drunkness": 30,
+		"age": 25,
+		"stinkness": 60,
+		"img": "https://randomuser.me/api/portraits/men/31.jpg"
+	  },
+	  {
+		"name": "Ferenc Ferenc",
+		"money": 16300,
+		"drunkness": 80,
+		"age": 62,
+		"stinkness": 80,
+		"img": "https://randomuser.me/api/portraits/men/32.jpg"
+	  },
+	  {
+		"name": "Rézműves Songoku",
+		"money": 8900,
+		"drunkness": 30,
+		"age": 32,
+		"stinkness": 30,
+		"img": "https://randomuser.me/api/portraits/men/32.jpg"
 	  }
 	],
 	"users": [
