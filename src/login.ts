@@ -1,5 +1,5 @@
 import { User } from './interfaces.js';
-import { fetchData } from './functions.js';
+import { fetchData, postData } from './functions.js';
 
 const chooseDIV = document.getElementById("choose");
 const loginDIV = document.getElementById("login");
@@ -71,7 +71,13 @@ async function Register(event: any) {
                     document.getElementById("passwordHelpBlock")?.classList.add("text-danger");
                 }
                 else {
-                    //TODO
+                    const role = (<HTMLInputElement>document.getElementById("flexRadioDefault1")!).checked;
+                    if ( await postData("http://localhost:3000/users", {id: users.length, username: unsername, password: password, money: 1000, drunkness: 0, img: `https://randomuser.me/api/portraits/men/${100 + users.length}.jpg`, role: role}) ) {
+                        succes();
+                    }
+                    else {
+                        alert("Hiba! Próbálja újra!")
+                    }
                 }
             }
             else {

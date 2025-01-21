@@ -1,4 +1,4 @@
-import { fetchData } from './functions.js';
+import { fetchData, postData } from './functions.js';
 const chooseDIV = document.getElementById("choose");
 const loginDIV = document.getElementById("login");
 const registerDIV = document.getElementById("register");
@@ -59,7 +59,13 @@ async function Register(event) {
                     (_d = document.getElementById("passwordHelpBlock")) === null || _d === void 0 ? void 0 : _d.classList.add("text-danger");
                 }
                 else {
-                    //TODO
+                    const role = document.getElementById("flexRadioDefault1").checked;
+                    if (await postData("http://localhost:3000/users", { id: users.length, username: unsername, password: password, money: 1000, drunkness: 0, img: `https://randomuser.me/api/portraits/men/${100 + users.length}.jpg`, role: role })) {
+                        succes();
+                    }
+                    else {
+                        alert("Hiba! Próbálja újra!");
+                    }
                 }
             }
             else {
