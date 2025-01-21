@@ -55,7 +55,7 @@ function receiveOrder() {
                     ${drink.name} - ${drink.price}Ft
                     <ul class="ingredientsList">
                         ${drink.ingredientsRequired.map(ingredient => `
-                            <li>${ingredient.name} (${ingredient.amount})</li>
+                            <li>${ingredient.name} (${ingredient.amount}ml)</li>
                         `).join('')}
                     </ul>
                 </li>`).join('')}

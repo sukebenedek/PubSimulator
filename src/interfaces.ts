@@ -20,7 +20,6 @@ interface Drink {
     price: number,
     ingredientsRequired: Ingredient[],
     ingredientsInCup: Ingredient[],
-    amounts: number[]
 }
 
 interface Guest {
