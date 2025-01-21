@@ -23,12 +23,13 @@
         <button type="button" class="backbtn btn btn-dark text-white">&#8249;Vissza</button>
         <div class="mb-3">
           <label for="usernameInput" class="form-label text-white">Username</label>
-          <input type="text" class="form-control" id="usernameInput">
+          <input type="text" class="form-control" id="usernameInput" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
           <label for="passwordInput" class="form-label text-white">Password</label>
-          <input type="password" class="form-control" id="passwordInput">
+          <input type="password" class="form-control" id="passwordInput" aria-describedby="emailHelp">
         </div>
+        <h5 id="error" class="text-danger"></h5>
         <button id="submitLogin" type="submit" class="btn btn-primary">Login</button>
       </form>
     </div>
@@ -38,7 +39,8 @@
         <button type="button" class="backbtn btn btn-dark text-white">&#8249;Vissza</button>
         <div class="mb-3">
           <label for="usernameInput1" class="form-label text-white">Username</label>
-          <input type="text" class="form-control" id="usernameInput1">
+          <input type="text" class="form-control" id="usernameInput1"aria-describedby="emailHelp">
+          <div id="usernameError" class="form-text text-danger"></div>
         </div>
         <div class="mb-3">
           <label for="passwordInput1" class="form-label text-white">Password</label>
