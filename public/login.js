@@ -60,7 +60,8 @@ async function Register(event) {
                 }
                 else {
                     const role = document.getElementById("flexRadioDefault1").checked;
-                    if (await postData("http://localhost:3000/users", { id: users.length, username: unsername, password: password, money: 1000, drunkness: 0, img: `https://randomuser.me/api/portraits/men/${100 + users.length}.jpg`, role: role })) {
+                    const img = document.getElementById("flexRadioDefault4").checked == true ? `https://randomuser.me/api/portraits/men/${99 - users.length}.jpg` : `https://randomuser.me/api/portraits/women/${99 - users.length}.jpg`;
+                    if (await postData("http://localhost:3000/users", { id: users.length, username: unsername, password: password, money: 1000, drunkness: 0, img: img, role: role })) {
                         succes();
                     }
                     else {
