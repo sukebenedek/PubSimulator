@@ -1,4 +1,4 @@
-import { NodeBuilderFlags } from "typescript";
+import { NodeBuilderFlags, nodeModuleNameResolver } from "typescript";
 
 async function load<T>(url: string): Promise<T> {
     const response = await fetch(url);
@@ -36,3 +36,15 @@ export async function postData(url: string, data: {}): Promise<boolean> {
     return true;
 }
 
+export function drawRect(posX: number, posY: number, width: number, height: number, ctx: CanvasRenderingContext2D){
+    ctx.beginPath(); // Start a new path
+    ctx.rect(posX, 0, width, height); // Add a rectangle to the current path
+    ctx.fill(); // Render the path
+}
+
+export function drawImage(imgS: string, posX: number, posY: number, width: number, height: number, ctx: CanvasRenderingContext2D ){
+    const img = new Image();
+    img.src = imgS
+
+    ctx.drawImage(img, 0, 0, 100, 100);
+}

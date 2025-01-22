@@ -1,6 +1,11 @@
-import { fetchData, randomN } from "./functions.js";
+import { drawImage, fetchData, randomN } from "./functions.js";
 let ingredients = await fetchData("http://localhost:3000/ingredients");
 let c = document.getElementById("canvas");
+const ctx = c.getContext("2d");
+let height = c.height;
+let width = c.width;
+// drawRect(0, 0, width, height, ctx)
+drawImage("beer.png", 0, 0, 100, 100, ctx);
 let drinkType = ingredients[0];
 let glass = { name: "pohár",
     price: 0,
@@ -27,7 +32,7 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
         return index === self.findIndex((i) => i.name === ingredient.name);
     });
     drawGlass(glass);
-    console.log(glass);
+    // console.log(glass);
 });
 let div = document.getElementById("drinks");
 ingredients.forEach(i => {
@@ -48,7 +53,5 @@ function selectIngredient(i) {
     drinkType = i;
 }
 function drawGlass(g) {
-    c.height = 1000;
-    let height = c.height;
-    console.log(height);
+    // console.log(height);
 }
