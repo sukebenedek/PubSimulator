@@ -1,9 +1,15 @@
-import { fetchData, randomN } from "./functions.js";
+import { drawImage, drawRect, fetchData, randomN } from "./functions.js";
 import { Ingredient, Drink } from "./interfaces.js";
 
 let ingredients = await fetchData<Ingredient[]>("http://localhost:3000/ingredients")
 let c = document.getElementById("canvas") as HTMLCanvasElement;
+const ctx = c.getContext("2d") as CanvasRenderingContext2D
+let height = c.height;
+let width = c.width;
+// drawRect(0, 0, width, height, ctx)
+drawImage("beer.png", 0, 0, 100, 100, ctx)
 let drinkType:Ingredient = ingredients[0];
+
 let glass: Drink = {name: "pohár",
     price: 0,
     ingredientsRequired: [],
@@ -31,7 +37,7 @@ c?.addEventListener("mouseup", (e) => {
         return index === self.findIndex((i) => i.name === ingredient.name);
     });
     drawGlass(glass);
-    console.log(glass);
+    // console.log(glass);
     
 })
 
@@ -59,9 +65,7 @@ function selectIngredient(i: Ingredient){
 }
 
 function drawGlass(g: Drink){
-    c.height = 1000
-    let height = c.height;
-    console.log(height);
+    // console.log(height);
     
 }
 

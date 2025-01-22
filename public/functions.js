@@ -29,3 +29,13 @@ export async function postData(url, data) {
     }
     return true;
 }
+export function drawRect(posX, posY, width, height, ctx) {
+    ctx.beginPath(); // Start a new path
+    ctx.rect(posX, 0, width, height); // Add a rectangle to the current path
+    ctx.fill(); // Render the path
+}
+export function drawImage(imgS, posX, posY, width, height, ctx) {
+    const img = new Image();
+    img.src = imgS;
+    ctx.drawImage(img, 0, 0, 100, 100);
+}
