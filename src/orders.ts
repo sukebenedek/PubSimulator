@@ -1,5 +1,6 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
 import { fetchData, randomNum, } from './functions.js';
+import { glass } from './ingredients.js';
 
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
@@ -50,31 +51,48 @@ function randomIncomingOrder() {
 }
 
 function receiveOrder() {
-    // console.log(queue[0]);
-
+    console.log(glass.ingredientsInCup);
+    
     let sum = document.getElementById("sum");
     if (queue.length == 0) {
         sum!.innerHTML = "Nincs rendelés!";
-    }
-    else {
-        sum!.innerHTML = `
-        <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
-        <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
-        <ul class="h4" id="orderList">
-            ${queue[0].order.map(drink => `
+    } else {
+        let orderListHTML = `
+            <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
+            <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
+            <ul class="h4" id="orderList">
+        `;
+
+        for (let i = 0; i < queue[0].order.length; i++) {
+            const drink = queue[0].order[i];
+            orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
                     ${drink.name} - ${drink.price}Ft
                     <ul class="ingredientsList">
-                        ${drink.ingredientsRequired.map(ingredient => `
-                            <li>${ingredient.name} (${ingredient.amount}ml)</li>
-                        `).join('')}
+            `;
+
+            for (let j = 0; j < drink.ingredientsRequired.length; j++) {
+                const ingredient = drink.ingredientsRequired[j];
+                orderListHTML += `
+                    <li>${ingredient.name} (${glass.ingredientsInCup[j]}ml / ${ingredient.amount}ml)</li>
+                `;
+            }
+
+            orderListHTML += `
                     </ul>
-                </li>`).join('')}
-        </ul>
-        <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;">
-        <button id="accept" class="btn btn-success" style = "margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
-        <button id="decline" class="btn btn-danger" style = "margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
+                </li>
+            `;
+        }
+
+        orderListHTML += `
+            </ul>
+            <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;">
+            <button id="accept" class="btn btn-success" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
+            <button id="decline" class="btn btn-danger" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
         `;
+
+        sum!.innerHTML = orderListHTML;
+
         const declineBtn = document.getElementById("decline");
         declineBtn!.onclick = () => {
             declineOrder();
@@ -88,11 +106,13 @@ function receiveOrder() {
         document.getElementById("currentOrder")!.onmouseover = () => {
             document.getElementById("currentOrder")!.style.cursor = "pointer";
         };
+
         document.getElementById("currentOrder")!.onclick = () => {
             getCustomerData();
         };
     }
 }
+
 
 function getCustomerData() {
     let sum = document.getElementById('sum');
