@@ -25,7 +25,7 @@ c?.addEventListener("mousedown", (e) => {
         currentDrink++
         r = randomN(50, 100)
         // console.log(currentDrink);
-        }, r);
+        }, r);        
 })
 
 c?.addEventListener("mouseup", (e) => {
@@ -68,6 +68,8 @@ function drawGlass(g: Drink){
     // console.log(height);
     
 }
+
+export { glass }
 
 
 

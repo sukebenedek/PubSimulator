@@ -55,3 +55,4 @@ function selectIngredient(i) {
 function drawGlass(g) {
     // console.log(height);
 }
+export { glass };

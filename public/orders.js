@@ -127,6 +127,5 @@ function declineOrder() {
     receiveOrder();
     // console.log("asd");
 }
-incomingOrder();
 randomIncomingOrder();
 receiveOrder();

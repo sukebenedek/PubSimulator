@@ -3,67 +3,80 @@
     {
       "name": "Sör",
       "price": 1.5,
-      "alcohol": 5
+      "alcohol": 5,
+      "img": "./img/ingredients/Beer.png"
     },
     {
       "name": "Vodka",
       "price": 2.4,
-      "alcohol": 40
+      "alcohol": 40,
+      "img": "./img/ingredients/Vodka.png"
     },
     {
       "name": "Jager",
       "price": 5,
-      "alcohol": 35
+      "alcohol": 35,
+      "img": "./img/ingredients/Jagermeister.png"
     },
     {
       "name": "Whiskey",
       "price": 3,
-      "alcohol": 45
+      "alcohol": 45,
+      "img": "./img/ingredients/Whiskey.png"
     },
     {
       "name": "Rum",
       "price": 2.2,
-      "alcohol": 38
+      "alcohol": 38,
+      "img": "./img/ingredients/Rum.png"
     },
     {
       "name": "Gin",
       "price": 2.6,
-      "alcohol": 42
+      "alcohol": 42,
+      "img": "./img/ingredients/Gin.png"
     },
     {
       "name": "Tequila",
       "price": 2.8,
-      "alcohol": 40
+      "alcohol": 40,
+      "img": "./img/ingredients/Tequila.png"
     },
     {
       "name": "Triple Sec",
       "price": 2,
-      "alcohol": 30
+      "alcohol": 30,
+      "img": "./img/ingredients/Triple Sec.png"
     },
     {
       "name": "Limelé",
       "price": 0.4,
-      "alcohol": 0
+      "alcohol": 0,
+      "img": "./img/ingredients/Limelé.png"
     },
     {
       "name": "Cola",
       "price": 0.3,
-      "alcohol": 0
+      "alcohol": 0,
+      "img": "./img/ingredients/Cola.png"
     },
     {
       "name": "Tonic",
       "price": 0.4,
-      "alcohol": 0
+      "alcohol": 0,
+      "img": "./img/ingredients/Tonic.png"
     },
     {
       "name": "Narancslé",
       "price": 0.5,
-      "alcohol": 0
+      "alcohol": 0,
+      "img": "./img/ingredients/Narancslé.png"
     },
     {
       "name": "Grenadine",
       "price": 0.6,
-      "alcohol": 0
+      "alcohol": 0,
+      "img": "./img/ingredients/Grenadine.png"
     }
   ],
   "drinks": [
