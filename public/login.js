@@ -32,7 +32,7 @@ async function Login(event) {
     const users = await fetchData("http://localhost:3000/users");
     const user = userFinder(unsername, users);
     if (user != null && user.password == password) {
-        succes();
+        succes(user.role);
     }
     else {
         document.getElementById("error").innerHTML = "Hibás felhasználónév/jelszó!";
@@ -62,7 +62,7 @@ async function Register(event) {
                     const role = document.getElementById("flexRadioDefault1").checked;
                     const img = document.getElementById("flexRadioDefault4").checked == true ? `https://randomuser.me/api/portraits/men/${99 - users.length}.jpg` : `https://randomuser.me/api/portraits/women/${99 - users.length}.jpg`;
                     if (await postData("http://localhost:3000/users", { id: users.length, username: unsername, password: password, money: 1000, drunkness: 0, img: img, role: role })) {
-                        succes();
+                        succes(role);
                     }
                     else {
                         alert("Hiba! Próbálja újra!");
@@ -80,8 +80,13 @@ async function Register(event) {
         }
     }
 }
-function succes() {
-    window.location.replace("./index.html");
+function succes(role) {
+    if (role) {
+        window.location.replace("./index.html");
+    }
+    else {
+        window.location.replace("./alcoholism.html");
+    }
 }
 LoginButton === null || LoginButton === void 0 ? void 0 : LoginButton.addEventListener("click", showLogin);
 RegisterButton === null || RegisterButton === void 0 ? void 0 : RegisterButton.addEventListener("click", showRegister);
