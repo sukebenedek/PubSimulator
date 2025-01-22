@@ -1,2 +1,1 @@
-import { initializeCanvas } from './canvas.js';
-initializeCanvas();
+"use strict";

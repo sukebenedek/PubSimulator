@@ -1,3 +1,5 @@
+import { NodeBuilderFlags } from "typescript";
+
 async function load<T>(url: string): Promise<T> {
     const response = await fetch(url);
     if (!response.ok) {
@@ -14,6 +16,10 @@ export async function fetchData<T>(url: string): Promise<T> {
 
 export function randomNum(max: number){
     return Math.floor(Math.random() * max);
+}
+
+export function randomN(min: number, max: number){
+    return randomNum(max - min) + min;
 }
 
 export async function postData(url: string, data: {}): Promise<boolean> {

@@ -7,20 +7,22 @@ interface User {
     role: boolean
 }
 
-interface Ingredient {
+interface Ingredient { //sör a csapbol
     name: string,
     price: number,
     alcohol: number,
     img : string,
-    amount: number,
+    amount : number
 }
 
-interface Drink {
+interface Drink { //rendel vodka redbul vagy tölt egy vodka redbul
     name: string,
     price: number,
     ingredientsRequired: Ingredient[],
     ingredientsInCup: Ingredient[],
+
 }
+
 
 interface Guest {
     name: string,
@@ -32,4 +34,4 @@ interface Guest {
     order: Drink[]
 }
 
-export { User, Ingredient, Drink, Guest,};
+export { User, Ingredient, Drink, Guest};

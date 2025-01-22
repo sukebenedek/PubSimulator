@@ -13,6 +13,9 @@ export async function fetchData(url) {
 export function randomNum(max) {
     return Math.floor(Math.random() * max);
 }
+export function randomN(min, max) {
+    return randomNum(max - min) + min;
+}
 export async function postData(url, data) {
     const response = await fetch(url, {
         method: 'POST',

@@ -28,7 +28,7 @@ function incomingOrder() {
         });
         //console.log(order);
         //console.log(randomDrinks);
-        console.log(queue);
+        // console.log(queue);
     }
 }
 function randomIncomingOrder() {
@@ -40,7 +40,7 @@ function randomIncomingOrder() {
     }, randomDelay);
 }
 function receiveOrder() {
-    console.log(queue[0]);
+    // console.log(queue[0]);
     let sum = document.getElementById("sum");
     if (queue.length == 0) {
         sum.innerHTML = "Nincs rendelés!";
@@ -84,7 +84,7 @@ function getCustomerData() {
     let sum = document.getElementById('sum');
     sum.innerHTML = "";
     const customer = queue[0];
-    console.log(customer.name);
+    // console.log(customer.name);
     const customerDataDiv = document.createElement('div');
     customerDataDiv.classList.add('customerData');
     customerDataDiv.innerHTML = `
@@ -110,7 +110,7 @@ function acceptOrder() {
     if (priceInput.value == orderSum.toString()) {
     }
     else {
-        console.log("nem jo");
+        // console.log("nem jo");
     }
 }
 function declineOrder() {
@@ -125,7 +125,7 @@ function declineOrder() {
     </div>`;
     });
     receiveOrder();
-    console.log("asd");
+    // console.log("asd");
 }
 incomingOrder();
 randomIncomingOrder();

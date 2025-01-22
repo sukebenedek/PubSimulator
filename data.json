@@ -1,19 +1,19 @@
 {
 	"ingredients": [
 		{
+			"name": "Sör",
+			"price": 1.5,
+			"alcohol": 5
+		},
+		{
 			"name": "Vodka",
 			"price": 2.4,
 			"alcohol": 40
 		},
 		{
-			"name": "Jagermeister",
+			"name": "Jager",
 			"price": 5.0,
 			"alcohol": 35
-		},
-		{
-			"name": "Sör",
-			"price": 1.5,
-			"alcohol": 5
 		},
 		{
 			"name": "Whiskey",
