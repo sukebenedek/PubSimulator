@@ -45,7 +45,6 @@ function randomIncomingOrder() {
     }, randomDelay);
 }
 function receiveOrder() {
-    // console.log(glass.ingredientsInCup);
     let sum = document.getElementById("sum");
     if (queue.length == 0) {
         sum.innerHTML = "Nincs rendelés!";
@@ -65,15 +64,15 @@ function receiveOrder() {
                     <ul class="ingredientsList">
             `;
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
-                if (glass.ingredientsInCup.length == 0) {
-                    break;
-                }
-                else {
-                    const ingredient = drink.ingredientsRequired[j];
-                    orderListHTML += `
-                        <li>${ingredient.name} (${glass.ingredientsInCup[j].name}ml / ${ingredient.amount}ml)</li>
-                    `;
-                }
+                const ingredient = drink.ingredientsRequired[j];
+                const ingredientInCup = glass.ingredientsInCup.find(i => i.name == ingredient.name);
+                const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
+                const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
+                orderListHTML += `
+                    <li style="${red}">
+                        ${ingredient.name}: ${ingredientAmout}ml / ${ingredient.amount}ml
+                    </li>
+                `;
             }
             orderListHTML += `
                     </ul>
