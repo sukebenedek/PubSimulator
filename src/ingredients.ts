@@ -7,7 +7,7 @@ const ctx = c.getContext("2d") as CanvasRenderingContext2D
 let height = c.height;
 let width = c.width;
 // drawRect(0, 0, width, height, ctx)
-drawImage("beer.png", 0, 0, 100, 100, ctx)
+drawImage("pub.png", 0, 0, 100, 100, ctx)
 let drinkType:Ingredient = ingredients[0];
 
 let glass: Drink = {name: "pohár",

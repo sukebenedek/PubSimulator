@@ -41,7 +41,7 @@ function randomIncomingOrder() {
     }, randomDelay);
 }
 function receiveOrder() {
-    console.log(glass.ingredientsInCup);
+    // console.log(glass.ingredientsInCup);
     let sum = document.getElementById("sum");
     if (queue.length == 0) {
         sum.innerHTML = "Nincs rendelés!";

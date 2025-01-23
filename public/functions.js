@@ -37,5 +37,5 @@ export function drawRect(posX, posY, width, height, ctx) {
 export function drawImage(imgS, posX, posY, width, height, ctx) {
     const img = new Image();
     img.src = imgS;
-    ctx.drawImage(img, 0, 0, 100, 100);
+    ctx.drawImage(img, posX, posY, width, height);
 }

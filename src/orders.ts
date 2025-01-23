@@ -51,7 +51,7 @@ function randomIncomingOrder() {
 }
 
 function receiveOrder() {
-    console.log(glass.ingredientsInCup);
+    // console.log(glass.ingredientsInCup);
     
     let sum = document.getElementById("sum");
     if (queue.length == 0) {
