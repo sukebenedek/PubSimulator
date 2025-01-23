@@ -2,6 +2,11 @@ import { User, Ingredient, Drink, Guest, } from './interfaces.js';
 import { fetchData, randomNum, } from './functions.js';
 import { glass } from './ingredients.js';
 
+setInterval(Console, 5000);
+function Console() {
+    console.log(glass);
+}
+
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 
@@ -73,10 +78,16 @@ function receiveOrder() {
             `;
 
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
-                const ingredient = drink.ingredientsRequired[j];
-                orderListHTML += `
-                    <li>${ingredient.name} (${glass.ingredientsInCup[j]}ml / ${ingredient.amount}ml)</li>
-                `;
+                if(glass.ingredientsInCup.length == 0) {
+                    break;
+                }
+                else{
+                    const ingredient = drink.ingredientsRequired[j];
+                    orderListHTML += `
+                        <li>${ingredient.name} (${glass.ingredientsInCup[j].name}ml / ${ingredient.amount}ml)</li>
+                    `;
+                }
+
             }
 
             orderListHTML += `
@@ -166,6 +177,7 @@ function declineOrder() {
         <p class="customerName">${customer.name}</p>
     </div>`;
     });
+    //emptyGlass();
     receiveOrder();
     // console.log("asd");
 }

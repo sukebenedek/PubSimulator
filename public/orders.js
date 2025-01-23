@@ -1,5 +1,9 @@
 import { fetchData, randomNum, } from './functions.js';
 import { glass } from './ingredients.js';
+setInterval(Console, 5000);
+function Console() {
+    console.log(glass);
+}
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 let queue = [];
@@ -61,10 +65,15 @@ function receiveOrder() {
                     <ul class="ingredientsList">
             `;
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
-                const ingredient = drink.ingredientsRequired[j];
-                orderListHTML += `
-                    <li>${ingredient.name} (${glass.ingredientsInCup[j]}ml / ${ingredient.amount}ml)</li>
-                `;
+                if (glass.ingredientsInCup.length == 0) {
+                    break;
+                }
+                else {
+                    const ingredient = drink.ingredientsRequired[j];
+                    orderListHTML += `
+                        <li>${ingredient.name} (${glass.ingredientsInCup[j].name}ml / ${ingredient.amount}ml)</li>
+                    `;
+                }
             }
             orderListHTML += `
                     </ul>
@@ -138,6 +147,7 @@ function declineOrder() {
         <p class="customerName">${customer.name}</p>
     </div>`;
     });
+    //emptyGlass();
     receiveOrder();
     // console.log("asd");
 }
