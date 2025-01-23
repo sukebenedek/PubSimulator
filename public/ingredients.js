@@ -45,6 +45,7 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mousedown", (e) => {
         else {
             console.log("tele van");
             //Olivér vigyazzz mert a felhasználó többször is kattinthat a teli pohárra
+            //mi???
         }
     }, r);
 });
@@ -63,8 +64,8 @@ let div = document.getElementById("drinks");
 ingredients.forEach(i => {
     // console.log(i);
     i.amount = 0;
-    div.innerHTML += `<div class="card m-1 ${i.name} asd" id=""  style="width: 140px;">
-    <img src="${i.img}" class="card-img-top my-2" style="border-radius: 5px" alt="...">
+    div.innerHTML += `<div class="ingredientCard card m-1 ${i.name} asd" id=""  style="width: 140px;">
+    <img src="${i.img}" class="card-img-top my-2 ingredient" alt="...">
     <div class="card-body m-0">
     <p class="m-0">${i.name}</p>
     </div>
