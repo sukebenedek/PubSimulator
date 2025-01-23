@@ -19,6 +19,7 @@ let glass: Drink = {name: "pohár",
     price: 0,
     ingredientsRequired: [],
     ingredientsInCup: [],
+    img: ""
 }
 
 let currentDrink = 0

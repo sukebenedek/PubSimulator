@@ -2,6 +2,11 @@ import { User, Ingredient, Drink, Guest, } from './interfaces.js';
 import { fetchData, randomNum, } from './functions.js';
 import { glass } from './ingredients.js';
 
+setInterval(Console, 5000);
+function Console() {
+    console.log(glass);
+}
+
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 
@@ -67,15 +72,22 @@ function receiveOrder() {
             const drink = queue[0].order[i];
             orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
+                <img src="${drink.img}" alt="${drink.name}" style="width: 100px; height: 100px; object-fit: cover;">
                     ${drink.name} - ${drink.price}Ft
                     <ul class="ingredientsList">
             `;
 
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
-                const ingredient = drink.ingredientsRequired[j];
-                orderListHTML += `
-                    <li>${ingredient.name} (${glass.ingredientsInCup[j]}ml / ${ingredient.amount}ml)</li>
-                `;
+                if(glass.ingredientsInCup.length == 0) {
+                    break;
+                }
+                else{
+                    const ingredient = drink.ingredientsRequired[j];
+                    orderListHTML += `
+                        <li>${ingredient.name} (${glass.ingredientsInCup[j].name}ml / ${ingredient.amount}ml)</li>
+                    `;
+                }
+
             }
 
             orderListHTML += `
@@ -165,6 +177,7 @@ function declineOrder() {
         <p class="customerName">${customer.name}</p>
     </div>`;
     });
+    //emptyGlass();
     receiveOrder();
     // console.log("asd");
 }

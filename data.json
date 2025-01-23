@@ -79,7 +79,7 @@
       "img": "./img/ingredients/Grenadine.png"
     }
   ],
-  "drinks": [
+"drinks": [
     {
       "name": "Sör",
       "price": 600,
@@ -88,7 +88,8 @@
           "name": "Sör",
           "amount": 500
         }
-      ]
+      ],
+      "img": "./img/menu/Sormenu.png"
     },
     {
       "name": "Jagermeister",
@@ -98,7 +99,8 @@
           "name": "Jagermeister",
           "amount": 50
         }
-      ]
+      ],
+      "img": "./img/menu/Jagermeistermenu.png"
     },
     {
       "name": "Mojito",
@@ -116,7 +118,8 @@
           "name": "Tonic",
           "amount": 120
         }
-      ]
+      ],
+      "img": "./img/menu/Mojitomenu.png"
     },
     {
       "name": "Whiskey Sour",
@@ -134,7 +137,8 @@
           "name": "Triple Sec",
           "amount": 10
         }
-      ]
+      ],
+      "img": "./img/menu/WhiskeySourmenu.png"
     },
     {
       "name": "Gin & Tonic",
@@ -152,7 +156,8 @@
           "name": "Limelé",
           "amount": 10
         }
-      ]
+      ],
+      "img": "./img/menu/GinTonicmenu.png"
     },
     {
       "name": "Tequila Sunrise",
@@ -170,7 +175,8 @@
           "name": "Grenadine",
           "amount": 20
         }
-      ]
+      ],
+      "img": "./img/menu/TequilaSunrisemenu.png"
     },
     {
       "name": "Vodka Cola",
@@ -184,9 +190,116 @@
           "name": "Cola",
           "amount": 150
         }
-      ]
+      ],
+      "img": "./img/menu/VodkaColamenu.png"
+    },
+    {
+      "name": "Jager Bomb",
+      "price": 3500,
+      "ingredientsRequired": [
+        {
+          "name": "Jager",
+          "amount": 50
+        },
+        {
+          "name": "Sör",
+          "amount": 200
+        }
+      ],
+      "img": "./img/menu/JagerBombmenu.png"
+    },
+    {
+      "name": "Rum Cola",
+      "price": 2200,
+      "ingredientsRequired": [
+        {
+          "name": "Rum",
+          "amount": 50
+        },
+        {
+          "name": "Cola",
+          "amount": 150
+        }
+      ],
+      "img": "./img/menu/RumColamenu.png"
+    },
+    {
+      "name": "Vodka Narancs",
+      "price": 2500,
+      "ingredientsRequired": [
+        {
+          "name": "Vodka",
+          "amount": 50
+        },
+        {
+          "name": "Narancslé",
+          "amount": 150
+        }
+      ],
+      "img": "./img/menu/VodkaNarancsmenu.png"
+    },
+    {
+      "name": "Whiskey Cola",
+      "price": 2300,
+      "ingredientsRequired": [
+        {
+          "name": "Whiskey",
+          "amount": 50
+        },
+        {
+          "name": "Cola",
+          "amount": 150
+        }
+      ],
+      "img": "./img/menu/WhiskeyColamenu.png"
+    },
+    {
+      "name": "Tequila",
+      "price": 1500,
+      "ingredientsRequired": [
+        {
+          "name": "Tequila",
+          "amount": 50
+        }
+      ],
+      "img": "./img/menu/Tequilamenu.png"
+    },
+    {
+      "name": "Naplemente",
+      "price": 1800,
+      "ingredientsRequired": [
+        {
+          "name": "Tequila",
+          "amount": 30
+        },
+        {
+          "name": "Grenadine",
+          "amount": 10
+        },
+        {
+          "name": "Limelé",
+          "amount": 10
+        }
+      ],
+      "img": "./img/menu/Naplementemenu.png"
+    },
+    {
+      "name": "Fekete Orosz",
+      "price": 2800,
+      "ingredientsRequired": [
+        {
+          "name": "Vodka",
+          "amount": 50
+        },
+        {
+          "name": "Jager",
+          "amount": 20
+        }
+      ],
+      "img": "./img/menu/FeketeOroszmenu.png"
     }
   ],
+
   "guests": [
     {
       "name": "Kristály Zolika",
