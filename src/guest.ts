@@ -4,3 +4,11 @@ function closePopup() {
 }
 
 document.getElementById("okButton")?.addEventListener("click", closePopup);
+
+
+function order() {
+    console.log("alkohol");
+    
+}
+
+document.getElementById("counter")?.addEventListener("click", order);
