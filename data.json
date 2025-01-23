@@ -4,81 +4,94 @@
       "name": "Sör",
       "price": 1.5,
       "alcohol": 5,
-      "img": "./img/ingredients/Beer.png"
+      "img": "./img/ingredients/Beer.png",
+      "color": "rgba(255, 223, 72, 0.8)"
     },
     {
       "name": "Vodka",
       "price": 2.4,
       "alcohol": 40,
-      "img": "./img/ingredients/Vodka.png"
+      "img": "./img/ingredients/Vodka.png",
+      "color": "rgba(200, 200, 255, 0.4)"
     },
     {
       "name": "Jager",
       "price": 5,
       "alcohol": 35,
-      "img": "./img/ingredients/Jagermeister.png"
+      "img": "./img/ingredients/Jagermeister.png",
+      "color": "rgba(102, 51, 0, 0.4)"
     },
     {
       "name": "Whiskey",
       "price": 3,
       "alcohol": 45,
-      "img": "./img/ingredients/Whiskey.png"
+      "img": "./img/ingredients/Whiskey.png",
+      "color": "rgba(153, 76, 0, 0.4)"
     },
     {
       "name": "Rum",
       "price": 2.2,
       "alcohol": 38,
-      "img": "./img/ingredients/Rum.png"
+      "img": "./img/ingredients/Rum.png",
+      "color": "rgba(210, 140, 70, 0.4)"
     },
     {
       "name": "Gin",
       "price": 2.6,
       "alcohol": 42,
-      "img": "./img/ingredients/Gin.png"
+      "img": "./img/ingredients/Gin.png",
+      "color": "rgba(240, 240, 255, 0.4)"
     },
     {
       "name": "Tequila",
       "price": 2.8,
       "alcohol": 40,
-      "img": "./img/ingredients/Tequila.png"
+      "img": "./img/ingredients/Tequila.png",
+      "color": "rgba(255, 236, 179, 0.4)"
     },
     {
       "name": "Triple Sec",
       "price": 2,
       "alcohol": 30,
-      "img": "./img/ingredients/Triple Sec.png"
+      "img": "./img/ingredients/Triple Sec.png",
+      "color": "rgba(255, 128, 0, 0.4)"
     },
     {
       "name": "Limelé",
       "price": 0.4,
       "alcohol": 0,
-      "img": "./img/ingredients/Limelé.png"
+      "img": "./img/ingredients/Limelé.png",
+      "color": "rgba(50, 205, 50, 0.4)"
     },
     {
       "name": "Cola",
       "price": 0.3,
       "alcohol": 0,
-      "img": "./img/ingredients/Cola.png"
+      "img": "./img/ingredients/Cola.png",
+      "color": "rgba(80, 40, 20, 0.4)"
     },
     {
       "name": "Tonic",
       "price": 0.4,
       "alcohol": 0,
-      "img": "./img/ingredients/Tonic.png"
+      "img": "./img/ingredients/Tonic.png",
+      "color": "rgba(220, 220, 220, 0.4)"
     },
     {
       "name": "Narancslé",
       "price": 0.5,
       "alcohol": 0,
-      "img": "./img/ingredients/Narancslé.png"
+      "img": "./img/ingredients/Narancslé.png",
+      "color": "rgba(255, 165, 0, 0.4)"
     },
     {
       "name": "Grenadine",
       "price": 0.6,
       "alcohol": 0,
-      "img": "./img/ingredients/Grenadine.png"
+      "img": "./img/ingredients/Grenadine.png",
+      "color": "rgba(255, 0, 0, 0.4)"
     }
-  ],
+],
 "drinks": [
     {
       "name": "Sör",

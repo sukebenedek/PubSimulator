@@ -4,7 +4,7 @@ import { glass } from './ingredients.js';
 
 setInterval(Console, 5000);
 function Console() {
-    console.log(glass);
+    // console.log(glass);
 }
 
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");

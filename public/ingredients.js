@@ -18,35 +18,35 @@ let currentDrink = 0;
 let interval;
 const glassConstant = 0.1;
 const glassBottom = 50;
+const rowHeight = 14;
 const glassStart = 230;
 const cup = new Image();
 cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png";
-let heights = [];
 let liquidHeight = 0;
 c === null || c === void 0 ? void 0 : c.addEventListener("mousedown", (e) => {
-    if (!(liquidHeight >= height - glassBottom)) {
-        ctx.fillStyle = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-        currentDrink = 0;
-        let r = randomN(50, 100);
-        interval = setInterval(function () {
+    ctx.fillStyle = drinkType.color;
+    currentDrink = 0;
+    let r = randomN(50, 100);
+    let pre = liquidHeight;
+    interval = setInterval(function () {
+        if (!(liquidHeight >= height - glassBottom)) {
             currentDrink++;
             r = randomN(50, 100);
             // console.log(currentDrink);
-            liquidHeight = currentDrink * 14 + heights.reduce((total, num) => total + num, 0);
-            glass.ingredientsInCup.forEach((ingredient) => {
-                liquidHeight += ingredient.amount;
-                liquidHeight -= heights.length * 1.2;
-            });
+            liquidHeight = pre + currentDrink * rowHeight;
+            // glass.ingredientsInCup.forEach((ingredient) => {
+            //     liquidHeight += ingredient.amount
+            // })
             console.log(liquidHeight);
-            console.log(heights);
-            drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, 20, ctx);
+            drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx);
             ctx.drawImage(cup, 0, 0, width, height);
             // drawRect(10, 100, 100, 100, ctx)
-        }, r);
-    }
-    else {
-        console.log("tele van");
-    }
+        }
+        else {
+            console.log("tele van");
+            //Olivér vigyazzz mert a felhasználó többször is kattinthat a teli pohárra
+        }
+    }, r);
 });
 c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
     clearInterval(interval);
@@ -58,7 +58,6 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
     });
     drawGlass(glass);
     // console.log(glass);
-    heights.push(liquidHeight - heights.reduce((total, num) => total + num, 0));
 });
 let div = document.getElementById("drinks");
 ingredients.forEach(i => {

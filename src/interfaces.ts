@@ -13,6 +13,7 @@ interface Ingredient { //sör a csapbol
     alcohol: number,
     img : string,
     amount : number
+    color : any
 }
 
 interface Drink { //rendel vodka redbul vagy tölt egy vodka redbul

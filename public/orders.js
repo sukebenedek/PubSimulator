@@ -2,7 +2,7 @@ import { fetchData, randomNum, } from './functions.js';
 import { glass } from './ingredients.js';
 setInterval(Console, 5000);
 function Console() {
-    console.log(glass);
+    // console.log(glass);
 }
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
