@@ -41,7 +41,7 @@ function randomIncomingOrder() {
     }, randomDelay);
 }
 function receiveOrder() {
-    console.log(glass.ingredientsInCup);
+    // console.log(glass.ingredientsInCup);
     let sum = document.getElementById("sum");
     if (queue.length == 0) {
         sum.innerHTML = "Nincs rendelés!";
@@ -56,6 +56,7 @@ function receiveOrder() {
             const drink = queue[0].order[i];
             orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
+                <img src="${drink.img}" alt="${drink.name}" style="width: 100px; height: 100px; object-fit: cover;">
                     ${drink.name} - ${drink.price}Ft
                     <ul class="ingredientsList">
             `;

@@ -5,12 +5,13 @@ const ctx = c.getContext("2d");
 let height = c.height;
 let width = c.width;
 // drawRect(0, 0, width, height, ctx)
-drawImage("beer.png", 0, 0, 100, 100, ctx);
+drawImage("pub.png", 0, 0, 100, 100, ctx);
 let drinkType = ingredients[0];
 let glass = { name: "pohár",
     price: 0,
     ingredientsRequired: [],
     ingredientsInCup: [],
+    img: ""
 };
 let currentDrink = 0;
 let interval;

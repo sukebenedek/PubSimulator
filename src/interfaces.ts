@@ -18,9 +18,9 @@ interface Ingredient { //sör a csapbol
 interface Drink { //rendel vodka redbul vagy tölt egy vodka redbul
     name: string,
     price: number,
+    img: string,
     ingredientsRequired: Ingredient[],
     ingredientsInCup: Ingredient[],
-
 }
 
 
