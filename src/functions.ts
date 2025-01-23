@@ -46,5 +46,5 @@ export function drawImage(imgS: string, posX: number, posY: number, width: numbe
     const img = new Image();
     img.src = imgS
 
-    ctx.drawImage(img, 0, 0, 100, 100);
+    ctx.drawImage(img, posX, posY, width, height);
 }
