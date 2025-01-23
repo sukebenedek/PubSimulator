@@ -38,7 +38,9 @@ export async function postData(url: string, data: {}): Promise<boolean> {
 
 export function drawRect(posX: number, posY: number, width: number, height: number, ctx: CanvasRenderingContext2D){
     ctx.beginPath(); // Start a new path
-    ctx.rect(posX, 0, width, height); // Add a rectangle to the current path
+    // ctx.fillStyle = "green";
+
+    ctx.rect(posX, posY, width, height); // Add a rectangle to the current path
     ctx.fill(); // Render the path
 }
 
@@ -46,5 +48,9 @@ export function drawImage(imgS: string, posX: number, posY: number, width: numbe
     const img = new Image();
     img.src = imgS
 
-    ctx.drawImage(img, posX, posY, width, height);
+    img.onload = () => {
+        ctx.drawImage(img, posX, posY, width, height);
+    };
+    // console.log(width + ", " + height);
+
 }

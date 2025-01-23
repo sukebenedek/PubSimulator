@@ -31,11 +31,15 @@ export async function postData(url, data) {
 }
 export function drawRect(posX, posY, width, height, ctx) {
     ctx.beginPath(); // Start a new path
-    ctx.rect(posX, 0, width, height); // Add a rectangle to the current path
+    // ctx.fillStyle = "green";
+    ctx.rect(posX, posY, width, height); // Add a rectangle to the current path
     ctx.fill(); // Render the path
 }
 export function drawImage(imgS, posX, posY, width, height, ctx) {
     const img = new Image();
     img.src = imgS;
-    ctx.drawImage(img, posX, posY, width, height);
+    img.onload = () => {
+        ctx.drawImage(img, posX, posY, width, height);
+    };
+    // console.log(width + ", " + height);
 }
