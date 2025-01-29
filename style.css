@@ -48,6 +48,10 @@ html,body {
     z-index: 1;
 }
 
+#popup2 {
+    z-index: 1;
+}
+
 .almostTransparent {
     background-color: rgba(255, 255, 255, 0.8);
 }
@@ -90,6 +94,15 @@ html,body {
     background-color: rgba(255, 255, 255, 0.5);
     transform: scale(1.05);
     border-radius: 20px;
+}
+
+#itallap {
+    max-height: 50%;;
+}
+
+.scrollspy-example {
+    max-height: calc(75%);
+    overflow-y: auto;
 }
 
 
