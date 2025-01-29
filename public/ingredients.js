@@ -76,7 +76,13 @@ ingredients.forEach(i => {
     a === null || a === void 0 ? void 0 : a.addEventListener("click", () => { selectIngredient(i); });
 });
 function selectIngredient(i) {
+    const allDrinkDiv = document.getElementsByClassName("selected");
+    Array.from(allDrinkDiv).forEach(div => {
+        div.classList.remove("selected");
+    });
     drinkType = i;
+    const drinkDiv = document.querySelector(`.${i.name}`);
+    drinkDiv.classList.add("selected");
 }
 function drawGlass(g) {
     // console.log(height);

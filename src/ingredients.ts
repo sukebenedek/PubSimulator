@@ -1,5 +1,6 @@
 import { drawImage, drawRect, fetchData, randomN } from "./functions.js";
 import { Ingredient, Drink } from "./interfaces.js";
+import { receiveOrder } from "./orders.js";
 
 let ingredients = await fetchData<Ingredient[]>("http://localhost:3000/ingredients")
 let c = document.getElementById("canvas") as HTMLCanvasElement;
@@ -33,7 +34,6 @@ cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads
 let liquidHeight = 0
 c?.addEventListener("mousedown", (e) => {
     ctx.fillStyle = drinkType.color;
-    
     currentDrink = 0
     let r = randomN(50, 100)
     let pre = liquidHeight
@@ -95,11 +95,16 @@ ingredients.forEach(i => {
     let a = document.querySelector(`.${i.name}`) as HTMLDivElement
     a?.addEventListener("click", () => {selectIngredient(i)})
     
-    
 })
 
 function selectIngredient(i: Ingredient){
+    const allDrinkDiv = document.getElementsByClassName("selected");
+    Array.from(allDrinkDiv).forEach(div => {
+        div.classList.remove("selected");
+    });
     drinkType = i;
+    const drinkDiv = document.querySelector(`.${i.name}`) as HTMLDivElement;
+    drinkDiv.classList.add("selected") 
 }
 
 function drawGlass(g: Drink){
