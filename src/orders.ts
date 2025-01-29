@@ -55,7 +55,7 @@ function randomIncomingOrder() {
     }, randomDelay);
 }
 
-function receiveOrder() {
+export function receiveOrder() {
     let sum = document.getElementById("sum");
     if (queue.length == 0) {
         sum!.innerHTML = "Nincs rendelés!";
@@ -183,6 +183,7 @@ function declineOrder() {
     // console.log("asd");
 }
 
+setInterval(receiveOrder, 1000);
 randomIncomingOrder();
 receiveOrder();
 
