@@ -98,7 +98,7 @@ function succes(role: boolean) {
         window.location.replace("./index.html");
     }
     else {
-        window.location.replace("./alcoholism.html");
+        window.location.replace("./guest.html");
     }
 }
 
