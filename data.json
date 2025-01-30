@@ -334,7 +334,7 @@
           "amount": 50
         }
       ],
-      "img": "./img/menu/.png",
+      "img": "./img/menu/Whiskeymenu.png",
       "Category" : "rovidek"
     },
     {
@@ -346,7 +346,7 @@
           "amount": 50
         }
       ],
-      "img": "./img/menu/.png",
+      "img": "./img/menu/Rummenu.png",
       "Category" : "rovidek"
     }
   ],

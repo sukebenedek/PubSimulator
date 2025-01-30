@@ -1,5 +1,5 @@
 import { fetchData, randomNum, } from './functions.js';
-import { glass } from './ingredients.js';
+import { glass, emptyGlass } from './ingredients.js';
 setInterval(Console, 5000);
 function Console() {
     // console.log(glass);
@@ -46,6 +46,7 @@ function randomIncomingOrder() {
 }
 export function receiveOrder() {
     let sum = document.getElementById("sum");
+    let customerData = document.querySelector(".customerData");
     if (queue.length == 0) {
         sum.innerHTML = "Nincs rendelés!";
     }
@@ -59,9 +60,14 @@ export function receiveOrder() {
             const drink = queue[0].order[i];
             orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
-                <img src="${drink.img}" alt="${drink.name}" style="width: 100px; height: 100px; object-fit: cover;">
-                    ${drink.name} - ${drink.price}Ft
+                    <div class="drinkItem">
+                        <div class="shadow">
+                            <img class="drinkImg" src="${drink.img}" alt="${drink.name}">
+                        </div>
+                        <span class="drinkText">${drink.name} - ${drink.price}Ft</span>
+                    </div>
                     <ul class="ingredientsList">
+
             `;
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
@@ -69,7 +75,7 @@ export function receiveOrder() {
                 const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
                 orderListHTML += `
-                    <li style="${red}">
+                    <li style="${red} list-style-type: none; margin-bottom: 5px;">
                         ${ingredient.name}: ${ingredientAmout}ml / ${ingredient.amount}ml
                     </li>
                 `;
@@ -86,20 +92,26 @@ export function receiveOrder() {
             <button id="decline" class="btn btn-danger" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
         `;
         sum.innerHTML = orderListHTML;
-        const declineBtn = document.getElementById("decline");
-        declineBtn.onclick = () => {
-            declineOrder();
-        };
-        const acceptBtn = document.getElementById("accept");
-        acceptBtn.onclick = () => {
-            acceptOrder();
-        };
-        document.getElementById("currentOrder").onmouseover = () => {
-            document.getElementById("currentOrder").style.cursor = "pointer";
-        };
-        document.getElementById("currentOrder").onclick = () => {
-            getCustomerData();
-        };
+        if (customerData) {
+            sum.innerHTML = "";
+            sum.appendChild(customerData);
+        }
+        else {
+            const declineBtn = document.getElementById("decline");
+            declineBtn.onclick = () => {
+                declineOrder();
+            };
+            const acceptBtn = document.getElementById("accept");
+            acceptBtn.onclick = () => {
+                acceptOrder();
+            };
+            document.getElementById("currentOrder").onmouseover = () => {
+                document.getElementById("currentOrder").style.cursor = "pointer";
+            };
+            document.getElementById("currentOrder").onclick = () => {
+                getCustomerData();
+            };
+        }
     }
 }
 function getCustomerData() {
@@ -146,7 +158,7 @@ function declineOrder() {
         <p class="customerName">${customer.name}</p>
     </div>`;
     });
-    //emptyGlass();
+    emptyGlass(glass);
     receiveOrder();
     // console.log("asd");
 }
