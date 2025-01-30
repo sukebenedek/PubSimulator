@@ -1,6 +1,6 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
 import { fetchData, randomNum, } from './functions.js';
-import { glass } from './ingredients.js';
+import { glass, emptyGlass } from './ingredients.js';
 
 setInterval(Console, 5000);
 function Console() {
@@ -57,6 +57,9 @@ function randomIncomingOrder() {
 
 export function receiveOrder() {
     let sum = document.getElementById("sum");
+
+    let customerData = document.querySelector(".customerData");
+
     if (queue.length == 0) {
         sum!.innerHTML = "Nincs rendelés!";
     } else {
@@ -70,9 +73,14 @@ export function receiveOrder() {
             const drink = queue[0].order[i];
             orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
-                <img src="${drink.img}" alt="${drink.name}" style="width: 100px; height: 100px; object-fit: cover;">
-                    ${drink.name} - ${drink.price}Ft
+                    <div class="drinkItem">
+                        <div class="shadow">
+                            <img class="drinkImg" src="${drink.img}" alt="${drink.name}">
+                        </div>
+                        <span class="drinkText">${drink.name} - ${drink.price}Ft</span>
+                    </div>
                     <ul class="ingredientsList">
+
             `;
 
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
@@ -84,7 +92,7 @@ export function receiveOrder() {
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
 
                 orderListHTML += `
-                    <li style="${red}">
+                    <li style="${red} list-style-type: none; margin-bottom: 5px;">
                         ${ingredient.name}: ${ingredientAmout}ml / ${ingredient.amount}ml
                     </li>
                 `;
@@ -105,23 +113,30 @@ export function receiveOrder() {
 
         sum!.innerHTML = orderListHTML;
 
-        const declineBtn = document.getElementById("decline");
-        declineBtn!.onclick = () => {
-            declineOrder();
-        };
+        if (customerData) {
+            sum!.innerHTML = "";
+            sum!.appendChild(customerData);
+        }
+        else {
+            const declineBtn = document.getElementById("decline");
+            declineBtn!.onclick = () => {
+                declineOrder();
+            };
 
-        const acceptBtn = document.getElementById("accept");
-        acceptBtn!.onclick = () => {
-            acceptOrder();
-        };
+            const acceptBtn = document.getElementById("accept");
+            acceptBtn!.onclick = () => {
+                acceptOrder();
+            };
 
-        document.getElementById("currentOrder")!.onmouseover = () => {
-            document.getElementById("currentOrder")!.style.cursor = "pointer";
-        };
+            document.getElementById("currentOrder")!.onmouseover = () => {
+                document.getElementById("currentOrder")!.style.cursor = "pointer";
+            };
 
-        document.getElementById("currentOrder")!.onclick = () => {
-            getCustomerData();
-        };
+            document.getElementById("currentOrder")!.onclick = () => {
+                getCustomerData();
+            };
+        }
+
     }
 }
 
@@ -178,7 +193,7 @@ function declineOrder() {
         <p class="customerName">${customer.name}</p>
     </div>`;
     });
-    //emptyGlass();
+    emptyGlass(glass);
     receiveOrder();
     // console.log("asd");
 }

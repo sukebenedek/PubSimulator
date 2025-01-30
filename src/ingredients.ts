@@ -112,6 +112,22 @@ function drawGlass(g: Drink){
     
 }
 
+export function emptyGlass(g: Drink) {
+    ctx.clearRect(0, 0, width, height); 
+    drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx); 
+
+    g.ingredientsInCup = []; 
+    liquidHeight = 0; 
+    currentDrink = 0; 
+
+    ingredients.forEach(i => i.amount = 0);
+
+    ctx.fillStyle = drinkType.color;
+    drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight , width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
+    ctx.drawImage(cup, 0, 0, width, height);
+}
+
+
 export { glass }
 
 
