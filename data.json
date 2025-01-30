@@ -102,7 +102,8 @@
           "amount": 500
         }
       ],
-      "img": "./img/menu/Sormenu.png"
+      "img": "./img/menu/Sormenu.png",
+      "Category": "Sörök"
     },
     {
       "name": "Jagermeister",
@@ -113,7 +114,8 @@
           "amount": 50
         }
       ],
-      "img": "./img/menu/Jagermeistermenu.png"
+      "img": "./img/menu/Jagermeistermenu.png",
+      "Category": "Röviditalok"
     },
     {
       "name": "Mojito",
@@ -132,7 +134,8 @@
           "amount": 120
         }
       ],
-      "img": "./img/menu/Mojitomenu.png"
+      "img": "./img/menu/Mojitomenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Whiskey Sour",
@@ -151,7 +154,8 @@
           "amount": 10
         }
       ],
-      "img": "./img/menu/WhiskeySourmenu.png"
+      "img": "./img/menu/WhiskeySourmenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Gin & Tonic",
@@ -170,7 +174,8 @@
           "amount": 10
         }
       ],
-      "img": "./img/menu/GinTonicmenu.png"
+      "img": "./img/menu/GinTonicmenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Tequila Sunrise",
@@ -189,7 +194,8 @@
           "amount": 20
         }
       ],
-      "img": "./img/menu/TequilaSunrisemenu.png"
+      "img": "./img/menu/TequilaSunrisemenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Vodka Cola",
@@ -204,7 +210,8 @@
           "amount": 150
         }
       ],
-      "img": "./img/menu/VodkaColamenu.png"
+      "img": "./img/menu/VodkaColamenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Jager Bomb",
@@ -219,7 +226,8 @@
           "amount": 200
         }
       ],
-      "img": "./img/menu/JagerBombmenu.png"
+      "img": "./img/menu/JagerBombmenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Rum Cola",
@@ -234,7 +242,8 @@
           "amount": 150
         }
       ],
-      "img": "./img/menu/RumColamenu.png"
+      "img": "./img/menu/RumColamenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Vodka Narancs",
@@ -249,7 +258,8 @@
           "amount": 150
         }
       ],
-      "img": "./img/menu/VodkaNarancsmenu.png"
+      "img": "./img/menu/VodkaNarancsmenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Whiskey Cola",
@@ -264,7 +274,8 @@
           "amount": 150
         }
       ],
-      "img": "./img/menu/WhiskeyColamenu.png"
+      "img": "./img/menu/WhiskeyColamenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Tequila",
@@ -275,7 +286,8 @@
           "amount": 50
         }
       ],
-      "img": "./img/menu/Tequilamenu.png"
+      "img": "./img/menu/Tequilamenu.png",
+      "Category" : "Röviditalok"
     },
     {
       "name": "Naplemente",
@@ -294,7 +306,8 @@
           "amount": 10
         }
       ],
-      "img": "./img/menu/Naplementemenu.png"
+      "img": "./img/menu/Naplementemenu.png",
+      "Category" : "Koktélok"
     },
     {
       "name": "Fekete Orosz",
@@ -309,7 +322,32 @@
           "amount": 20
         }
       ],
-      "img": "./img/menu/FeketeOroszmenu.png"
+      "img": "./img/menu/FeketeOroszmenu.png",
+      "Category" : "Koktélok"
+    },
+    {
+      "name": "Whiskey",
+      "price": 1500,
+      "ingredientsRequired": [
+        {
+          "name": "Whiskey",
+          "amount": 50
+        }
+      ],
+      "img": "./img/menu/.png",
+      "Category" : "Röviditalok"
+    },
+    {
+      "name": "Rum",
+      "price": 1100,
+      "ingredientsRequired": [
+        {
+          "name": "Rum",
+          "amount": 50
+        }
+      ],
+      "img": "./img/menu/.png",
+      "Category" : "Röviditalok"
     }
   ],
 
