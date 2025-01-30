@@ -103,7 +103,7 @@
         }
       ],
       "img": "./img/menu/Sormenu.png",
-      "Category": "sorok"
+      "category": "sorok"
     },
     {
       "name": "Jagermeister",
@@ -115,7 +115,7 @@
         }
       ],
       "img": "./img/menu/Jagermeistermenu.png",
-      "Category": "rovidek"
+      "category": "rovidek"
     },
     {
       "name": "Mojito",
@@ -135,7 +135,7 @@
         }
       ],
       "img": "./img/menu/Mojitomenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Whiskey Sour",
@@ -155,7 +155,7 @@
         }
       ],
       "img": "./img/menu/WhiskeySourmenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Gin & Tonic",
@@ -175,7 +175,7 @@
         }
       ],
       "img": "./img/menu/GinTonicmenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Tequila Sunrise",
@@ -195,7 +195,7 @@
         }
       ],
       "img": "./img/menu/TequilaSunrisemenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Vodka Cola",
@@ -211,7 +211,7 @@
         }
       ],
       "img": "./img/menu/VodkaColamenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Jager Bomb",
@@ -227,7 +227,7 @@
         }
       ],
       "img": "./img/menu/JagerBombmenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Rum Cola",
@@ -243,7 +243,7 @@
         }
       ],
       "img": "./img/menu/RumColamenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Vodka Narancs",
@@ -259,7 +259,7 @@
         }
       ],
       "img": "./img/menu/VodkaNarancsmenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Whiskey Cola",
@@ -275,7 +275,7 @@
         }
       ],
       "img": "./img/menu/WhiskeyColamenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Tequila",
@@ -287,7 +287,7 @@
         }
       ],
       "img": "./img/menu/Tequilamenu.png",
-      "Category" : "rovidek"
+      "category" : "rovidek"
     },
     {
       "name": "Naplemente",
@@ -307,7 +307,7 @@
         }
       ],
       "img": "./img/menu/Naplementemenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Fekete Orosz",
@@ -323,7 +323,7 @@
         }
       ],
       "img": "./img/menu/FeketeOroszmenu.png",
-      "Category" : "koktelok"
+      "category" : "koktelok"
     },
     {
       "name": "Whiskey",
@@ -335,7 +335,7 @@
         }
       ],
       "img": "./img/menu/Whiskeymenu.png",
-      "Category" : "rovidek"
+      "category" : "rovidek"
     },
     {
       "name": "Rum",
@@ -347,7 +347,7 @@
         }
       ],
       "img": "./img/menu/Rummenu.png",
-      "Category" : "rovidek"
+      "category" : "rovidek"
     }
   ],
 
