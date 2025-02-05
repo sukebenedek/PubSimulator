@@ -24,17 +24,22 @@ async function order() {
             let li = document.createElement('li');
             li.style.listStyleType = 'none';
             li.innerHTML = `
-                <div class="drinkItem">
+                <div id="${d.name}" class="drinkItem">
                             <div class="shadow">
                                 <img class="drinkImg" src="${d.img}" alt="${d.name}">
                             </div>
                             <span class="drinkText">${d.name} - ${d.price}Ft</span>
-                        </div>
+                </div>
             `;
             document.getElementById(d.category)?.appendChild(li);
+            document.getElementById(d.name)?.addEventListener("click", () => {orderDrink(d)});
         });
         loaded = true;
     };
+}
+
+function orderDrink(d: Drink) {
+    document.getElementById(d.name)    
 }
 
 document.getElementById("counter")?.addEventListener("click", order);

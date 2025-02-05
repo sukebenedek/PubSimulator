@@ -16,21 +16,25 @@ async function order() {
     if (!loaded) {
         const drinks = await fetchData("http://localhost:3000/drinks");
         drinks.forEach(d => {
-            var _a;
+            var _a, _b;
             let li = document.createElement('li');
             li.style.listStyleType = 'none';
             li.innerHTML = `
-                <div class="drinkItem">
+                <div id="${d.name}" class="drinkItem">
                             <div class="shadow">
                                 <img class="drinkImg" src="${d.img}" alt="${d.name}">
                             </div>
                             <span class="drinkText">${d.name} - ${d.price}Ft</span>
-                        </div>
+                </div>
             `;
             (_a = document.getElementById(d.category)) === null || _a === void 0 ? void 0 : _a.appendChild(li);
+            (_b = document.getElementById(d.name)) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => { orderDrink(d); });
         });
         loaded = true;
     }
     ;
+}
+function orderDrink(d) {
+    document.getElementById(d.name);
 }
 (_b = document.getElementById("counter")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", order);

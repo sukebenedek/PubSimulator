@@ -27,10 +27,10 @@ function userFinder(username, users) {
 }
 async function Login(event) {
     event === null || event === void 0 ? void 0 : event.preventDefault();
-    const unsername = document.getElementById("usernameInput").value;
+    const username = document.getElementById("usernameInput").value;
     const password = document.getElementById("passwordInput").value;
     const users = await fetchData("http://localhost:3000/users");
-    const user = userFinder(unsername, users);
+    const user = userFinder(username, users);
     if (user != null && user.password == password) {
         succes(user.role);
     }
@@ -45,14 +45,14 @@ async function Register(event) {
     document.getElementById("passwordHelpBlock").innerHTML = "A jelszó maximum 20 karaktert tartalmazhat.";
     (_a = document.getElementById("passwordHelpBlock")) === null || _a === void 0 ? void 0 : _a.classList.remove("text-danger");
     (_b = document.getElementById("passwordHelpBlock")) === null || _b === void 0 ? void 0 : _b.classList.add("text-white");
-    const unsername = document.getElementById("usernameInput1").value;
+    const username = document.getElementById("usernameInput1").value;
     const password = document.getElementById("passwordInput1").value;
-    if (unsername == "") {
+    if (username == "") {
         document.getElementById("usernameError").innerHTML = "Kötelező felhasználónevet megadni!";
     }
     else {
         const users = await fetchData("http://localhost:3000/users");
-        if (userFinder(unsername, users) == null) {
+        if (userFinder(username, users) == null) {
             if (password.length > 0) {
                 if (password.length > 20) {
                     (_c = document.getElementById("passwordHelpBlock")) === null || _c === void 0 ? void 0 : _c.classList.remove("text-white");
@@ -61,7 +61,7 @@ async function Register(event) {
                 else {
                     const role = document.getElementById("flexRadioDefault1").checked;
                     const img = document.getElementById("flexRadioDefault4").checked == true ? `https://randomuser.me/api/portraits/men/${99 - users.length}.jpg` : `https://randomuser.me/api/portraits/women/${99 - users.length}.jpg`;
-                    if (await postData("http://localhost:3000/users", { id: users.length, username: unsername, password: password, money: 1000, drunkness: 0, img: img, role: role })) {
+                    if (await postData("http://localhost:3000/users", { id: users.length, username: username, password: password, money: 1000, drunkness: 0, img: img, role: role })) {
                         succes(role);
                     }
                     else {
