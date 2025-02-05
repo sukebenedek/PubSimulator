@@ -12,7 +12,8 @@ let glass = { name: "pohár",
     price: 0,
     ingredientsRequired: [],
     ingredientsInCup: [],
-    img: ""
+    img: "",
+    category: ""
 };
 let currentDrink = 0;
 let interval;
