@@ -85,7 +85,7 @@ function succes(role) {
         window.location.replace("./index.html");
     }
     else {
-        window.location.replace("./alcoholism.html");
+        window.location.replace("./guest.html");
     }
 }
 LoginButton === null || LoginButton === void 0 ? void 0 : LoginButton.addEventListener("click", showLogin);
