@@ -36,11 +36,11 @@ function userFinder(username: string, users: User[]) {
 
 async function Login(event: any) {
     event?.preventDefault();
-    const unsername = (<HTMLInputElement>document.getElementById("usernameInput")!).value;
+    const username = (<HTMLInputElement>document.getElementById("usernameInput")!).value;
     const password = (<HTMLInputElement>document.getElementById("passwordInput")!).value;
 
     const users: User[] = await fetchData("http://localhost:3000/users");
-    const user = userFinder(unsername, users);
+    const user = userFinder(username, users);
     if (user != null && (<User>user).password == password) {
         succes(user.role);
     }
@@ -56,15 +56,15 @@ async function Register(event: any) {
     document.getElementById("passwordHelpBlock")?.classList.remove("text-danger");
     document.getElementById("passwordHelpBlock")?.classList.add("text-white");
 
-    const unsername = (<HTMLInputElement>document.getElementById("usernameInput1")!).value;
+    const username = (<HTMLInputElement>document.getElementById("usernameInput1")!).value;
     const password = (<HTMLInputElement>document.getElementById("passwordInput1")!).value;
 
-    if (unsername == "") {
+    if (username == "") {
         document.getElementById("usernameError")!.innerHTML = "Kötelező felhasználónevet megadni!";
     }
     else {
         const users: User[] = await fetchData("http://localhost:3000/users");
-        if (userFinder(unsername, users) == null) {
+        if (userFinder(username, users) == null) {
             if (password.length > 0) {
                 if (password.length > 20){
                     document.getElementById("passwordHelpBlock")?.classList.remove("text-white");
@@ -73,7 +73,7 @@ async function Register(event: any) {
                 else {
                     const role = (<HTMLInputElement>document.getElementById("flexRadioDefault1")!).checked;
                     const img = (<HTMLInputElement>document.getElementById("flexRadioDefault4")!).checked == true ? `https://randomuser.me/api/portraits/men/${99 - users.length}.jpg` : `https://randomuser.me/api/portraits/women/${99 - users.length}.jpg`;
-                    if ( await postData("http://localhost:3000/users", {id: users.length, username: unsername, password: password, money: 1000, drunkness: 0, img: img, role: role}) ) {
+                    if ( await postData("http://localhost:3000/users", {id: users.length, username: username, password: password, money: 1000, drunkness: 0, img: img, role: role}) ) {
                         succes(role);
                     }
                     else {
