@@ -91,8 +91,9 @@
       "img": "./img/ingredients/Grenadine.png",
       "color": "rgba(255, 0, 0, 0.4)"
     }
-],
-"drinks": [
+  ],
+
+  "drinks": [
     {
       "name": "Sör",
       "price": 600,
@@ -881,6 +882,7 @@
       "img": "https://randomuser.me/api/portraits/women/20.jpg"
     }
   ],
+
   "users": [
     {
       "username": "admin",
@@ -908,5 +910,9 @@
       "img": "https://randomuser.me/api/portraits/women/97.jpg",
       "role": false
     }
+  ],
+
+  "orders": [
+    
   ]
 }

@@ -36,4 +36,8 @@ interface Guest {
     order: Drink[]
 }
 
+interface Order {
+    //TODO OLIVÉR
+}
+
 export { User, Ingredient, Drink, Guest};

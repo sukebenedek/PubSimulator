@@ -205,21 +205,23 @@ html,body {
     white-space: nowrap; 
 }
 
-
+#popup2 {
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
+}
 
 #itallap {
-    max-height: 500px;
+    max-height: 450px;
 }
 #sorok {
-    max-height: 500px;
+    max-height: 450px;
     overflow-y: auto;
 }
 #rovidek {
-    max-height: 500px;
+    max-height: 450px;
     overflow-y: auto; 
 }
 #koktelok {
-    max-height: 500px;
+    max-height: 450px;
     overflow-y: auto;
 }
 
