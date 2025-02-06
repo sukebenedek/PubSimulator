@@ -1,6 +1,6 @@
 import { drawImage, drawRect, fetchData, randomN } from "./functions.js";
 import { Ingredient, Drink } from "./interfaces.js";
-import { receiveOrder } from "./orders.js";
+import { receiveOrder, queue } from "./orders.js";
 
 let ingredients = await fetchData<Ingredient[]>("http://localhost:3000/ingredients")
 let c = document.getElementById("canvas") as HTMLCanvasElement;
@@ -16,13 +16,13 @@ let width = c.width;
 drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx)
 let drinkType:Ingredient = ingredients[0];
 
-let glass: Drink = {name: "pohár",
-    price: 0,
-    ingredientsRequired: [],
-    ingredientsInCup: [],
-    img: "",
-    category: ""
+let glass: Drink ;
+
+export function loadGlass(){
+    glass = queue[0].order[0]
+
 }
+
 
 let currentDrink = 0
 let interval: ReturnType<typeof setInterval>;
@@ -48,7 +48,7 @@ c?.addEventListener("mousedown", (e) => {
             //     liquidHeight += ingredient.amount
             // })
 
-            console.log(liquidHeight);
+            // console.log(liquidHeight);
             
             
 
@@ -60,9 +60,7 @@ c?.addEventListener("mousedown", (e) => {
             
             
         } else{
-            console.log("tele van"); 
-            //Olivér vigyazzz mert a felhasználó többször is kattinthat a teli pohárra
-            //mi???
+            // console.log("tele van"); 
         }
         }, r);        
 })
@@ -70,14 +68,13 @@ c?.addEventListener("mousedown", (e) => {
 c?.addEventListener("mouseup", (e) => {
     clearInterval(interval);
     drinkType.amount += currentDrink
-    glass.ingredientsInCup.push(drinkType)
-    glass.ingredientsInCup = glass.ingredientsInCup.filter((ingredient, index, self) => {
-        // Check if the name of the current ingredient exists earlier in the array
-        return index === self.findIndex((i) => i.name === ingredient.name);
-    });
-    drawGlass(glass);
-    // console.log(glass);
+    if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
+        glass.ingredientsInCup.push(drinkType);
+    }
     
+    drawGlass(glass);
+    console.log(glass);
+    receiveOrder();
 })
 
 let div = document.getElementById("drinks") as HTMLDivElement

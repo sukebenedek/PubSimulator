@@ -1,12 +1,12 @@
 import { fetchData, randomNum, } from './functions.js';
-import { glass, emptyGlass } from './ingredients.js';
+import { glass, emptyGlass, loadGlass } from './ingredients.js';
 setInterval(Console, 5000);
 function Console() {
     // console.log(glass);
 }
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
-let queue = [];
+export let queue = [];
 function incomingOrder() {
     receiveOrder();
     let orders = document.getElementById("orders");
@@ -35,6 +35,7 @@ function incomingOrder() {
         //console.log(randomDrinks);
         // console.log(queue);
     }
+    loadGlass();
 }
 function randomIncomingOrder() {
     receiveOrder();
@@ -61,6 +62,7 @@ export function receiveOrder() {
             orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
                     <div class="drinkItem">
+       
                         <div class="shadow">
                             <img class="drinkImg" src="${drink.img}" alt="${drink.name}">
                         </div>
@@ -84,10 +86,11 @@ export function receiveOrder() {
                     </ul>
                 </li>
             `;
+            // console.log(drink.name);
         }
         orderListHTML += `
             </ul>
-            <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;">
+            <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;"> 
             <button id="accept" class="btn btn-success" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
             <button id="decline" class="btn btn-danger" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
         `;
@@ -111,6 +114,14 @@ export function receiveOrder() {
             document.getElementById("currentOrder").onclick = () => {
                 getCustomerData();
             };
+            for (let i = 0; i < queue[0].order.length; i++) {
+                const drink = queue[0].order[i];
+                let drinkClick = document.getElementById(drink.name);
+                drinkClick === null || drinkClick === void 0 ? void 0 : drinkClick.addEventListener("click", () => {
+                    console.log(drink.ingredientsRequired);
+                    console.log(glass.ingredientsInCup);
+                });
+            }
         }
     }
 }
@@ -162,6 +173,5 @@ function declineOrder() {
     receiveOrder();
     // console.log("asd");
 }
-setInterval(receiveOrder, 1000);
 randomIncomingOrder();
 receiveOrder();

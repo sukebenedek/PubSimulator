@@ -1,4 +1,5 @@
 import { drawImage, drawRect, fetchData, randomN } from "./functions.js";
+import { receiveOrder, queue } from "./orders.js";
 let ingredients = await fetchData("http://localhost:3000/ingredients");
 let c = document.getElementById("canvas");
 const ctx = c.getContext("2d");
@@ -8,13 +9,10 @@ let height = c.height;
 let width = c.width;
 drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx);
 let drinkType = ingredients[0];
-let glass = { name: "pohár",
-    price: 0,
-    ingredientsRequired: [],
-    ingredientsInCup: [],
-    img: "",
-    category: ""
-};
+let glass;
+export function loadGlass() {
+    glass = queue[0].order[0];
+}
 let currentDrink = 0;
 let interval;
 const glassConstant = 0.1;
@@ -38,28 +36,25 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mousedown", (e) => {
             // glass.ingredientsInCup.forEach((ingredient) => {
             //     liquidHeight += ingredient.amount
             // })
-            console.log(liquidHeight);
+            // console.log(liquidHeight);
             drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx);
             ctx.drawImage(cup, 0, 0, width, height);
             // drawRect(10, 100, 100, 100, ctx)
         }
         else {
-            console.log("tele van");
-            //Olivér vigyazzz mert a felhasználó többször is kattinthat a teli pohárra
-            //mi???
+            // console.log("tele van"); 
         }
     }, r);
 });
 c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
     clearInterval(interval);
     drinkType.amount += currentDrink;
-    glass.ingredientsInCup.push(drinkType);
-    glass.ingredientsInCup = glass.ingredientsInCup.filter((ingredient, index, self) => {
-        // Check if the name of the current ingredient exists earlier in the array
-        return index === self.findIndex((i) => i.name === ingredient.name);
-    });
+    if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
+        glass.ingredientsInCup.push(drinkType);
+    }
     drawGlass(glass);
-    // console.log(glass);
+    console.log(glass);
+    receiveOrder();
 });
 let div = document.getElementById("drinks");
 ingredients.forEach(i => {

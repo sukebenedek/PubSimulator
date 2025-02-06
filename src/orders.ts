@@ -1,6 +1,6 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
 import { fetchData, randomNum, } from './functions.js';
-import { glass, emptyGlass } from './ingredients.js';
+import { glass, emptyGlass, loadGlass } from './ingredients.js';
 
 setInterval(Console, 5000);
 function Console() {
@@ -10,7 +10,7 @@ function Console() {
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 
-let queue: Guest[] = [];
+export let queue: Guest[] = [];
 
 function incomingOrder() {
     receiveOrder();
@@ -44,6 +44,7 @@ function incomingOrder() {
         //console.log(randomDrinks);
         // console.log(queue);
     }
+    loadGlass();
 }
 
 function randomIncomingOrder() {
@@ -69,11 +70,13 @@ export function receiveOrder() {
             <ul class="h4" id="orderList">
         `;
 
+
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
             orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
                     <div class="drinkItem">
+       
                         <div class="shadow">
                             <img class="drinkImg" src="${drink.img}" alt="${drink.name}">
                         </div>
@@ -96,17 +99,25 @@ export function receiveOrder() {
                         ${ingredient.name}: ${ingredientAmout}ml / ${ingredient.amount}ml
                     </li>
                 `;
+
             }
 
             orderListHTML += `
                     </ul>
                 </li>
             `;
+
+            // console.log(drink.name);
+            
+
+        
+
         }
+
 
         orderListHTML += `
             </ul>
-            <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;">
+            <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;"> 
             <button id="accept" class="btn btn-success" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
             <button id="decline" class="btn btn-danger" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
         `;
@@ -135,6 +146,17 @@ export function receiveOrder() {
             document.getElementById("currentOrder")!.onclick = () => {
                 getCustomerData();
             };
+
+            for (let i = 0; i < queue[0].order.length; i++) {
+                const drink = queue[0].order[i];
+                let drinkClick = document.getElementById(drink.name) as HTMLDivElement
+                drinkClick?.addEventListener("click", ()=>{
+                    console.log(drink.ingredientsRequired);
+                    console.log(glass.ingredientsInCup);
+                    
+                } )
+
+            }
         }
 
     }
@@ -198,7 +220,6 @@ function declineOrder() {
     // console.log("asd");
 }
 
-setInterval(receiveOrder, 1000);
 randomIncomingOrder();
 receiveOrder();
 
