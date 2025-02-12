@@ -1,6 +1,7 @@
 import { drawImage, drawRect, fetchData, randomN } from "./functions.js";
 import { Ingredient, Drink } from "./interfaces.js";
-import { receiveOrder, queue } from "./orders.js";
+import { incomingOrder, receiveOrder, queue , glass, loadGlass} from "./orders.js";
+
 
 let ingredients = await fetchData<Ingredient[]>("http://localhost:3000/ingredients")
 let c = document.getElementById("canvas") as HTMLCanvasElement;
@@ -10,18 +11,14 @@ c.width = 950
 let height = c.height;
 let width = c.width;
 
-
+// incomingOrder()
+console.log(2);
 
 
 drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx)
 let drinkType:Ingredient = ingredients[0];
 
-let glass: Drink ;
 
-export function loadGlass(){
-    glass = queue[0].order[0]
-
-}
 
 
 let currentDrink = 0
@@ -126,7 +123,6 @@ export function emptyGlass(g: Drink) {
 }
 
 
-export { glass }
 
 
 

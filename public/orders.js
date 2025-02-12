@@ -1,14 +1,14 @@
 import { fetchData, randomNum, } from './functions.js';
-import { glass, emptyGlass, loadGlass } from './ingredients.js';
-setInterval(Console, 5000);
-function Console() {
-    // console.log(glass);
+import { emptyGlass } from './ingredients.js';
+export let glass;
+export function loadGlass() {
+    glass = queue[0].order[0];
 }
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
-export let queue = [];
-function incomingOrder() {
-    receiveOrder();
+let queue = [];
+console.log(1);
+export function incomingOrder() {
     let orders = document.getElementById("orders");
     if (queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
@@ -29,12 +29,13 @@ function incomingOrder() {
                 `<div class="order">
             <img class="customerImg" src="${customer.img}"/>
             <p class="customerName">${customer.name}</p>
-        </div>`;
+            </div>`;
         });
         //console.log(order);
         //console.log(randomDrinks);
         // console.log(queue);
     }
+    receiveOrder();
     loadGlass();
 }
 function randomIncomingOrder() {
@@ -73,6 +74,7 @@ export function receiveOrder() {
             `;
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
+                console.log(glass);
                 const ingredientInCup = glass.ingredientsInCup.find(i => i.name == ingredient.name);
                 const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
@@ -175,3 +177,4 @@ function declineOrder() {
 }
 randomIncomingOrder();
 receiveOrder();
+export { queue };
