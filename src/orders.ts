@@ -1,19 +1,22 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
 import { fetchData, randomNum, } from './functions.js';
-import { glass, emptyGlass, loadGlass } from './ingredients.js';
+import { emptyGlass } from './ingredients.js';
 
-setInterval(Console, 5000);
-function Console() {
-    // console.log(glass);
+
+export let glass: Drink ;
+
+export function loadGlass(){
+    glass = queue[0].order[0]
+
 }
-
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 
-export let queue: Guest[] = [];
+let queue: Guest[] = [];
+console.log(1);
 
-function incomingOrder() {
-    receiveOrder();
+
+export function incomingOrder() {
     let orders = document.getElementById("orders");
     if (queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
@@ -29,21 +32,22 @@ function incomingOrder() {
         }
         randomGuest.order = randomDrinks
         queue.push(randomGuest);
-
+        
         orders!.innerHTML = "";
         queue.forEach(customer => {
             orders!.innerHTML +=
-                `<div class="order">
+            `<div class="order">
             <img class="customerImg" src="${customer.img}"/>
             <p class="customerName">${customer.name}</p>
-        </div>`;
+            </div>`;
         });
-
-
+        
+        
         //console.log(order);
         //console.log(randomDrinks);
         // console.log(queue);
     }
+    receiveOrder();
     loadGlass();
 }
 
@@ -56,7 +60,7 @@ function randomIncomingOrder() {
     }, randomDelay);
 }
 
-export function receiveOrder() {
+export function receiveOrder() { //kiírja a rendelést és frissíti az ital mennyiséget
     let sum = document.getElementById("sum");
 
     let customerData = document.querySelector(".customerData");
@@ -89,6 +93,8 @@ export function receiveOrder() {
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
 
+                console.log(glass);
+                
                 const ingredientInCup = glass.ingredientsInCup.find(i => i.name == ingredient.name);
                 const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
 
@@ -224,3 +230,4 @@ randomIncomingOrder();
 receiveOrder();
 
 
+export {queue}

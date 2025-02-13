@@ -1,5 +1,5 @@
 import { drawImage, drawRect, fetchData, randomN } from "./functions.js";
-import { receiveOrder, queue } from "./orders.js";
+import { receiveOrder, glass } from "./orders.js";
 let ingredients = await fetchData("http://localhost:3000/ingredients");
 let c = document.getElementById("canvas");
 const ctx = c.getContext("2d");
@@ -7,12 +7,10 @@ c.height = 775;
 c.width = 950;
 let height = c.height;
 let width = c.width;
+// incomingOrder()
+console.log(2);
 drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx);
 let drinkType = ingredients[0];
-let glass;
-export function loadGlass() {
-    glass = queue[0].order[0];
-}
 let currentDrink = 0;
 let interval;
 const glassConstant = 0.1;
@@ -94,4 +92,3 @@ export function emptyGlass(g) {
     drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx);
     ctx.drawImage(cup, 0, 0, width, height);
 }
-export { glass };
