@@ -29,6 +29,19 @@ export async function postData(url, data) {
     }
     return true;
 }
+export async function patchData(url, data) {
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) {
+        return false;
+    }
+    return true;
+}
 export function drawRect(posX, posY, width, height, ctx) {
     ctx.beginPath(); // Start a new path
     // ctx.fillStyle = "green";

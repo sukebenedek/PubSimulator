@@ -30,7 +30,21 @@ export async function postData(url: string, data: {}): Promise<boolean> {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      })
+      });
+    if (!response.ok) {
+        return false;
+    }
+    return true;
+}
+
+export async function patchData(url: string, data: {}): Promise<boolean> {
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
     if (!response.ok) {
         return false;
     }

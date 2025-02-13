@@ -1,10 +1,12 @@
 interface User {
+    id: string,
     username: string,
     password: string,
     money: number,
     drunkness: number,
     img: string,
-    role: boolean
+    role: boolean,
+    order: Drink[]
 }
 
 interface Ingredient { //sör a csapbol

@@ -1,5 +1,5 @@
 import { Drink, User } from './interfaces.js';
-import { fetchData, postData } from './functions.js';
+import { fetchData, postData, patchData } from './functions.js';
 
 let getuser = localStorage.getItem('user');
 let user: User;
@@ -113,8 +113,13 @@ async function finishOrder() {
 
     console.log(user);
     console.log(order);
+
+    let pastOrder: Drink[] = await fetchData(`http://localhost:3000/users/${user.id}/order`);
+    let newOrder = pastOrder.concat(order);
+
+    user.order = newOrder;
     
-    if ( await postData(`http://localhost:3000/users/${user.id}/order`, order)) {
+    if ( await patchData(`http://localhost:3000/users/${user.id}`, user)) {
         alert("sikeres rendelés!");
     }
     else {

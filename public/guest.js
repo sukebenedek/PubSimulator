@@ -1,5 +1,13 @@
 var _a, _b;
-import { fetchData } from './functions.js';
+import { fetchData, patchData } from './functions.js';
+let getuser = localStorage.getItem('user');
+let user;
+if (getuser == null) {
+    window.location.replace("./login.html");
+}
+else {
+    user = JSON.parse(getuser);
+}
 let loaded = false;
 let amounts = {};
 function closePopup() {
@@ -76,10 +84,29 @@ async function updatePrice() {
     }
     document.getElementById("price").innerHTML = String(sum);
 }
-function finishOrder() {
-    for (const [key] of Object.entries(amounts)) {
-        amounts[key] = 0;
+async function finishOrder() {
+    const drinks = await fetchData("http://localhost:3000/drinks");
+    let order = [];
+    for (const [key, value] of Object.entries(amounts)) {
+        if (value > 0) {
+            drinks.forEach(d => {
+                if (d.name == key) {
+                    order.push(d);
+                }
+            });
+        }
         document.getElementById(key + "span").innerHTML = "";
+    }
+    console.log(user);
+    console.log(order);
+    let pastOrder = await fetchData(`http://localhost:3000/users/${user.id}/order`);
+    let newOrder = pastOrder.concat(order);
+    user.order = newOrder;
+    if (await patchData(`http://localhost:3000/users/${user.id}`, user)) {
+        alert("sikeres rendelés!");
+    }
+    else {
+        alert("Hiba! Próbálja újra!");
     }
     amounts = {};
     updatePrice();
