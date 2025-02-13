@@ -92,7 +92,6 @@
       "color": "rgba(255, 0, 0, 0.4)"
     }
   ],
-
   "drinks": [
     {
       "name": "Sör",
@@ -103,7 +102,6 @@
           "amount": 500
         }
       ],
-      "ingredientsInCup": [],
       "img": "./img/menu/Sormenu.png",
       "category": "sorok"
     },
@@ -116,8 +114,6 @@
           "amount": 50
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/Jagermeistermenu.png",
       "category": "rovidek"
     },
@@ -138,10 +134,8 @@
           "amount": 120
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/Mojitomenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Whiskey Sour",
@@ -160,10 +154,8 @@
           "amount": 10
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/WhiskeySourmenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Gin & Tonic",
@@ -182,10 +174,8 @@
           "amount": 10
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/GinTonicmenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Tequila Sunrise",
@@ -204,10 +194,8 @@
           "amount": 20
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/TequilaSunrisemenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Vodka Cola",
@@ -222,10 +210,8 @@
           "amount": 150
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/VodkaColamenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Jager Bomb",
@@ -240,10 +226,8 @@
           "amount": 200
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/JagerBombmenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Rum Cola",
@@ -258,10 +242,8 @@
           "amount": 150
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/RumColamenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Vodka Narancs",
@@ -276,10 +258,8 @@
           "amount": 150
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/VodkaNarancsmenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Whiskey Cola",
@@ -294,10 +274,8 @@
           "amount": 150
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/WhiskeyColamenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Tequila",
@@ -308,10 +286,8 @@
           "amount": 50
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/Tequilamenu.png",
-      "category" : "rovidek"
+      "category": "rovidek"
     },
     {
       "name": "Naplemente",
@@ -330,10 +306,8 @@
           "amount": 10
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/Naplementemenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Fekete Orosz",
@@ -348,10 +322,8 @@
           "amount": 20
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/FeketeOroszmenu.png",
-      "category" : "koktelok"
+      "category": "koktelok"
     },
     {
       "name": "Whiskey",
@@ -362,10 +334,8 @@
           "amount": 50
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/Whiskeymenu.png",
-      "category" : "rovidek"
+      "category": "rovidek"
     },
     {
       "name": "Rum",
@@ -376,13 +346,10 @@
           "amount": 50
         }
       ],
-      "ingredientsInCup": [],
-
       "img": "./img/menu/Rummenu.png",
-      "category" : "rovidek"
+      "category": "rovidek"
     }
   ],
-
   "guests": [
     {
       "name": "Kristály Zolika",
@@ -913,7 +880,6 @@
       "img": "https://randomuser.me/api/portraits/women/20.jpg"
     }
   ],
-
   "users": [
     {
       "id": "0",
@@ -933,7 +899,32 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
       "role": false,
-      "order": []
+      "order": [
+        {
+          "name": "Jagermeister",
+          "price": 2500,
+          "ingredientsRequired": [
+            {
+              "name": "Jagermeister",
+              "amount": 50
+            }
+          ],
+          "img": "./img/menu/Jagermeistermenu.png",
+          "category": "rovidek"
+        },
+        {
+          "name": "Jagermeister",
+          "price": 2500,
+          "ingredientsRequired": [
+            {
+              "name": "Jagermeister",
+              "amount": 50
+            }
+          ],
+          "img": "./img/menu/Jagermeistermenu.png",
+          "category": "rovidek"
+        }
+      ]
     },
     {
       "id": "2",
@@ -946,8 +937,5 @@
       "order": []
     }
   ],
-
-  "orders": [
-    
-  ]
+  "orders": []
 }

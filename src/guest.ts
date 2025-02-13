@@ -33,9 +33,15 @@ function closePopup() {
 function closePopup2() {
     document.getElementById("popup2")!.classList.add("d-none");
 }
+function openPopup3() {
+    document.getElementById("popup3")!.classList.remove("d-none");
+}
+function closePopup3() {
+    document.getElementById("popup3")!.classList.add("d-none");
+}
 
+document.getElementById("okButton3")?.addEventListener("click", closePopup3);
 document.getElementById("okButton")?.addEventListener("click", closePopup);
-
 
 async function order() {
     document.getElementById("popup2")!.classList.remove("d-none");
@@ -128,16 +134,19 @@ async function finishOrder() {
     console.log(pastOrder);
     let newOrder = pastOrder.concat(order);
     
-    if ( await patchData(`http://localhost:3000/users/${user.id}`, { "order": newOrder })) {
+    succes(newOrder);
+}
+
+async function succes(order: Drink[]) {
+    closePopup2();
+    openPopup3();
+    if ( await patchData(`http://localhost:3000/users/${user.id}`, { "order": order })) {
         localStorage.setItem("user", JSON.stringify(await fetchData(`http://localhost:3000/users/${user.id}`)));
         localStorage.setItem("welcome", JSON.stringify(false));
     }
     else {
         alert("Hiba! Próbálja újra!");
     }
-    // amounts = {};
-    // updatePrice();
-    // closePopup2();
 }
 
 document.getElementById("counter")?.addEventListener("click", order);

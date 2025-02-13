@@ -44,14 +44,9 @@ html,body {
     height: 100%;
 }
 
-#popup {
+#popup, #popup2, #popup3 {
     z-index: 1;
 }
-
-#popup2 {
-    z-index: 1;
-}
-
 .almostTransparent {
     background-color: rgba(255, 255, 255, 0.8);
 }

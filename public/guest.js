@@ -1,4 +1,4 @@
-var _a, _b;
+var _a, _b, _c;
 import { fetchData, patchData } from './functions.js';
 let getuser = localStorage.getItem('user');
 let user;
@@ -28,7 +28,14 @@ function closePopup() {
 function closePopup2() {
     document.getElementById("popup2").classList.add("d-none");
 }
-(_a = document.getElementById("okButton")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", closePopup);
+function openPopup3() {
+    document.getElementById("popup3").classList.remove("d-none");
+}
+function closePopup3() {
+    document.getElementById("popup3").classList.add("d-none");
+}
+(_a = document.getElementById("okButton3")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", closePopup3);
+(_b = document.getElementById("okButton")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", closePopup);
 async function order() {
     var _a, _b;
     document.getElementById("popup2").classList.remove("d-none");
@@ -111,15 +118,17 @@ async function finishOrder() {
     let pastOrder = user.order;
     console.log(pastOrder);
     let newOrder = pastOrder.concat(order);
-    if (await patchData(`http://localhost:3000/users/${user.id}`, { "order": newOrder })) {
+    succes(newOrder);
+}
+async function succes(order) {
+    closePopup2();
+    openPopup3();
+    if (await patchData(`http://localhost:3000/users/${user.id}`, { "order": order })) {
         localStorage.setItem("user", JSON.stringify(await fetchData(`http://localhost:3000/users/${user.id}`)));
         localStorage.setItem("welcome", JSON.stringify(false));
     }
     else {
         alert("Hiba! Próbálja újra!");
     }
-    // amounts = {};
-    // updatePrice();
-    // closePopup2();
 }
-(_b = document.getElementById("counter")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", order);
+(_c = document.getElementById("counter")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", order);
