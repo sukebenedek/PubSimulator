@@ -10,6 +10,19 @@ else {
     user = JSON.parse(getuser);
 }
 
+let welcome: boolean
+let getWelcome = localStorage.getItem("welcome");
+if (getWelcome == null) {
+    welcome = true;
+}
+else {
+    welcome = JSON.parse(getWelcome);
+}
+
+if (!welcome) {
+    closePopup();
+}
+
 let loaded = false;
 let amounts: { [key: string]: number } = {};
 
@@ -111,24 +124,20 @@ async function finishOrder() {
         document.getElementById(key + "span")!.innerHTML = "";
     }
 
-    console.log(user);
-    console.log(order);
-
-    let pastOrder: Drink[] = await fetchData(`http://localhost:3000/users/${user.id}/order`);
+    let pastOrder = user.order;
+    console.log(pastOrder);
     let newOrder = pastOrder.concat(order);
-
-    user.order = newOrder;
     
-    if ( await patchData(`http://localhost:3000/users/${user.id}`, user)) {
-        alert("sikeres rendelés!");
+    if ( await patchData(`http://localhost:3000/users/${user.id}`, { "order": newOrder })) {
+        localStorage.setItem("user", JSON.stringify(await fetchData(`http://localhost:3000/users/${user.id}`)));
+        localStorage.setItem("welcome", JSON.stringify(false));
     }
     else {
         alert("Hiba! Próbálja újra!");
     }
-
-    amounts = {};
-    updatePrice();
-    closePopup2();
+    // amounts = {};
+    // updatePrice();
+    // closePopup2();
 }
 
 document.getElementById("counter")?.addEventListener("click", order);

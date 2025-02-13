@@ -32,7 +32,7 @@ async function Login(event) {
     const users = await fetchData("http://localhost:3000/users");
     const user = userFinder(username, users);
     if (user != null && user.password == password) {
-        succes(user.role);
+        succes(user);
     }
     else {
         document.getElementById("error").innerHTML = "Hibás felhasználónév/jelszó!";
@@ -61,8 +61,8 @@ async function Register(event) {
                 else {
                     const role = document.getElementById("flexRadioDefault1").checked;
                     const img = document.getElementById("flexRadioDefault4").checked == true ? `https://randomuser.me/api/portraits/men/${99 - users.length}.jpg` : `https://randomuser.me/api/portraits/women/${99 - users.length}.jpg`;
-                    if (await postData("http://localhost:3000/users", { id: users.length, username: username, password: password, money: 1000, drunkness: 0, img: img, role: role })) {
-                        succes(role);
+                    if (await postData("http://localhost:3000/users", { id: users.length, username: username, password: password, money: 1000, drunkness: 0, img: img, role: role, order: [] })) {
+                        succes({ id: String(users.length), username: username, password: password, money: 1000, drunkness: 0, img: img, role: role, order: [] });
                     }
                     else {
                         alert("Hiba! Próbálja újra!");
@@ -80,8 +80,9 @@ async function Register(event) {
         }
     }
 }
-function succes(role) {
-    if (role) {
+function succes(user) {
+    localStorage.setItem("user", JSON.stringify(user));
+    if (user.role) {
         window.location.replace("./index.html");
     }
     else {
