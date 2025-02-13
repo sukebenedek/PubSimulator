@@ -885,30 +885,34 @@
 
   "users": [
     {
+      "id": "0",
       "username": "admin",
       "password": "admin",
       "money": 100000000000,
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/99.jpg",
-      "role": true
+      "role": true,
+      "order": []
     },
     {
-      "id": 1,
+      "id": "1",
       "username": "Teszt Teofil",
       "password": "asd123",
       "money": 1000,
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
-      "role": false
+      "role": false,
+      "order": []
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "Teszt Teofilia",
       "password": "asd123",
       "money": 1000,
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/women/97.jpg",
-      "role": false
+      "role": false,
+      "order": []
     }
   ],
 
