@@ -1,5 +1,14 @@
-import { Drink } from './interfaces.js';
-import { fetchData } from './functions.js';
+import { Drink, User } from './interfaces.js';
+import { fetchData, postData } from './functions.js';
+
+let getuser = localStorage.getItem('user');
+let user: User;
+if (getuser == null) {
+    window.location.replace("./login.html");
+}
+else {
+    user = JSON.parse(getuser);
+}
 
 let loaded = false;
 let amounts: { [key: string]: number } = {};
@@ -87,11 +96,31 @@ async function updatePrice() {
     document.getElementById("price")!.innerHTML = String(sum);
 }
 
-function finishOrder() {
-    for (const [key] of Object.entries(amounts)) {
-        amounts[key] = 0;
+async function finishOrder() {
+    const drinks: Drink[] = await fetchData("http://localhost:3000/drinks");    
+    let order: Drink[] = [];
+
+    for (const [key, value] of Object.entries(amounts)) {
+        if (value > 0) {
+            drinks.forEach(d => {
+            if (d.name == key) {
+                order.push(d);
+            }
+        });
+        }
         document.getElementById(key + "span")!.innerHTML = "";
     }
+
+    console.log(user);
+    console.log(order);
+    
+    if ( await postData(`http://localhost:3000/users/${user.id}/order`, order)) {
+        alert("sikeres rendelés!");
+    }
+    else {
+        alert("Hiba! Próbálja újra!");
+    }
+
     amounts = {};
     updatePrice();
     closePopup2();
