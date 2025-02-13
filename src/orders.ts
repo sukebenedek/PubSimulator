@@ -4,14 +4,9 @@ import { drawImage, drawRect, fetchData, randomN, randomNum } from "./functions.
 export let glass: Drink ;
 
 export function loadGlass(index: number = 0){
-    if(index === 0){
-        glass = queue[0].order[0]
-    }
-    else{
         glass = queue[0].order[index]
-    }
-
 }
+
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 
@@ -25,6 +20,7 @@ c.height = 775
 c.width = 950
 let height = c.height;
 let width = c.width;
+
 
 // incomingOrder()
 
@@ -46,10 +42,13 @@ export function incomingOrder() {
     let orders = document.getElementById("orders");
     if (queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
-        let randomDrinks = [];
+        let randomDrinks : Drink []= [];
         while (randomDrinks.length < 1) {
             for (let i = 0; i < randomNum(4); i++) {
-                randomDrinks.push(allDrinks[randomNum(allDrinks.length)]);
+                let r = allDrinks[randomNum(allDrinks.length)]
+                if (!randomDrinks.some(d => d.name === r.name)) {
+                    randomDrinks.push(r);
+                }
             }
         }
 
@@ -94,11 +93,11 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
     if (queue.length == 0) {
         sum!.innerHTML = "Nincs rendelés!";
     } else {
-        console.log(glass);
         
         if(glass == undefined){
             loadGlass()
         }
+        // console.log(glass);
 
 
         let orderListHTML = `
@@ -110,6 +109,16 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
 
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
+            let state: string;
+            if(drink.ingredientsInCup.length == 0){
+                state = "empty"
+            } else if(drink.ingredientsInCup == glass.ingredientsInCup && drink.name == glass.name){
+                state = "current"
+            }
+            else{
+                state = "done"
+            }
+
             orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
                     <div class="drinkItem">
@@ -117,7 +126,7 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                         <div class="shadow">
                             <img class="drinkImg" src="${drink.img}" alt="${drink.name}">
                         </div>
-                        <span class="drinkText">${drink.name} - ${drink.price}Ft</span>
+                        <span class="drinkText">${drink.name} - ${drink.price}Ft ${state}</span>
                     </div>
                     <ul class="ingredientsList">
 
@@ -126,9 +135,9 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
 
-                // console.log(glass);
+                //  console.log(drink.ingredientsInCup);
                 
-                const ingredientInCup = glass.ingredientsInCup.find(i => i.name == ingredient.name);
+                const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
                 const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
 
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
@@ -193,7 +202,13 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                     // console.log(drink.ingredientsRequired);
                     // console.log(glass.ingredientsInCup);
 
-                    loadGlass(i)
+                    if(queue[0].order[i].ingredientsInCup.length == 0){
+                        loadGlass(i)
+                        emptyGlass(glass)   
+                    }
+                    else{
+                        
+                    }
                     receiveOrder()
                     
                 } )
@@ -310,7 +325,7 @@ c?.addEventListener("mouseup", (e) => {
     }
     
     drawGlass(glass);
-    console.log(glass);
+    // console.log(glass);
     receiveOrder();
 })
 

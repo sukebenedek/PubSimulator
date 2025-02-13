@@ -1,12 +1,7 @@
 import { drawImage, drawRect, fetchData, randomN, randomNum } from "./functions.js";
 export let glass;
 export function loadGlass(index = 0) {
-    if (index === 0) {
-        glass = queue[0].order[0];
-    }
-    else {
-        glass = queue[0].order[index];
-    }
+    glass = queue[0].order[index];
 }
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
@@ -38,7 +33,10 @@ export function incomingOrder() {
         let randomDrinks = [];
         while (randomDrinks.length < 1) {
             for (let i = 0; i < randomNum(4); i++) {
-                randomDrinks.push(allDrinks[randomNum(allDrinks.length)]);
+                let r = allDrinks[randomNum(allDrinks.length)];
+                if (!randomDrinks.some(d => d.name === r.name)) {
+                    randomDrinks.push(r);
+                }
             }
         }
         while (queue.includes(randomGuest)) {
@@ -76,10 +74,10 @@ export function receiveOrder() {
         sum.innerHTML = "Nincs rendelés!";
     }
     else {
-        console.log(glass);
         if (glass == undefined) {
             loadGlass();
         }
+        // console.log(glass);
         let orderListHTML = `
             <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
             <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
@@ -87,6 +85,16 @@ export function receiveOrder() {
         `;
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
+            let state;
+            if (drink.ingredientsInCup.length == 0) {
+                state = "empty";
+            }
+            else if (drink.ingredientsInCup == glass.ingredientsInCup && drink.name == glass.name) {
+                state = "current";
+            }
+            else {
+                state = "done";
+            }
             orderListHTML += `
                 <li class="drinkListItem" id="${drink.name}">
                     <div class="drinkItem">
@@ -94,15 +102,15 @@ export function receiveOrder() {
                         <div class="shadow">
                             <img class="drinkImg" src="${drink.img}" alt="${drink.name}">
                         </div>
-                        <span class="drinkText">${drink.name} - ${drink.price}Ft</span>
+                        <span class="drinkText">${drink.name} - ${drink.price}Ft ${state}</span>
                     </div>
                     <ul class="ingredientsList">
 
             `;
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
-                // console.log(glass);
-                const ingredientInCup = glass.ingredientsInCup.find(i => i.name == ingredient.name);
+                //  console.log(drink.ingredientsInCup);
+                const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
                 const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
                 orderListHTML += `
@@ -149,7 +157,12 @@ export function receiveOrder() {
                 drinkClick === null || drinkClick === void 0 ? void 0 : drinkClick.addEventListener("click", () => {
                     // console.log(drink.ingredientsRequired);
                     // console.log(glass.ingredientsInCup);
-                    loadGlass(i);
+                    if (queue[0].order[i].ingredientsInCup.length == 0) {
+                        loadGlass(i);
+                        emptyGlass(glass);
+                    }
+                    else {
+                    }
                     receiveOrder();
                 });
             }
@@ -237,7 +250,7 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
         glass.ingredientsInCup.push(drinkType);
     }
     drawGlass(glass);
-    console.log(glass);
+    // console.log(glass);
     receiveOrder();
 });
 ingredients.forEach(i => {

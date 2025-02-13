@@ -102,6 +102,7 @@
           "amount": 500
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/Sormenu.png",
       "category": "sorok"
     },
@@ -114,6 +115,7 @@
           "amount": 50
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/Jagermeistermenu.png",
       "category": "rovidek"
     },
@@ -134,6 +136,7 @@
           "amount": 120
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/Mojitomenu.png",
       "category": "koktelok"
     },
@@ -154,6 +157,7 @@
           "amount": 10
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/WhiskeySourmenu.png",
       "category": "koktelok"
     },
@@ -174,6 +178,7 @@
           "amount": 10
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/GinTonicmenu.png",
       "category": "koktelok"
     },
@@ -194,6 +199,7 @@
           "amount": 20
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/TequilaSunrisemenu.png",
       "category": "koktelok"
     },
@@ -210,6 +216,7 @@
           "amount": 150
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/VodkaColamenu.png",
       "category": "koktelok"
     },
@@ -226,6 +233,7 @@
           "amount": 200
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/JagerBombmenu.png",
       "category": "koktelok"
     },
@@ -242,6 +250,7 @@
           "amount": 150
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/RumColamenu.png",
       "category": "koktelok"
     },
@@ -258,6 +267,7 @@
           "amount": 150
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/VodkaNarancsmenu.png",
       "category": "koktelok"
     },
@@ -274,6 +284,7 @@
           "amount": 150
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/WhiskeyColamenu.png",
       "category": "koktelok"
     },
@@ -286,6 +297,7 @@
           "amount": 50
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/Tequilamenu.png",
       "category": "rovidek"
     },
@@ -306,6 +318,7 @@
           "amount": 10
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/Naplementemenu.png",
       "category": "koktelok"
     },
@@ -322,6 +335,7 @@
           "amount": 20
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/FeketeOroszmenu.png",
       "category": "koktelok"
     },
@@ -334,6 +348,7 @@
           "amount": 50
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/Whiskeymenu.png",
       "category": "rovidek"
     },
@@ -346,6 +361,7 @@
           "amount": 50
         }
       ],
+      "ingredientsInCup": [],
       "img": "./img/menu/Rummenu.png",
       "category": "rovidek"
     }
