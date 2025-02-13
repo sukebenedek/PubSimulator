@@ -1,0 +1,41 @@
+input.value refresh
+sör kiválasztva
+ha order neve ugyanaz akkor nem  fut le
+
+
+
+
+
+opcionális:
+ne egybol jojjon order => valami undefined lesz a pohárral
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
