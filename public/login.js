@@ -1,4 +1,5 @@
 import { fetchData, postData } from './functions.js';
+localStorage.setItem("welcome", JSON.stringify(true));
 const chooseDIV = document.getElementById("choose");
 const loginDIV = document.getElementById("login");
 const registerDIV = document.getElementById("register");
