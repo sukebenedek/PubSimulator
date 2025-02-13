@@ -76,6 +76,7 @@ export function receiveOrder() {
         sum.innerHTML = "Nincs rendelés!";
     }
     else {
+        console.log(glass);
         if (glass == undefined) {
             loadGlass();
         }
@@ -149,6 +150,7 @@ export function receiveOrder() {
                     // console.log(drink.ingredientsRequired);
                     // console.log(glass.ingredientsInCup);
                     loadGlass(i);
+                    receiveOrder();
                 });
             }
         }

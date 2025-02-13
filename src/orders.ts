@@ -94,6 +94,8 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
     if (queue.length == 0) {
         sum!.innerHTML = "Nincs rendelés!";
     } else {
+        console.log(glass);
+        
         if(glass == undefined){
             loadGlass()
         }
@@ -192,6 +194,7 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                     // console.log(glass.ingredientsInCup);
 
                     loadGlass(i)
+                    receiveOrder()
                     
                 } )
 
