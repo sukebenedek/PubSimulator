@@ -1,7 +1,7 @@
 input.value refresh
 sör kiválasztva
 ha order neve ugyanaz akkor nem  fut le
-
+elmenti a queue-t
 
 
 
