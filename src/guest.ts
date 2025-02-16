@@ -1,5 +1,7 @@
 import { Drink, User } from './interfaces.js';
 import { fetchData, postData, patchData } from './functions.js';
+import { addToQueue } from './orders.js';
+
 
 let getuser = localStorage.getItem('user');
 let user: User;
@@ -138,11 +140,14 @@ async function finishOrder() {
 }
 
 async function succes(order: Drink[]) {
+    console.log("asd");
+    
     closePopup2();
     openPopup3();
     if ( await patchData(`http://localhost:3000/users/${user.id}`, { "order": order })) {
         localStorage.setItem("user", JSON.stringify(await fetchData(`http://localhost:3000/users/${user.id}`)));
         localStorage.setItem("welcome", JSON.stringify(false));
+        addToQueue(user);
     }
     else {
         alert("Hiba! Próbálja újra!");

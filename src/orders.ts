@@ -7,6 +7,19 @@ export function loadGlass(index: number = 0){
         glass = queue[0].order[index]
 }
 
+export function addToQueue(user: User){
+    let guest: Guest = {
+        name : user.username,
+        money : user.money,
+        drunkness: user.drunkness,
+        img: user.img,
+        order: user.order,
+        age:0,
+        stinkness:0,
+    };
+    queue.push(guest);
+}
+
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 
@@ -36,7 +49,7 @@ const glassStart = 230
 const cup = new Image();
 cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png"
 let liquidHeight = 0
-let div =    document.getElementById("drinks") as HTMLDivElement
+let div = document.getElementById("drinks") as HTMLDivElement
 
 export function incomingOrder() {
     let orders = document.getElementById("orders");

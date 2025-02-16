@@ -3,6 +3,18 @@ export let glass;
 export function loadGlass(index = 0) {
     glass = queue[0].order[index];
 }
+export function addToQueue(user) {
+    let guest = {
+        name: user.username,
+        money: user.money,
+        drunkness: user.drunkness,
+        img: user.img,
+        order: user.order,
+        age: 0,
+        stinkness: 0,
+    };
+    queue.push(guest);
+}
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 let queue = [];
