@@ -1,4 +1,11 @@
 import { drawImage, drawRect, fetchData, patchData, randomN, randomNum } from "./functions.js";
+import express from 'express';
+const app = express();
+app.get('/queue/:id/guests', (req, res) => {
+    // Your logic here
+    res.send('Your response here');
+});
+console.log();
 export let glass;
 export function loadGlass(index = 0) {
     glass = queue[0].order[index];
@@ -18,7 +25,6 @@ export function addToQueue(user) {
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 let queue = [];
-queue = await fetchData("http://localhost:3000/queue");
 let ingredients = await fetchData("http://localhost:3000/ingredients");
 let c = document.getElementById("canvas");
 const ctx = c.getContext("2d");
@@ -39,7 +45,7 @@ const cup = new Image();
 cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png";
 let liquidHeight = 0;
 let div = document.getElementById("drinks");
-export function incomingOrder() {
+export async function incomingOrder() {
     let orders = document.getElementById("orders");
     if (queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
@@ -57,6 +63,8 @@ export function incomingOrder() {
         }
         randomGuest.order = randomDrinks;
         queue.push(randomGuest);
+        updateQueue(queue);
+        queue = await fetchData("http://localhost:3000/queue/0/guests");
         orders.innerHTML = "";
         queue.forEach(customer => {
             orders.innerHTML +=
@@ -209,11 +217,12 @@ function getCustomerData() {
 function acceptOrder() {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
     let priceInput = document.getElementById("priceInput");
-    if (priceInput.value == orderSum.toString()) {
-    }
-    else {
-        // console.log("nem jo");
-    }
+    updateQueue(queue);
+    // if (priceInput!.value == orderSum.toString()) {
+    // }
+    // else {
+    //     // console.log("nem jo");
+    // }
 }
 function declineOrder() {
     queue.shift();
@@ -230,8 +239,13 @@ function declineOrder() {
     receiveOrder();
     // console.log("asd");
 }
-function updateQueue(queue) {
-    patchData("queue", queue);
+async function updateQueue(queue) {
+    if (await patchData(`http://localhost:3000/queue/0`, { "guests": queue })) {
+        localStorage.setItem("guests", JSON.stringify(queue));
+    }
+    else {
+        alert("Hiba! Próbálja újra!");
+    }
 }
 randomIncomingOrder();
 receiveOrder();

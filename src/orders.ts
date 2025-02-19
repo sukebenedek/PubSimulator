@@ -1,5 +1,16 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
-import { drawImage, drawRect, fetchData, patchData, randomN, randomNum } from "./functions.js";
+import { drawImage, drawRect, fetchData, patchData, postData, randomN, randomNum } from "./functions.js";
+import express, { Request, Response } from 'express';
+
+const app = express();
+
+app.get('/queue/:id/guests', (req: Request, res: Response): void => {
+  // Your logic here
+  res.send('Your response here');
+});
+
+
+console.log();
 
 export let glass: Drink ;
 
@@ -24,7 +35,6 @@ const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guest
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 
 let queue: Guest[] = [];
-queue = await fetchData<Guest[]>("http://localhost:3000/queue");
 
 
 let ingredients = await fetchData<Ingredient[]>("http://localhost:3000/ingredients")
@@ -52,7 +62,7 @@ cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads
 let liquidHeight = 0
 let div = document.getElementById("drinks") as HTMLDivElement
 
-export function incomingOrder() {
+export async function incomingOrder() {
     let orders = document.getElementById("orders");
     if (queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
@@ -65,12 +75,17 @@ export function incomingOrder() {
                 }
             }
         }
-
+        
         while (queue.includes(randomGuest)) {
             randomGuest = allGuests[randomNum(allGuests.length)];
         }
         randomGuest.order = randomDrinks
         queue.push(randomGuest);
+        updateQueue(queue)
+        queue = await fetchData<Guest[]>("http://localhost:3000/queue/0/guests");
+        
+        
+        
         
         orders!.innerHTML = "";
         queue.forEach(customer => {
@@ -266,12 +281,14 @@ function acceptOrder() {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
     let priceInput = document.getElementById("priceInput") as HTMLInputElement;
 
-    if (priceInput!.value == orderSum.toString()) {
+    updateQueue(queue);
 
-    }
-    else {
-        // console.log("nem jo");
-    }
+    // if (priceInput!.value == orderSum.toString()) {
+
+    // }
+    // else {
+    //     // console.log("nem jo");
+    // }
 }
 
 function declineOrder() {
@@ -290,8 +307,13 @@ function declineOrder() {
     // console.log("asd");
 }
 
-function updateQueue(queue : Guest []) {
-    patchData("queue", queue);
+async function updateQueue(queue : Guest []) {
+    if ( await patchData(`http://localhost:3000/queue/0`, { "guests": queue })) {
+        localStorage.setItem("guests",  JSON.stringify(queue))
+    }
+    else {
+        alert("Hiba! Próbálja újra!");
+    }
 }
 
 randomIncomingOrder();
