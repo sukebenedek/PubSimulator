@@ -1,6 +1,5 @@
 var _a, _b, _c;
 import { fetchData, patchData } from './functions.js';
-import { addToQueue } from './orders.js';
 let getuser = localStorage.getItem('user');
 let user;
 if (getuser == null) {
@@ -128,7 +127,6 @@ async function succes(order) {
     if (await patchData(`http://localhost:3000/users/${user.id}`, { "order": order })) {
         localStorage.setItem("user", JSON.stringify(await fetchData(`http://localhost:3000/users/${user.id}`)));
         localStorage.setItem("welcome", JSON.stringify(false));
-        addToQueue(user);
     }
     else {
         alert("Hiba! Próbálja újra!");
