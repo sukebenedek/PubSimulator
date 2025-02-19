@@ -73,7 +73,7 @@ async function order() {
 }
 
 function orderDrink(d: Drink) {
-    if (d.name in amounts) amounts[d.name] += 1;
+    if (d.name in amounts) amounts[d.name] += 1
     else amounts[d.name] = 1;
     
     document.getElementById(d.name + "span")!.innerHTML = `X${amounts[d.name]} <svg id="${d.name}trash" role="button" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-danger" viewBox="0 0 16 16">
@@ -111,7 +111,7 @@ async function updatePrice() {
         document.getElementById("h3")!.classList.add("d-none");
     }
     
-    document.getElementById("price")!.innerHTML = String(sum);
+    document.getElementById("price")!.innerHTML = String(sum)
 }
 
 async function finishOrder() {
