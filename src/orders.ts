@@ -1,5 +1,5 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
-import { drawImage, drawRect, fetchData, randomN, randomNum } from "./functions.js";
+import { drawImage, drawRect, fetchData, patchData, randomN, randomNum } from "./functions.js";
 
 export let glass: Drink ;
 
@@ -24,6 +24,7 @@ const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guest
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 
 let queue: Guest[] = [];
+queue = await fetchData<Guest[]>("http://localhost:3000/queue");
 
 
 let ingredients = await fetchData<Ingredient[]>("http://localhost:3000/ingredients")
@@ -287,6 +288,10 @@ function declineOrder() {
     emptyGlass(glass);
     receiveOrder();
     // console.log("asd");
+}
+
+function updateQueue(queue : Guest []) {
+    patchData("queue", queue);
 }
 
 randomIncomingOrder();

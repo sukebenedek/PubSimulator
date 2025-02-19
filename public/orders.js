@@ -1,4 +1,4 @@
-import { drawImage, drawRect, fetchData, randomN, randomNum } from "./functions.js";
+import { drawImage, drawRect, fetchData, patchData, randomN, randomNum } from "./functions.js";
 export let glass;
 export function loadGlass(index = 0) {
     glass = queue[0].order[index];
@@ -18,6 +18,7 @@ export function addToQueue(user) {
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 let queue = [];
+queue = await fetchData("http://localhost:3000/queue");
 let ingredients = await fetchData("http://localhost:3000/ingredients");
 let c = document.getElementById("canvas");
 const ctx = c.getContext("2d");
@@ -228,6 +229,9 @@ function declineOrder() {
     emptyGlass(glass);
     receiveOrder();
     // console.log("asd");
+}
+function updateQueue(queue) {
+    patchData("queue", queue);
 }
 randomIncomingOrder();
 receiveOrder();
