@@ -1,4 +1,4 @@
-var _a, _b, _c;
+var _a, _b;
 import { fetchData, patchData } from './functions.js';
 let getuser = localStorage.getItem('user');
 let user;
@@ -28,14 +28,13 @@ function closePopup() {
 function closePopup2() {
     document.getElementById("popup2").classList.add("d-none");
 }
-function openPopup3() {
+async function openPopup3() {
     document.getElementById("popup3").classList.remove("d-none");
 }
 function closePopup3() {
     document.getElementById("popup3").classList.add("d-none");
 }
-(_a = document.getElementById("okButton3")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", closePopup3);
-(_b = document.getElementById("okButton")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", closePopup);
+(_a = document.getElementById("okButton")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", closePopup);
 async function order() {
     var _a, _b;
     document.getElementById("popup2").classList.remove("d-none");
@@ -48,17 +47,17 @@ async function order() {
             let li = document.createElement('li');
             li.style.listStyleType = 'none';
             li.innerHTML = `
-                <div class="drinkItem my-5">
-                    <div id="${d.name}" class="drinkItem" role="button">
-                        <div class="shadow">
-                            <img class="drinkImg" src="${d.img}" alt="${d.name}">
-                        </div>
-                        <span class="drinkText">${d.name} - ${d.price}Ft</span> 
-                        </div>
-                    <div>
-                        <span id="${d.name}span" class="drinkText text-success"></span>
-                    </div>
-                </div>
+            <div class="drinkItem my-5">
+            <div id="${d.name}" class="drinkItem" role="button">
+            <div class="shadow">
+            <img class="drinkImg" src="${d.img}" alt="${d.name}">
+            </div>
+            <span class="drinkText">${d.name} - ${d.price}Ft</span> 
+            </div>
+            <div>
+            <span id="${d.name}span" class="drinkText text-success"></span>
+            </div>
+            </div>
             `;
             (_a = document.getElementById(d.category)) === null || _a === void 0 ? void 0 : _a.appendChild(li);
             (_b = document.getElementById(d.name)) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => { orderDrink(d); });
@@ -74,7 +73,7 @@ function orderDrink(d) {
     else
         amounts[d.name] = 1;
     document.getElementById(d.name + "span").innerHTML = `X${amounts[d.name]} <svg id="${d.name}trash" role="button" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-danger" viewBox="0 0 16 16">
-        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
     </svg>`;
     (_a = document.getElementById(d.name + "trash")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => trash(d));
     updatePrice();
@@ -103,6 +102,7 @@ async function updatePrice() {
     document.getElementById("price").innerHTML = String(sum);
 }
 async function finishOrder() {
+    var _a;
     const drinks = await fetchData("http://localhost:3000/drinks");
     let order = [];
     for (const [key, value] of Object.entries(amounts)) {
@@ -115,15 +115,21 @@ async function finishOrder() {
         }
         document.getElementById(key + "span").innerHTML = "";
     }
-    let pastOrder = user.order;
-    console.log(pastOrder);
-    let newOrder = pastOrder.concat(order);
-    succes(newOrder);
+    if (order.length > 0) {
+        let pastOrder = user.order;
+        let newOrder = pastOrder.concat(order);
+        closePopup2();
+        openPopup3();
+        (_a = document.getElementById("okButton3")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+            closePopup3();
+            succes(newOrder);
+        });
+    }
+    else {
+        alert("Semmit nem lehet rendelni!");
+    }
 }
 async function succes(order) {
-    console.log("asd");
-    closePopup2();
-    openPopup3();
     if (await patchData(`http://localhost:3000/users/${user.id}`, { "order": order })) {
         localStorage.setItem("user", JSON.stringify(await fetchData(`http://localhost:3000/users/${user.id}`)));
         localStorage.setItem("welcome", JSON.stringify(false));
@@ -132,4 +138,4 @@ async function succes(order) {
         alert("Hiba! Próbálja újra!");
     }
 }
-(_c = document.getElementById("counter")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", order);
+(_b = document.getElementById("counter")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", order);
