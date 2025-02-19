@@ -1,14 +1,9 @@
 import { Drink, User } from './interfaces.js';
 import { fetchData, postData, patchData } from './functions.js';
+import { getUser, showUser } from './user.js';
 
-let getuser = localStorage.getItem('user');
-let user: User;
-if (getuser == null) {
-    window.location.replace("./login.html");
-}
-else {
-    user = JSON.parse(getuser);
-}
+let user: User = getUser()!;
+showUser(document.body, user);
 
 let welcome: boolean
 let getWelcome = localStorage.getItem("welcome");

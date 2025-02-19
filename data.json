@@ -620,636 +620,8 @@
       "stinkness": 75,
       "img": "https://randomuser.me/api/portraits/men/43.jpg",
       "id": "8e5d"
-  "ingredients": [
-    {
-      "name": "Sör",
-      "price": 1.5,
-      "alcohol": 5,
-      "img": "./img/ingredients/Beer.png",
-      "color": "rgba(255, 223, 72, 0.8)",
-      "id": "c4cd"
     },
     {
-      "name": "Vodka",
-      "price": 2.4,
-      "alcohol": 40,
-      "img": "./img/ingredients/Vodka.png",
-      "color": "rgba(200, 200, 255, 0.4)",
-      "id": "daac"
-    },
-    {
-      "name": "Jager",
-      "price": 5,
-      "alcohol": 35,
-      "img": "./img/ingredients/Jagermeister.png",
-      "color": "rgba(102, 51, 0, 0.4)",
-      "id": "d699"
-    },
-    {
-      "name": "Whiskey",
-      "price": 3,
-      "alcohol": 45,
-      "img": "./img/ingredients/Whiskey.png",
-      "color": "rgba(153, 76, 0, 0.4)",
-      "id": "ac90"
-    },
-    {
-      "name": "Rum",
-      "price": 2.2,
-      "alcohol": 38,
-      "img": "./img/ingredients/Rum.png",
-      "color": "rgba(210, 140, 70, 0.4)",
-      "id": "a8d6"
-    },
-    {
-      "name": "Gin",
-      "price": 2.6,
-      "alcohol": 42,
-      "img": "./img/ingredients/Gin.png",
-      "color": "rgba(240, 240, 255, 0.4)",
-      "id": "4b68"
-    },
-    {
-      "name": "Tequila",
-      "price": 2.8,
-      "alcohol": 40,
-      "img": "./img/ingredients/Tequila.png",
-      "color": "rgba(255, 236, 179, 0.4)",
-      "id": "9f15"
-    },
-    {
-      "name": "TripleSec",
-      "price": 2,
-      "alcohol": 30,
-      "img": "./img/ingredients/Triple Sec.png",
-      "color": "rgba(255, 128, 0, 0.4)",
-      "id": "5bb9"
-    },
-    {
-      "name": "Limelé",
-      "price": 0.4,
-      "alcohol": 0,
-      "img": "./img/ingredients/Limelé.png",
-      "color": "rgba(50, 205, 50, 0.4)",
-      "id": "40cf"
-    },
-    {
-      "name": "Cola",
-      "price": 0.3,
-      "alcohol": 0,
-      "img": "./img/ingredients/Cola.png",
-      "color": "rgba(80, 40, 20, 0.4)",
-      "id": "1263"
-    },
-    {
-      "name": "Tonic",
-      "price": 0.4,
-      "alcohol": 0,
-      "img": "./img/ingredients/Tonic.png",
-      "color": "rgba(220, 220, 220, 0.4)",
-      "id": "d206"
-    },
-    {
-      "name": "Narancslé",
-      "price": 0.5,
-      "alcohol": 0,
-      "img": "./img/ingredients/Narancslé.png",
-      "color": "rgba(255, 165, 0, 0.4)",
-      "id": "0d2e"
-    },
-    {
-      "name": "Grenadine",
-      "price": 0.6,
-      "alcohol": 0,
-      "img": "./img/ingredients/Grenadine.png",
-      "color": "rgba(255, 0, 0, 0.4)",
-      "id": "105d"
-    }
-  ],
-  "drinks": [
-    {
-      "name": "Sör",
-      "price": 600,
-      "ingredientsRequired": [
-        {
-          "name": "Sör",
-          "amount": 500
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/Sormenu.png",
-      "category": "sorok",
-      "id": "3a78"
-    },
-    {
-      "name": "Jagermeister",
-      "price": 2500,
-      "ingredientsRequired": [
-        {
-          "name": "Jagermeister",
-          "amount": 50
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/Jagermeistermenu.png",
-      "category": "rovidek",
-      "id": "865f"
-    },
-    {
-      "name": "Mojito",
-      "price": 2500,
-      "ingredientsRequired": [
-        {
-          "name": "Rum",
-          "amount": 50
-        },
-        {
-          "name": "Limelé",
-          "amount": 30
-        },
-        {
-          "name": "Tonic",
-          "amount": 120
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/Mojitomenu.png",
-      "category": "koktelok",
-      "id": "8a6f"
-    },
-    {
-      "name": "Whiskey Sour",
-      "price": 3000,
-      "ingredientsRequired": [
-        {
-          "name": "Whiskey",
-          "amount": 60
-        },
-        {
-          "name": "Limelé",
-          "amount": 30
-        },
-        {
-          "name": "Triple Sec",
-          "amount": 10
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/WhiskeySourmenu.png",
-      "category": "koktelok",
-      "id": "e36c"
-    },
-    {
-      "name": "Gin & Tonic",
-      "price": 2300,
-      "ingredientsRequired": [
-        {
-          "name": "Gin",
-          "amount": 50
-        },
-        {
-          "name": "Tonic",
-          "amount": 150
-        },
-        {
-          "name": "Limelé",
-          "amount": 10
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/GinTonicmenu.png",
-      "category": "koktelok",
-      "id": "d43d"
-    },
-    {
-      "name": "Tequila Sunrise",
-      "price": 2700,
-      "ingredientsRequired": [
-        {
-          "name": "Tequila",
-          "amount": 50
-        },
-        {
-          "name": "Narancslé",
-          "amount": 100
-        },
-        {
-          "name": "Grenadine",
-          "amount": 20
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/TequilaSunrisemenu.png",
-      "category": "koktelok",
-      "id": "913c"
-    },
-    {
-      "name": "Vodka Cola",
-      "price": 2200,
-      "ingredientsRequired": [
-        {
-          "name": "Vodka",
-          "amount": 50
-        },
-        {
-          "name": "Cola",
-          "amount": 150
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/VodkaColamenu.png",
-      "category": "koktelok",
-      "id": "d0e5"
-    },
-    {
-      "name": "Jager Bomb",
-      "price": 3500,
-      "ingredientsRequired": [
-        {
-          "name": "Jager",
-          "amount": 50
-        },
-        {
-          "name": "Sör",
-          "amount": 200
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/JagerBombmenu.png",
-      "category": "koktelok",
-      "id": "001b"
-    },
-    {
-      "name": "Rum Cola",
-      "price": 2200,
-      "ingredientsRequired": [
-        {
-          "name": "Rum",
-          "amount": 50
-        },
-        {
-          "name": "Cola",
-          "amount": 150
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/RumColamenu.png",
-      "category": "koktelok",
-      "id": "9dc1"
-    },
-    {
-      "name": "Vodka Narancs",
-      "price": 2500,
-      "ingredientsRequired": [
-        {
-          "name": "Vodka",
-          "amount": 50
-        },
-        {
-          "name": "Narancslé",
-          "amount": 150
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/VodkaNarancsmenu.png",
-      "category": "koktelok",
-      "id": "fea1"
-    },
-    {
-      "name": "Whiskey Cola",
-      "price": 2300,
-      "ingredientsRequired": [
-        {
-          "name": "Whiskey",
-          "amount": 50
-        },
-        {
-          "name": "Cola",
-          "amount": 150
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/WhiskeyColamenu.png",
-      "category": "koktelok",
-      "id": "084c"
-    },
-    {
-      "name": "Tequila",
-      "price": 1500,
-      "ingredientsRequired": [
-        {
-          "name": "Tequila",
-          "amount": 50
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/Tequilamenu.png",
-      "category": "rovidek",
-      "id": "61c0"
-    },
-    {
-      "name": "Naplemente",
-      "price": 1800,
-      "ingredientsRequired": [
-        {
-          "name": "Tequila",
-          "amount": 30
-        },
-        {
-          "name": "Grenadine",
-          "amount": 10
-        },
-        {
-          "name": "Limelé",
-          "amount": 10
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/Naplementemenu.png",
-      "category": "koktelok",
-      "id": "0bbb"
-    },
-    {
-      "name": "Fekete Orosz",
-      "price": 2800,
-      "ingredientsRequired": [
-        {
-          "name": "Vodka",
-          "amount": 50
-        },
-        {
-          "name": "Jager",
-          "amount": 20
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/FeketeOroszmenu.png",
-      "category": "koktelok",
-      "id": "83bf"
-    },
-    {
-      "name": "Whiskey",
-      "price": 1500,
-      "ingredientsRequired": [
-        {
-          "name": "Whiskey",
-          "amount": 50
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/Whiskeymenu.png",
-      "category": "rovidek",
-      "id": "e18c"
-    },
-    {
-      "name": "Rum",
-      "price": 1100,
-      "ingredientsRequired": [
-        {
-          "name": "Rum",
-          "amount": 50
-        }
-      ],
-      "ingredientsInCup": [],
-      "img": "./img/menu/Rummenu.png",
-      "category": "rovidek",
-      "id": "dc70"
-    }
-  ],
-  "guests": [
-    {
-      "name": "Kristály Zolika",
-      "money": 10600,
-      "drunkness": 70,
-      "age": 28,
-      "stinkness": 30,
-      "img": "https://randomuser.me/api/portraits/men/10.jpg",
-      "id": "c5e4"
-    },
-    {
-      "name": "Gipszkarton Emil",
-      "money": 15900,
-      "drunkness": 40,
-      "age": 24,
-      "stinkness": 10,
-      "img": "https://randomuser.me/api/portraits/men/11.jpg",
-      "id": "2083"
-    },
-    {
-      "name": "Kanalas Esztebán",
-      "money": 5100,
-      "drunkness": 90,
-      "age": 35,
-      "stinkness": 50,
-      "img": "https://randomuser.me/api/portraits/men/12.jpg",
-      "id": "faf9"
-    },
-    {
-      "name": "Halálhozó Szkófild",
-      "money": 8900,
-      "drunkness": 20,
-      "age": 30,
-      "stinkness": 15,
-      "img": "https://randomuser.me/api/portraits/men/13.jpg",
-      "id": "195e"
-    },
-    {
-      "name": "Fogatlan Árpád",
-      "money": 12200,
-      "drunkness": 50,
-      "age": 27,
-      "stinkness": 20,
-      "img": "https://randomuser.me/api/portraits/men/14.jpg",
-      "id": "fb8e"
-    },
-    {
-      "name": "Jóreggelt Péter",
-      "money": 7600,
-      "drunkness": 60,
-      "age": 29,
-      "stinkness": 25,
-      "img": "https://randomuser.me/api/portraits/men/99.jpg",
-      "id": "f8f0"
-    },
-    {
-      "name": "Csongika",
-      "money": 9900,
-      "drunkness": 30,
-      "age": 23,
-      "stinkness": 100,
-      "img": "https://randomuser.me/api/portraits/men/16.jpg",
-      "id": "84ed"
-    },
-    {
-      "name": "Rezes Tutanhamon",
-      "money": 6500,
-      "drunkness": 45,
-      "age": 34,
-      "stinkness": 35,
-      "img": "https://randomuser.me/api/portraits/men/17.jpg",
-      "id": "ac95"
-    },
-    {
-      "name": "Matovics Dezső",
-      "money": 4800,
-      "drunkness": 85,
-      "age": 42,
-      "stinkness": 60,
-      "img": "https://randomuser.me/api/portraits/men/18.jpg",
-      "id": "ac73"
-    },
-    {
-      "name": "Csorosz Lacika",
-      "money": 10200,
-      "drunkness": 55,
-      "age": 26,
-      "stinkness": 25,
-      "img": "https://randomuser.me/api/portraits/men/19.jpg",
-      "id": "7178"
-    },
-    {
-      "name": "Brájen Lajos",
-      "money": 8900,
-      "drunkness": 65,
-      "age": 31,
-      "stinkness": 40,
-      "img": "https://randomuser.me/api/portraits/men/20.jpg",
-      "id": "9d7a"
-    },
-    {
-      "name": "Kannaváró Tibor",
-      "money": 7700,
-      "drunkness": 75,
-      "age": 38,
-      "stinkness": 50,
-      "img": "https://randomuser.me/api/portraits/men/21.jpg",
-      "id": "fb14"
-    },
-    {
-      "name": "Pohártörő Jolán",
-      "money": 12000,
-      "drunkness": 30,
-      "age": 29,
-      "stinkness": 15,
-      "img": "https://randomuser.me/api/portraits/women/22.jpg",
-      "id": "de3b"
-    },
-    {
-      "name": "Duguláselhárító Kálmán",
-      "money": 8900,
-      "drunkness": 40,
-      "age": 65,
-      "stinkness": 80,
-      "img": "https://randomuser.me/api/portraits/men/23.jpg",
-      "id": "a8d2"
-    },
-    {
-      "name": "Orsós Giuseppe",
-      "money": 12000,
-      "drunkness": 30,
-      "age": 29,
-      "stinkness": 60,
-      "img": "https://randomuser.me/api/portraits/men/24.jpg",
-      "id": "1bb4"
-    },
-    {
-      "name": "Sztojka Sámuel",
-      "money": 3200,
-      "drunkness": 20,
-      "age": 59,
-      "stinkness": 40,
-      "img": "https://randomuser.me/api/portraits/men/25.jpg",
-      "id": "5ce7"
-    },
-    {
-      "name": "Hungarocel Henrik",
-      "money": 2500,
-      "drunkness": 10,
-      "age": 28,
-      "stinkness": 30,
-      "img": "https://randomuser.me/api/portraits/men/26.jpg",
-      "id": "e1fb"
-    },
-    {
-      "name": "Ytong Imre",
-      "money": 3400,
-      "drunkness": 30,
-      "age": 63,
-      "stinkness": 40,
-      "img": "https://randomuser.me/api/portraits/men/27.jpg",
-      "id": "d7e2"
-    },
-    {
-      "name": "Glettvas Márió",
-      "money": 5100,
-      "drunkness": 25,
-      "age": 75,
-      "stinkness": 70,
-      "img": "https://randomuser.me/api/portraits/men/28.jpg",
-      "id": "a77b"
-    },
-    {
-      "name": "Fazekas Herold",
-      "money": 5900,
-      "drunkness": 20,
-      "age": 63,
-      "stinkness": 47,
-      "img": "https://randomuser.me/api/portraits/men/29.jpg",
-      "id": "a18d"
-    },
-    {
-      "name": "Lakatos Tejszelet",
-      "money": 15000,
-      "drunkness": 40,
-      "age": 19,
-      "stinkness": 20,
-      "img": "https://randomuser.me/api/portraits/men/30.jpg",
-      "id": "37a0"
-    },
-    {
-      "name": "Oláh Gesztenyedió",
-      "money": 4300,
-      "drunkness": 30,
-      "age": 25,
-      "stinkness": 60,
-      "img": "https://randomuser.me/api/portraits/men/31.jpg",
-      "id": "389a"
-    },
-    {
-      "name": "Ferenc Ferenc",
-      "money": 16300,
-      "drunkness": 80,
-      "age": 62,
-      "stinkness": 80,
-      "img": "https://randomuser.me/api/portraits/men/32.jpg",
-      "id": "4fe6"
-    },
-    {
-      "name": "Rézműves Songoku",
-      "money": 8900,
-      "drunkness": 30,
-      "age": 32,
-      "stinkness": 30,
-      "img": "https://randomuser.me/api/portraits/men/33.jpg",
-      "id": "80be"
-    },
-    {
-      "name": "Tökönrúgó Zsigmond",
-      "money": 3200,
-      "drunkness": 55,
-      "age": 38,
-      "stinkness": 75,
-      "img": "https://randomuser.me/api/portraits/men/43.jpg",
-      "id": "8e5d"
-    },
-    {
-      "name": "Vattacukor Bödönke",
-      "money": 7200,
-      "drunkness": 25,
-      "age": 19,
-      "stinkness": 10,
-      "img": "https://randomuser.me/api/portraits/men/44.jpg",
-      "id": "11c0"
       "name": "Vattacukor Bödönke",
       "money": 7200,
       "drunkness": 25,
@@ -1266,22 +638,8 @@
       "stinkness": 95,
       "img": "https://randomuser.me/api/portraits/men/45.jpg",
       "id": "a171"
-      "name": "Pálinkás Napalm",
-      "money": 5400,
-      "drunkness": 85,
-      "age": 33,
-      "stinkness": 95,
-      "img": "https://randomuser.me/api/portraits/men/45.jpg",
-      "id": "a171"
     },
     {
-      "name": "Gumicsizma Alfréd",
-      "money": 6200,
-      "drunkness": 45,
-      "age": 40,
-      "stinkness": 60,
-      "img": "https://randomuser.me/api/portraits/men/46.jpg",
-      "id": "c56b"
       "name": "Gumicsizma Alfréd",
       "money": 6200,
       "drunkness": 45,
@@ -1298,22 +656,8 @@
       "stinkness": 30,
       "img": "https://randomuser.me/api/portraits/women/47.jpg",
       "id": "75b1"
-      "name": "Betonkeverő Zsuzsanna",
-      "money": 9400,
-      "drunkness": 65,
-      "age": 28,
-      "stinkness": 30,
-      "img": "https://randomuser.me/api/portraits/women/47.jpg",
-      "id": "75b1"
     },
     {
-      "name": "Hétdecis Farkas",
-      "money": 7800,
-      "drunkness": 75,
-      "age": 24,
-      "stinkness": 50,
-      "img": "https://randomuser.me/api/portraits/men/48.jpg",
-      "id": "ea48"
       "name": "Hétdecis Farkas",
       "money": 7800,
       "drunkness": 75,
@@ -1330,22 +674,8 @@
       "stinkness": 40,
       "img": "https://randomuser.me/api/portraits/women/49.jpg",
       "id": "6056"
-      "name": "Sörhab Zsanett",
-      "money": 4100,
-      "drunkness": 90,
-      "age": 31,
-      "stinkness": 40,
-      "img": "https://randomuser.me/api/portraits/women/49.jpg",
-      "id": "6056"
     },
     {
-      "name": "Reszelő Tihamér",
-      "money": 6300,
-      "drunkness": 50,
-      "age": 39,
-      "stinkness": 85,
-      "img": "https://randomuser.me/api/portraits/men/50.jpg",
-      "id": "d46e"
       "name": "Reszelő Tihamér",
       "money": 6300,
       "drunkness": 50,
@@ -1362,13 +692,6 @@
       "stinkness": 95,
       "img": "https://randomuser.me/api/portraits/men/51.jpg",
       "id": "6358"
-      "name": "Féltégla Ottokár",
-      "money": 1500,
-      "drunkness": 80,
-      "age": 47,
-      "stinkness": 95,
-      "img": "https://randomuser.me/api/portraits/men/51.jpg",
-      "id": "6358"
     },
     {
       "name": "Szagos Dezodor",
@@ -1378,22 +701,7 @@
       "stinkness": 20,
       "img": "https://randomuser.me/api/portraits/men/52.jpg",
       "id": "4ef9"
-      "name": "Szagos Dezodor",
-      "money": 8800,
-      "drunkness": 35,
-      "age": 25,
-      "stinkness": 20,
-      "img": "https://randomuser.me/api/portraits/men/52.jpg",
-      "id": "4ef9"
     },
-    {
-      "name": "Véreskezű Pista",
-      "money": 500,
-      "drunkness": 95,
-      "age": 53,
-      "stinkness": 99,
-      "img": "https://randomuser.me/api/portraits/men/60.jpg",
-      "id": "d381"
     {
       "name": "Véreskezű Pista",
       "money": 500,
@@ -1411,22 +719,8 @@
       "stinkness": 85,
       "img": "https://randomuser.me/api/portraits/men/61.jpg",
       "id": "3219"
-      "name": "Húsklopfoló Jenő",
-      "money": 700,
-      "drunkness": 100,
-      "age": 46,
-      "stinkness": 85,
-      "img": "https://randomuser.me/api/portraits/men/61.jpg",
-      "id": "3219"
     },
     {
-      "name": "Vesekő Kázmér",
-      "money": 3400,
-      "drunkness": 65,
-      "age": 31,
-      "stinkness": 60,
-      "img": "https://randomuser.me/api/portraits/men/62.jpg",
-      "id": "b107"
       "name": "Vesekő Kázmér",
       "money": 3400,
       "drunkness": 65,
@@ -1443,22 +737,8 @@
       "stinkness": 75,
       "img": "https://randomuser.me/api/portraits/men/63.jpg",
       "id": "3c23"
-      "name": "Pörköltfőző Adolf",
-      "money": 12000,
-      "drunkness": 85,
-      "age": 37,
-      "stinkness": 75,
-      "img": "https://randomuser.me/api/portraits/men/63.jpg",
-      "id": "3c23"
     },
     {
-      "name": "Zoknipusztító Rezső",
-      "money": 450,
-      "drunkness": 99,
-      "age": 29,
-      "stinkness": 100,
-      "img": "https://randomuser.me/api/portraits/men/64.jpg",
-      "id": "6aeb"
       "name": "Zoknipusztító Rezső",
       "money": 450,
       "drunkness": 99,
@@ -1475,22 +755,8 @@
       "stinkness": 50,
       "img": "https://randomuser.me/api/portraits/women/65.jpg",
       "id": "a609"
-      "name": "Ütvefúró Gizella",
-      "money": 6200,
-      "drunkness": 45,
-      "age": 42,
-      "stinkness": 50,
-      "img": "https://randomuser.me/api/portraits/women/65.jpg",
-      "id": "a609"
     },
     {
-      "name": "Nyálas Béla",
-      "money": 300,
-      "drunkness": 70,
-      "age": 58,
-      "stinkness": 95,
-      "img": "https://randomuser.me/api/portraits/men/66.jpg",
-      "id": "2ccf"
       "name": "Nyálas Béla",
       "money": 300,
       "drunkness": 70,
@@ -1507,22 +773,8 @@
       "stinkness": 85,
       "img": "https://randomuser.me/api/portraits/men/67.jpg",
       "id": "d682"
-      "name": "Hordómellű Alajos",
-      "money": 2500,
-      "drunkness": 90,
-      "age": 34,
-      "stinkness": 85,
-      "img": "https://randomuser.me/api/portraits/men/67.jpg",
-      "id": "d682"
     },
     {
-      "name": "Fülzsír Elemér",
-      "money": 6000,
-      "drunkness": 30,
-      "age": 22,
-      "stinkness": 45,
-      "img": "https://randomuser.me/api/portraits/men/68.jpg",
-      "id": "097b"
       "name": "Fülzsír Elemér",
       "money": 6000,
       "drunkness": 30,
@@ -1539,22 +791,8 @@
       "stinkness": 70,
       "img": "https://randomuser.me/api/portraits/men/69.jpg",
       "id": "8526"
-      "name": "Szalámi Dzsordzsó",
-      "money": 9200,
-      "drunkness": 55,
-      "age": 39,
-      "stinkness": 70,
-      "img": "https://randomuser.me/api/portraits/men/69.jpg",
-      "id": "8526"
     },
     {
-      "name": "Lábtörlő Kálmán",
-      "money": 1200,
-      "drunkness": 80,
-      "age": 49,
-      "stinkness": 98,
-      "img": "https://randomuser.me/api/portraits/men/70.jpg",
-      "id": "cf62"
       "name": "Lábtörlő Kálmán",
       "money": 1200,
       "drunkness": 80,
@@ -1571,22 +809,8 @@
       "stinkness": 50,
       "img": "https://randomuser.me/api/portraits/women/71.jpg",
       "id": "8124"
-      "name": "Csavarkulcs Jolán",
-      "money": 8700,
-      "drunkness": 40,
-      "age": 36,
-      "stinkness": 50,
-      "img": "https://randomuser.me/api/portraits/women/71.jpg",
-      "id": "8124"
     },
     {
-      "name": "Vakondvakító Győző",
-      "money": 3600,
-      "drunkness": 75,
-      "age": 30,
-      "stinkness": 80,
-      "img": "https://randomuser.me/api/portraits/men/72.jpg",
-      "id": "6156"
       "name": "Vakondvakító Győző",
       "money": 3600,
       "drunkness": 75,
@@ -1603,22 +827,8 @@
       "stinkness": 90,
       "img": "https://randomuser.me/api/portraits/men/73.jpg",
       "id": "5e07"
-      "name": "Farhát Henrik",
-      "money": 4300,
-      "drunkness": 85,
-      "age": 41,
-      "stinkness": 90,
-      "img": "https://randomuser.me/api/portraits/men/73.jpg",
-      "id": "5e07"
     },
     {
-      "name": "Szalonna Vilmos",
-      "money": 5200,
-      "drunkness": 95,
-      "age": 28,
-      "stinkness": 40,
-      "img": "https://randomuser.me/api/portraits/men/74.jpg",
-      "id": "139e"
       "name": "Szalonna Vilmos",
       "money": 5200,
       "drunkness": 95,
@@ -1635,22 +845,8 @@
       "stinkness": 35,
       "img": "https://randomuser.me/api/portraits/men/75.jpg",
       "id": "618f"
-      "name": "Pezsgős Viktor",
-      "money": 7800,
-      "drunkness": 30,
-      "age": 27,
-      "stinkness": 35,
-      "img": "https://randomuser.me/api/portraits/men/75.jpg",
-      "id": "618f"
     },
     {
-      "name": "Kalapács Barbara",
-      "money": 6400,
-      "drunkness": 45,
-      "age": 31,
-      "stinkness": 25,
-      "img": "https://randomuser.me/api/portraits/women/76.jpg",
-      "id": "d857"
       "name": "Kalapács Barbara",
       "money": 6400,
       "drunkness": 45,
@@ -1667,22 +863,8 @@
       "stinkness": 70,
       "img": "https://randomuser.me/api/portraits/women/77.jpg",
       "id": "a013"
-      "name": "Láncfűrész Irén",
-      "money": 5000,
-      "drunkness": 60,
-      "age": 45,
-      "stinkness": 70,
-      "img": "https://randomuser.me/api/portraits/women/77.jpg",
-      "id": "a013"
     },
     {
-      "name": "Mosogatólé Endre",
-      "money": 1700,
-      "drunkness": 100,
-      "age": 62,
-      "stinkness": 99,
-      "img": "https://randomuser.me/api/portraits/men/78.jpg",
-      "id": "ff07"
       "name": "Mosogatólé Endre",
       "money": 1700,
       "drunkness": 100,
@@ -1699,22 +881,7 @@
       "stinkness": 60,
       "img": "https://randomuser.me/api/portraits/men/79.jpg",
       "id": "4a73"
-      "name": "Lepkeháló Antal",
-      "money": 4000,
-      "drunkness": 35,
-      "age": 33,
-      "stinkness": 60,
-      "img": "https://randomuser.me/api/portraits/men/79.jpg",
-      "id": "4a73"
     },
-    {
-      "name": "Kalányos Dzsézönsztetem",
-      "money": 3400,
-      "drunkness": 60,
-      "age": 32,
-      "stinkness": 45,
-      "img": "https://randomuser.me/api/portraits/men/90.jpg",
-      "id": "c54a"
     {
       "name": "Kalányos Dzsézönsztetem",
       "money": 3400,
@@ -1732,22 +899,8 @@
       "stinkness": 25,
       "img": "https://randomuser.me/api/portraits/women/91.jpg",
       "id": "8491"
-      "name": "Lakatos Dzsenifer López",
-      "money": 8700,
-      "drunkness": 20,
-      "age": 26,
-      "stinkness": 25,
-      "img": "https://randomuser.me/api/portraits/women/91.jpg",
-      "id": "8491"
     },
     {
-      "name": "Orsós Robibenz",
-      "money": 1200,
-      "drunkness": 85,
-      "age": 28,
-      "stinkness": 65,
-      "img": "https://randomuser.me/api/portraits/men/92.jpg",
-      "id": "8067"
       "name": "Orsós Robibenz",
       "money": 1200,
       "drunkness": 85,
@@ -1764,22 +917,8 @@
       "stinkness": 40,
       "img": "https://randomuser.me/api/portraits/women/93.jpg",
       "id": "bbbc"
-      "name": "Cigánykerék Eszmeralda",
-      "money": 4300,
-      "drunkness": 35,
-      "age": 30,
-      "stinkness": 40,
-      "img": "https://randomuser.me/api/portraits/women/93.jpg",
-      "id": "bbbc"
     },
     {
-      "name": "Horváth Gangszta Gréta",
-      "money": 7800,
-      "drunkness": 15,
-      "age": 24,
-      "stinkness": 20,
-      "img": "https://randomuser.me/api/portraits/women/94.jpg",
-      "id": "5195"
       "name": "Horváth Gangszta Gréta",
       "money": 7800,
       "drunkness": 15,
@@ -1796,22 +935,8 @@
       "stinkness": 55,
       "img": "https://randomuser.me/api/portraits/men/95.jpg",
       "id": "b444"
-      "name": "Fémtolvaj Dzsordzsó",
-      "money": 5100,
-      "drunkness": 75,
-      "age": 35,
-      "stinkness": 55,
-      "img": "https://randomuser.me/api/portraits/men/95.jpg",
-      "id": "b444"
     },
     {
-      "name": "Betonos Dzsamál",
-      "money": 600,
-      "drunkness": 95,
-      "age": 38,
-      "stinkness": 80,
-      "img": "https://randomuser.me/api/portraits/men/96.jpg",
-      "id": "fb8c"
       "name": "Betonos Dzsamál",
       "money": 600,
       "drunkness": 95,
@@ -1828,22 +953,8 @@
       "stinkness": 35,
       "img": "https://randomuser.me/api/portraits/women/97.jpg",
       "id": "765f"
-      "name": "Glettvas Franciska",
-      "money": 3200,
-      "drunkness": 50,
-      "age": 27,
-      "stinkness": 35,
-      "img": "https://randomuser.me/api/portraits/women/97.jpg",
-      "id": "765f"
     },
     {
-      "name": "Tetőfedő Rodrigó",
-      "money": 4600,
-      "drunkness": 70,
-      "age": 40,
-      "stinkness": 60,
-      "img": "https://randomuser.me/api/portraits/men/98.jpg",
-      "id": "2060"
       "name": "Tetőfedő Rodrigó",
       "money": 4600,
       "drunkness": 70,
@@ -1860,13 +971,6 @@
       "stinkness": 90,
       "img": "https://randomuser.me/api/portraits/men/99.jpg",
       "id": "032c"
-      "name": "Takarítógép Róbertó",
-      "money": 500,
-      "drunkness": 90,
-      "age": 22,
-      "stinkness": 90,
-      "img": "https://randomuser.me/api/portraits/men/99.jpg",
-      "id": "032c"
     },
     {
       "name": "Zsaluzó Dzsoni",
@@ -1876,22 +980,8 @@
       "stinkness": 50,
       "img": "https://randomuser.me/api/portraits/men/34.jpg",
       "id": "8234"
-      "name": "Zsaluzó Dzsoni",
-      "money": 2400,
-      "drunkness": 80,
-      "age": 33,
-      "stinkness": 50,
-      "img": "https://randomuser.me/api/portraits/men/34.jpg",
-      "id": "8234"
     },
     {
-      "name": "Kobakos Sziszi",
-      "money": 3200,
-      "drunkness": 45,
-      "age": 29,
-      "stinkness": 25,
-      "img": "https://randomuser.me/api/portraits/women/20.jpg",
-      "id": "bc79"
       "name": "Kobakos Sziszi",
       "money": 3200,
       "drunkness": 45,
@@ -1973,38 +1063,6 @@
           "img": "./img/menu/Jagermeistermenu.png",
           "category": "rovidek",
           "id": "865f"
-        },
-        {
-          "name": "Jager Bomb",
-          "price": 3500,
-          "ingredientsRequired": [
-            {
-              "name": "Jager",
-              "amount": 50
-            },
-            {
-              "name": "Sör",
-              "amount": 200
-            }
-          ],
-          "ingredientsInCup": [],
-          "img": "./img/menu/JagerBombmenu.png",
-          "category": "koktelok",
-          "id": "001b"
-        },
-        {
-          "name": "Jagermeister",
-          "price": 2500,
-          "ingredientsRequired": [
-            {
-              "name": "Jagermeister",
-              "amount": 50
-            }
-          ],
-          "ingredientsInCup": [],
-          "img": "./img/menu/Jagermeistermenu.png",
-          "category": "rovidek",
-          "id": "865f"
         }
       ]
     },
@@ -2019,14 +1077,10 @@
       "order": []
     }
   ],
-<<<<<<< HEAD
-  "queue": []
-=======
   "queue": [
     {
-      "id" :"0",
+      "id": "0",
       "guests": []
     }
   ]
->>>>>>> 200f4e11f1b9db8576df24c37797ddce9473dbad
 }
