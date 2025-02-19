@@ -1,26 +1,32 @@
 interface User {
+    id: string,
     username: string,
     password: string,
     money: number,
     drunkness: number,
     img: string,
-    role: boolean
+    role: boolean,
+    order: Drink[]
 }
 
-interface Ingredient {
+interface Ingredient { //sör a csapbol
     name: string,
     price: number,
     alcohol: number,
     img : string,
-    amount: number,
+    amount : number
+    color : any
 }
 
-interface Drink {
+interface Drink { //rendel vodka redbul vagy tölt egy vodka redbul
     name: string,
     price: number,
+    img: string,
     ingredientsRequired: Ingredient[],
     ingredientsInCup: Ingredient[],
+    category: string
 }
+
 
 interface Guest {
     name: string,
@@ -32,4 +38,8 @@ interface Guest {
     order: Drink[]
 }
 
-export { User, Ingredient, Drink, Guest,};
+interface Order {
+    //TODO OLIVÉR
+}
+
+export { User, Ingredient, Drink, Guest};

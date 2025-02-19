@@ -1,6 +1,8 @@
 import { User } from './interfaces.js';
 import { fetchData, postData } from './functions.js';
 
+localStorage.setItem("welcome", JSON.stringify(true));
+
 const chooseDIV = document.getElementById("choose");
 const loginDIV = document.getElementById("login");
 const registerDIV = document.getElementById("register");
@@ -36,13 +38,13 @@ function userFinder(username: string, users: User[]) {
 
 async function Login(event: any) {
     event?.preventDefault();
-    const unsername = (<HTMLInputElement>document.getElementById("usernameInput")!).value;
+    const username = (<HTMLInputElement>document.getElementById("usernameInput")!).value;
     const password = (<HTMLInputElement>document.getElementById("passwordInput")!).value;
 
     const users: User[] = await fetchData("http://localhost:3000/users");
-    const user = userFinder(unsername, users);
+    const user = userFinder(username, users);
     if (user != null && (<User>user).password == password) {
-        succes();
+        succes(user);
     }
     else {
         document.getElementById("error")!.innerHTML = "Hibás felhasználónév/jelszó!"
@@ -56,15 +58,15 @@ async function Register(event: any) {
     document.getElementById("passwordHelpBlock")?.classList.remove("text-danger");
     document.getElementById("passwordHelpBlock")?.classList.add("text-white");
 
-    const unsername = (<HTMLInputElement>document.getElementById("usernameInput1")!).value;
+    const username = (<HTMLInputElement>document.getElementById("usernameInput1")!).value;
     const password = (<HTMLInputElement>document.getElementById("passwordInput1")!).value;
 
-    if (unsername == "") {
+    if (username == "") {
         document.getElementById("usernameError")!.innerHTML = "Kötelező felhasználónevet megadni!";
     }
     else {
         const users: User[] = await fetchData("http://localhost:3000/users");
-        if (userFinder(unsername, users) == null) {
+        if (userFinder(username, users) == null) {
             if (password.length > 0) {
                 if (password.length > 20){
                     document.getElementById("passwordHelpBlock")?.classList.remove("text-white");
@@ -72,8 +74,9 @@ async function Register(event: any) {
                 }
                 else {
                     const role = (<HTMLInputElement>document.getElementById("flexRadioDefault1")!).checked;
-                    if ( await postData("http://localhost:3000/users", {id: users.length, username: unsername, password: password, money: 1000, drunkness: 0, img: `https://randomuser.me/api/portraits/men/${100 + users.length}.jpg`, role: role}) ) {
-                        succes();
+                    const img = (<HTMLInputElement>document.getElementById("flexRadioDefault4")!).checked == true ? `https://randomuser.me/api/portraits/men/${99 - users.length}.jpg` : `https://randomuser.me/api/portraits/women/${99 - users.length}.jpg`;
+                    if ( await postData("http://localhost:3000/users", {id: users.length, username: username, password: password, money: 1000, drunkness: 0, img: img, role: role, order: []}) ) {
+                        succes({id: String(users.length), username: username, password: password, money: 1000, drunkness: 0, img: img, role: role, order: []});
                     }
                     else {
                         alert("Hiba! Próbálja újra!")
@@ -92,8 +95,14 @@ async function Register(event: any) {
     }
 }
 
-function succes() {
-    window.location.replace("./index.html");
+function succes(user: User) {
+    localStorage.setItem("user", JSON.stringify(user));
+    if (user.role) {
+        window.location.replace("./index.html");
+    }
+    else {
+        window.location.replace("./guest.html");
+    }
 }
 
 LoginButton?.addEventListener("click", showLogin);

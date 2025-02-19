@@ -1,0 +1,39 @@
+input.value refresh
+sör kiválasztva
+elmenti a queue-t
+
+
+
+opcionális:
+ne egybol jojjon order => valami undefined lesz a pohárral
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
