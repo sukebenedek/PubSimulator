@@ -1,38 +1,33 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
-import { drawImage, drawRect, fetchData, patchData, postData, randomN, randomNum } from "./functions.js";
-import express, { Request, Response } from 'express';
-
-const app = express();
-
-app.get('/queue/:id/guests', (req: Request, res: Response): void => {
-  // Your logic here
-  res.send('Your response here');
-});
+import { drawImage, drawRect, fetchData, patchData, postData, randomN, randomNum, sleep } from "./functions.js";
 
 
 console.log();
 
-export let glass: Drink ;
+export let glass: Drink;
 
-export function loadGlass(index: number = 0){
-        glass = queue[0].order[index]
+export function loadGlass(index: number = 0) {
+    glass = queue[0].order[index]
 }
 
-export function addToQueue(user: User){
-    let guest: Guest = {
-        name : user.username,
-        money : user.money,
-        drunkness: user.drunkness,
-        img: user.img,
-        order: user.order,
-        age:0,
-        stinkness:0,
-    };
-    queue.push(guest);
-}
+// export function addToQueue(user: User) {
+//     let guest: Guest = {
+//         name: user.username,
+//         money: user.money,
+//         drunkness: user.drunkness,
+//         img: user.img,
+//         order: user.order,
+//         age: 0,
+//         stinkness: 0,
+//     };
+//     queue.push(guest);
+// }
 
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
+const users: User[] = await fetchData<User[]>("http://localhost:3000/users");
+
+console.log(users);
 
 let queue: Guest[] = [];
 
@@ -49,7 +44,7 @@ let width = c.width;
 // incomingOrder()
 
 drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx)
-let drinkType:Ingredient = ingredients[0];
+let drinkType: Ingredient = ingredients[0];
 
 let currentDrink = 0
 let interval: ReturnType<typeof setInterval>;
@@ -63,50 +58,53 @@ let liquidHeight = 0
 let div = document.getElementById("drinks") as HTMLDivElement
 
 export async function incomingOrder() {
+    users.forEach((u: User) => {
+        if(!(queue.map(a => a.id).includes(u.id)) && u.order.length > 0){
+            console.log(users.map(a => a.id))
+            console.log(u.id)
+            queue.push(convertUserToGuest(u))
+            sleep(randomNum(5000))
+        }
+
+    })
+
+    
+
     let orders = document.getElementById("orders");
     if (queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
-        let randomDrinks : Drink []= [];
+        let randomDrinks: Drink[] = [];
         while (randomDrinks.length < 1) {
             for (let i = 0; i < randomNum(4); i++) {
-                let r = allDrinks[randomNum(allDrinks.length)]
+                let r = allDrinks[randomNum(allDrinks.length)];
                 if (!randomDrinks.some(d => d.name === r.name)) {
                     randomDrinks.push(r);
                 }
             }
         }
-        
+
         while (queue.includes(randomGuest)) {
             randomGuest = allGuests[randomNum(allGuests.length)];
         }
-        randomGuest.order = randomDrinks
+        randomGuest.order = randomDrinks;
         queue.push(randomGuest);
-        updateQueue(queue)
-        queue = await fetchData<Guest[]>("http://localhost:3000/queue/0/guests");
-        
-        
-        
-        
+
+
         orders!.innerHTML = "";
         queue.forEach(customer => {
             orders!.innerHTML +=
-            `<div class="order">
+                `<div class="order">
             <img class="customerImg" src="${customer.img}"/>
             <p class="customerName">${customer.name}</p>
             </div>`;
         });
-        
-        
-        //console.log(order);
-        //console.log(randomDrinks);
-        // console.log(queue);
     }
     receiveOrder();
-    // loadGlass(); nem tudom mit csinal !!!!
+    // loadGlass(); nem tudom mit csinal !!!! 
 }
 
+
 function randomIncomingOrder() {
-    incomingOrder();
     const randomDelay = randomNum(10000);
     setTimeout(() => {
         incomingOrder();
@@ -122,8 +120,8 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
     if (queue.length == 0) {
         sum!.innerHTML = "Nincs rendelés!";
     } else {
-        
-        if(glass == undefined){
+
+        if (glass == undefined) {
             loadGlass()
         }
         // console.log(glass);
@@ -139,12 +137,12 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
             let state: string;
-            if(drink.ingredientsInCup.length == 0){
+            if (drink.ingredientsInCup.length == 0) {
                 state = "empty"
-            } else if(drink.ingredientsInCup == glass.ingredientsInCup && drink.name == glass.name){
+            } else if (drink.ingredientsInCup == glass.ingredientsInCup && drink.name == glass.name) {
                 state = "current"
             }
-            else{
+            else {
                 state = "done"
             }
 
@@ -165,7 +163,7 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                 const ingredient = drink.ingredientsRequired[j];
 
                 //  console.log(drink.ingredientsInCup);
-                
+
                 const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
                 const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
 
@@ -185,9 +183,9 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             `;
 
             // console.log(drink.name);
-            
 
-        
+
+
 
         }
 
@@ -227,20 +225,20 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             for (let i = 0; i < queue[0].order.length; i++) {
                 const drink = queue[0].order[i];
                 let drinkClick = document.getElementById(drink.name) as HTMLDivElement
-                drinkClick?.addEventListener("click", ()=>{
+                drinkClick?.addEventListener("click", () => {
                     // console.log(drink.ingredientsRequired);
                     // console.log(glass.ingredientsInCup);
 
-                    if(queue[0].order[i].ingredientsInCup.length == 0){
+                    if (queue[0].order[i].ingredientsInCup.length == 0) {
                         loadGlass(i)
-                        emptyGlass(glass)   
+                        emptyGlass(glass)
                     }
-                    else{
-                        
+                    else {
+
                     }
                     receiveOrder()
-                    
-                } )
+
+                })
 
             }
         }
@@ -281,8 +279,6 @@ function acceptOrder() {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
     let priceInput = document.getElementById("priceInput") as HTMLInputElement;
 
-    updateQueue(queue);
-
     // if (priceInput!.value == orderSum.toString()) {
 
     // }
@@ -307,17 +303,23 @@ function declineOrder() {
     // console.log("asd");
 }
 
-async function updateQueue(queue : Guest []) {
-    if ( await patchData(`http://localhost:3000/queue/0`, { "guests": queue })) {
-        localStorage.setItem("guests",  JSON.stringify(queue))
-    }
-    else {
-        alert("Hiba! Próbálja újra!");
+function convertUserToGuest(u: User): Guest {
+    return {
+        "name": u.username,
+        "money": u.money,
+        "drunkness": u.drunkness,
+        "age": randomN(18, 99),
+        "stinkness": randomN(0, 100),
+        "img": u.img,
+        "order": u.order,
+        "id": u.id,
     }
 }
 
+
 randomIncomingOrder();
 receiveOrder();
+
 
 
 
@@ -330,8 +332,8 @@ c?.addEventListener("mousedown", (e) => {
     currentDrink = 0
     let r = randomN(50, 100)
     let pre = liquidHeight
-    interval = setInterval(function() {
-            if(!(liquidHeight >= height - glassBottom )){
+    interval = setInterval(function () {
+        if (!(liquidHeight >= height - glassBottom)) {
             currentDrink++
             r = randomN(50, 100)
             // console.log(currentDrink);
@@ -341,20 +343,20 @@ c?.addEventListener("mousedown", (e) => {
             // })
 
             // console.log(liquidHeight);
-            
-            
 
-            drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight , width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
+
+
+            drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
             ctx.drawImage(cup, 0, 0, width, height);
 
             // drawRect(10, 100, 100, 100, ctx)
 
-            
-            
-        } else{
+
+
+        } else {
             // console.log("tele van"); 
         }
-        }, r);        
+    }, r);
 })
 
 c?.addEventListener("mouseup", (e) => {
@@ -363,7 +365,7 @@ c?.addEventListener("mouseup", (e) => {
     if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
         glass.ingredientsInCup.push(drinkType);
     }
-    
+
     drawGlass(glass);
     // console.log(glass);
     receiveOrder();
@@ -372,7 +374,7 @@ c?.addEventListener("mouseup", (e) => {
 
 ingredients.forEach(i => {
     // console.log(i);
-    i.amount= 0
+    i.amount = 0
     div.innerHTML += `<div class="ingredientCard card m-1 ${i.name} asd" id=""  style="width: 140px;">
     <img src="${i.img}" class="card-img-top my-2 ingredient" alt="...">
     <div class="card-body m-0">
@@ -382,40 +384,40 @@ ingredients.forEach(i => {
 });
 ingredients.forEach(i => {
     let a = document.querySelector(`.${i.name}`) as HTMLDivElement
-    a?.addEventListener("click", () => {selectIngredient(i)})
-    
+    a?.addEventListener("click", () => { selectIngredient(i) })
+
 })
 
-function selectIngredient(i: Ingredient){
+function selectIngredient(i: Ingredient) {
     const allDrinkDiv = document.getElementsByClassName("selected");
     Array.from(allDrinkDiv).forEach(div => {
         div.classList.remove("selected");
     });
     drinkType = i;
     const drinkDiv = document.querySelector(`.${i.name}`) as HTMLDivElement;
-    drinkDiv.classList.add("selected") 
+    drinkDiv.classList.add("selected")
 }
 
-function drawGlass(g: Drink){
+function drawGlass(g: Drink) {
     // console.log(height);
-    
+
 }
 
 export function emptyGlass(g: Drink) {
-    ctx.clearRect(0, 0, width, height); 
-    drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx); 
+    ctx.clearRect(0, 0, width, height);
+    drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx);
 
-    g.ingredientsInCup = []; 
-    liquidHeight = 0; 
-    currentDrink = 0; 
+    g.ingredientsInCup = [];
+    liquidHeight = 0;
+    currentDrink = 0;
 
     ingredients.forEach(i => i.amount = 0);
 
     ctx.fillStyle = drinkType.color;
-    drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight , width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
+    drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
     ctx.drawImage(cup, 0, 0, width, height);
 }
 
 
 
-export {queue}
+export { queue }
