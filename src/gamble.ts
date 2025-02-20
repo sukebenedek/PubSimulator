@@ -1,5 +1,3 @@
-import { isFunctionOrConstructorTypeNode } from "typescript";
-
 document.getElementById("gamble")?.addEventListener("click", showGamblePopup);
 document.getElementById("closeGamble")?.addEventListener("click", closeGamblePopup);
 
@@ -129,7 +127,7 @@ function giveCard(dir: number) {
 
 function value(card:string): number {
   let value = card.split("_")[0];
-  
+
 }
 
 function dealersTurn() {

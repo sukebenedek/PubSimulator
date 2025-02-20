@@ -59,3 +59,6 @@ export function drawImage(imgS, posX, posY, width, height, ctx) {
 export function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+export function isNumber(str) {
+    return !isNaN(Number(str)) && str.trim() !== '';
+}

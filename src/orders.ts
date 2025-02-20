@@ -23,7 +23,7 @@ export function loadGlass(index: number = 0) {
 //     queue.push(guest);
 // }
 
-const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
+const allGuests: Guest[] = fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 const users: User[] = await fetchData<User[]>("http://localhost:3000/users");
 

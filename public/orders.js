@@ -16,7 +16,7 @@ export function loadGlass(index = 0) {
 //     };
 //     queue.push(guest);
 // }
-const allGuests = await fetchData("http://localhost:3000/guests");
+const allGuests = fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 const users = await fetchData("http://localhost:3000/users");
 console.log(users);
