@@ -25,7 +25,7 @@ let dealerCards: String[] = [];
 let dealerValue = 0;
 
 const cardImages = [
-  "2_of_clubs.png", "2_of_diamonds.png", "2_of_hearts.png", "2_of_spades.png",
+  "2_of_clubs.png", "2_of_diamonds.png", "_of_hearts.png", "2_of_spades.png",
   "3_of_clubs.png", "3_of_diamonds.png", "3_of_hearts.png", "3_of_spades.png",
   "4_of_clubs.png", "4_of_diamonds.png", "4_of_hearts.png", "4_of_spades.png",
   "5_of_clubs.png", "5_of_diamonds.png", "5_of_hearts.png", "5_of_spades.png",

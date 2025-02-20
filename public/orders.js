@@ -1,29 +1,25 @@
-import { drawImage, drawRect, fetchData, patchData, randomN, randomNum } from "./functions.js";
-import express from 'express';
-const app = express();
-app.get('/queue/:id/guests', (req, res) => {
-    // Your logic here
-    res.send('Your response here');
-});
+import { drawImage, drawRect, fetchData, randomN, randomNum, sleep } from "./functions.js";
 console.log();
 export let glass;
 export function loadGlass(index = 0) {
     glass = queue[0].order[index];
 }
-export function addToQueue(user) {
-    let guest = {
-        name: user.username,
-        money: user.money,
-        drunkness: user.drunkness,
-        img: user.img,
-        order: user.order,
-        age: 0,
-        stinkness: 0,
-    };
-    queue.push(guest);
-}
+// export function addToQueue(user: User) {
+//     let guest: Guest = {
+//         name: user.username,
+//         money: user.money,
+//         drunkness: user.drunkness,
+//         img: user.img,
+//         order: user.order,
+//         age: 0,
+//         stinkness: 0,
+//     };
+//     queue.push(guest);
+// }
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
+const users = await fetchData("http://localhost:3000/users");
+console.log(users);
 let queue = [];
 let ingredients = await fetchData("http://localhost:3000/ingredients");
 let c = document.getElementById("canvas");
@@ -46,6 +42,14 @@ cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads
 let liquidHeight = 0;
 let div = document.getElementById("drinks");
 export async function incomingOrder() {
+    users.forEach((u) => {
+        if (!(queue.map(a => a.id).includes(u.id)) && u.order.length > 0) {
+            console.log(users.map(a => a.id));
+            console.log(u.id);
+            queue.push(convertUserToGuest(u));
+            sleep(randomNum(5000));
+        }
+    });
     let orders = document.getElementById("orders");
     if (queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
@@ -63,8 +67,6 @@ export async function incomingOrder() {
         }
         randomGuest.order = randomDrinks;
         queue.push(randomGuest);
-        updateQueue(queue);
-        queue = await fetchData("http://localhost:3000/queue/0/guests");
         orders.innerHTML = "";
         queue.forEach(customer => {
             orders.innerHTML +=
@@ -73,15 +75,11 @@ export async function incomingOrder() {
             <p class="customerName">${customer.name}</p>
             </div>`;
         });
-        //console.log(order);
-        //console.log(randomDrinks);
-        // console.log(queue);
     }
     receiveOrder();
-    // loadGlass(); nem tudom mit csinal !!!!
+    // loadGlass(); nem tudom mit csinal !!!! 
 }
 function randomIncomingOrder() {
-    incomingOrder();
     const randomDelay = randomNum(10000);
     setTimeout(() => {
         incomingOrder();
@@ -217,7 +215,6 @@ function getCustomerData() {
 function acceptOrder() {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
     let priceInput = document.getElementById("priceInput");
-    updateQueue(queue);
     // if (priceInput!.value == orderSum.toString()) {
     // }
     // else {
@@ -239,13 +236,17 @@ function declineOrder() {
     receiveOrder();
     // console.log("asd");
 }
-async function updateQueue(queue) {
-    if (await patchData(`http://localhost:3000/queue/0`, { "guests": queue })) {
-        localStorage.setItem("guests", JSON.stringify(queue));
-    }
-    else {
-        alert("Hiba! Próbálja újra!");
-    }
+function convertUserToGuest(u) {
+    return {
+        "name": u.username,
+        "money": u.money,
+        "drunkness": u.drunkness,
+        "age": randomN(18, 99),
+        "stinkness": randomN(0, 100),
+        "img": u.img,
+        "order": u.order,
+        "id": u.id,
+    };
 }
 randomIncomingOrder();
 receiveOrder();

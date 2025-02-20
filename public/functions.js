@@ -56,3 +56,6 @@ export function drawImage(imgS, posX, posY, width, height, ctx) {
     };
     // console.log(width + ", " + height);
 }
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

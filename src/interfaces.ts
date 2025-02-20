@@ -35,7 +35,8 @@ interface Guest {
     age: number,
     stinkness: number,
     img: string,
-    order: Drink[]
+    order: Drink[],
+    id: string
 }
 
 interface Order {
