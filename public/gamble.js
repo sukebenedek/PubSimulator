@@ -1,5 +1,5 @@
-"use strict";
 var _a, _b;
+import { isNumber } from "./functions.js";
 (_a = document.getElementById("gamble")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", showGamblePopup);
 (_b = document.getElementById("closeGamble")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", closeGamblePopup);
 const button = document.getElementById("startGamble");
@@ -20,7 +20,7 @@ const Dealer = document.getElementById("dealer");
 let dealerCards = [];
 let dealerValue = 0;
 const cardImages = [
-    "2_of_clubs.png", "2_of_diamonds.png", "_of_hearts.png", "2_of_spades.png",
+    "2_of_clubs.png", "2_of_diamonds.png", "2_of_hearts.png", "2_of_spades.png",
     "3_of_clubs.png", "3_of_diamonds.png", "3_of_hearts.png", "3_of_spades.png",
     "4_of_clubs.png", "4_of_diamonds.png", "4_of_hearts.png", "4_of_spades.png",
     "5_of_clubs.png", "5_of_diamonds.png", "5_of_hearts.png", "5_of_spades.png",
@@ -49,7 +49,7 @@ function createDeck() {
         card.style.right = `${100 - i}px`;
         dck.appendChild(card);
     }
-    (_a = document.getElementById("deck")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => { draw(1); });
+    (_a = document.getElementById("deck")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", playerDraw);
 }
 async function draw(dir) {
     return new Promise((resolve) => {
@@ -89,6 +89,7 @@ async function start() {
     giveCard(1);
     await draw(-1);
     giveCard(-2);
+    document.getElementById("dealer").title = value(dealerCards[0], dealerValue) + " + ?";
     button.innerHTML = "Elég";
     button.classList.remove("btn-secondary");
     button.classList.add("btn-success");
@@ -105,15 +106,54 @@ function giveCard(dir) {
     if (dir == 1) {
         Player.appendChild(cardImg);
         playerCards.push(card);
-        playerValue += value(card);
+        playerValue += value(card, playerValue);
+        document.getElementById("player").title = String(playerValue);
+        bust(1);
     }
     else {
         Dealer.appendChild(cardImg);
         dealerCards.push(card);
+        dealerValue += value(card, dealerValue);
+        document.getElementById("dealer").title = String(dealerValue);
     }
 }
-function value(card) {
+function value(card, sum) {
     let value = card.split("_")[0];
+    if (isNumber(value)) {
+        return Number(value);
+    }
+    else if (value == "jack" || value == "queen" || value == "king") {
+        return 10;
+    }
+    else {
+        if (sum + 11 > 21)
+            return 1;
+        return 11;
+    }
+}
+async function playerDraw() {
+    await draw(1);
+    giveCard(1);
 }
 function dealersTurn() {
+    document.getElementById("dealer").innerHTML = "";
+    dealerCards.forEach(card => {
+        let cardImg = document.createElement("img");
+        cardImg.src = './img/cards/' + card;
+        cardImg.className = "w-20 mx-1";
+        Dealer.appendChild(cardImg);
+        document.getElementById("dealer").title = String(dealerValue);
+    });
+}
+function bust(dir) {
+    if (dir == 1) {
+        if (playerValue > 21) {
+            //BUST
+        }
+    }
+    else if (dir == -1) {
+        if (dealerValue > 21) {
+            //BUST
+        }
+    }
 }

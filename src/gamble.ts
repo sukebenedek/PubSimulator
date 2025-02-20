@@ -1,3 +1,5 @@
+import { isNumber } from "./functions.js";
+
 document.getElementById("gamble")?.addEventListener("click", showGamblePopup);
 document.getElementById("closeGamble")?.addEventListener("click", closeGamblePopup);
 
@@ -23,7 +25,7 @@ let dealerCards: String[] = [];
 let dealerValue = 0;
 
 const cardImages = [
-  "2_of_clubs.png", "2_of_diamonds.png", "_of_hearts.png", "2_of_spades.png",
+  "2_of_clubs.png", "2_of_diamonds.png", "2_of_hearts.png", "2_of_spades.png",
   "3_of_clubs.png", "3_of_diamonds.png", "3_of_hearts.png", "3_of_spades.png",
   "4_of_clubs.png", "4_of_diamonds.png", "4_of_hearts.png", "4_of_spades.png",
   "5_of_clubs.png", "5_of_diamonds.png", "5_of_hearts.png", "5_of_spades.png",
@@ -53,7 +55,7 @@ function createDeck() {
         dck.appendChild(card);
     }
 
-    document.getElementById("deck")?.addEventListener("click", () => {draw(1)});
+    document.getElementById("deck")?.addEventListener("click", playerDraw);
 }
 
 async function draw(dir: number): Promise<boolean> {
@@ -97,6 +99,7 @@ async function start() {
   giveCard(1);
   await draw(-1);
   giveCard(-2);
+  document.getElementById("dealer")!.title = value(dealerCards[0], dealerValue) + " + ?";
 
   button.innerHTML = "Elég"
   button.classList.remove("btn-secondary");
@@ -117,19 +120,57 @@ function giveCard(dir: number) {
   if (dir == 1) {
     Player.appendChild(cardImg);
     playerCards.push(card);
-    playerValue += value(card);
+    playerValue += value(card, playerValue);
+    document.getElementById("player")!.title = String(playerValue);
+    bust(1);
   }
   else {
     Dealer.appendChild(cardImg);
     dealerCards.push(card);
+    dealerValue += value(card, dealerValue);
+    document.getElementById("dealer")!.title = String(dealerValue);
   }
 }
 
-function value(card:string): number {
+function value(card:String, sum:number): number {
   let value = card.split("_")[0];
+  if (isNumber(value)) {
+    return Number(value);
+  }
+  else if (value == "jack" || value == "queen" || value == "king") {
+    return 10;
+  }
+  else {
+    if (sum + 11 > 21) return 1;
+    return 11;
+  }
+}
 
+async function playerDraw() {
+  await draw(1);
+  giveCard(1);
 }
 
 function dealersTurn() {
+  document.getElementById("dealer")!.innerHTML = "";
+  dealerCards.forEach(card => {
+    let cardImg = document.createElement("img");
+    cardImg.src = './img/cards/' + card;
+    cardImg.className = "w-20 mx-1";
+    Dealer.appendChild(cardImg);
+    document.getElementById("dealer")!.title = String(dealerValue);
+  });
+}
 
+function bust(dir:number) {
+  if (dir == 1) {
+    if (playerValue > 21) {
+      //BUST
+    }
+  }
+  else if (dir == -1) {
+    if (dealerValue > 21) {
+      //BUST
+    }
+  }
 }
