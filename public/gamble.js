@@ -1,8 +1,8 @@
-"use strict";
-var _a, _b, _c;
+var _a, _b;
 (_a = document.getElementById("gamble")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", showGamblePopup);
 (_b = document.getElementById("closeGamble")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", closeGamblePopup);
-(_c = document.getElementById("startGamble")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", start);
+const button = document.getElementById("startGamble");
+button.addEventListener("click", start);
 function showGamblePopup() {
     document.getElementById("gamblePopup").classList.remove("d-none");
     document.getElementById("gamble").classList.add("d-none");
@@ -12,8 +12,12 @@ function closeGamblePopup() {
     document.getElementById("gamblePopup").classList.add("d-none");
     document.getElementById("gamble").classList.remove("d-none");
 }
-const player = document.getElementById("player");
-const dealer = document.getElementById("dealer");
+const Player = document.getElementById("player");
+let playerCards = [];
+let playerValue = 0;
+const Dealer = document.getElementById("dealer");
+let dealerCards = [];
+let dealerValue = 0;
 const cardImages = [
     "2_of_clubs.png", "2_of_diamonds.png", "2_of_hearts.png", "2_of_spades.png",
     "3_of_clubs.png", "3_of_diamonds.png", "3_of_hearts.png", "3_of_spades.png",
@@ -73,6 +77,9 @@ async function draw(dir) {
     });
 }
 async function start() {
+    button.removeEventListener("click", start);
+    button.classList.remove("btn-success");
+    button.classList.add("btn-secondary");
     await draw(1);
     giveCard(1);
     await draw(-1);
@@ -80,15 +87,33 @@ async function start() {
     await draw(1);
     giveCard(1);
     await draw(-1);
-    giveCard(-1);
+    giveCard(-2);
+    button.innerHTML = "Elég";
+    button.classList.remove("btn-secondary");
+    button.classList.add("btn-success");
+    button.addEventListener("click", dealersTurn);
 }
 function giveCard(dir) {
     let card = cards[Math.floor(Math.random() * cards.length)];
+    while (playerCards.includes(card) || dealerCards.includes(card)) {
+        card = cards[Math.floor(Math.random() * cards.length)];
+    }
     let cardImg = document.createElement("img");
-    cardImg.src = './img/cards/' + card;
-    cardImg.className = "w-10";
-    if (dir == 1)
-        player.appendChild(cardImg);
-    else
-        dealer.appendChild(cardImg);
+    cardImg.src = dir == -1 || dir == 1 ? './img/cards/' + card : './img/cards/back.png';
+    cardImg.className = "w-20 mx-1";
+    if (dir == 1) {
+        Player.appendChild(cardImg);
+        playerCards.push(card);
+        playerValue += value(card);
+    }
+    else {
+        Dealer.appendChild(cardImg);
+        dealerCards.push(card);
+    }
 }
+function value(card) {
+    let value = card.split("_")[0];
+}
+function dealersTurn() {
+}
+export {};
