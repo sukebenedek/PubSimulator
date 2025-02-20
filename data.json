@@ -1020,6 +1020,8 @@
               "amount": 50
             }
           ],
+          "ingredientsInCup": [],
+
           "img": "./img/menu/Jagermeistermenu.png",
           "category": "rovidek"
         },
@@ -1032,6 +1034,8 @@
               "amount": 50
             }
           ],
+          "ingredientsInCup": [],
+
           "img": "./img/menu/Jagermeistermenu.png",
           "category": "rovidek"
         },

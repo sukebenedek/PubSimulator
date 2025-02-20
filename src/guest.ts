@@ -1,9 +1,14 @@
 import { Drink, User } from './interfaces.js';
 import { fetchData, postData, patchData } from './functions.js';
-import { getUser, showUser } from './user.js';
 
-let user: User = getUser()!;
-showUser(document.body, user);
+let getuser = localStorage.getItem('user');
+let user: User;
+if (getuser == null) {
+    window.location.replace("./login.html");
+}
+else {
+    user = JSON.parse(getuser);
+}
 
 let welcome: boolean
 let getWelcome = localStorage.getItem("welcome");
@@ -121,6 +126,7 @@ async function finishOrder() {
         if (value > 0) {
             drinks.forEach(d => {
                 if (d.name == key) {
+                    d.ingredientsInCup = []
                     order.push(d);
                 }
             });
