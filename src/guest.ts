@@ -32,18 +32,22 @@ function closePopup() {
 }
 function closePopup2() {
     document.getElementById("popup2")!.classList.add("d-none");
+    document.getElementById("gamble")!.classList.remove("d-none");
 }
 async function openPopup3() {
     document.getElementById("popup3")!.classList.remove("d-none");
+    document.getElementById("gamble")!.classList.add("d-none");
 }
 function closePopup3() {
     document.getElementById("popup3")!.classList.add("d-none");
+    document.getElementById("gamble")!.classList.remove("d-none");
 }
 
 document.getElementById("okButton")?.addEventListener("click", closePopup);
 
 async function order() {
     document.getElementById("popup2")!.classList.remove("d-none");
+    document.getElementById("gamble")!.classList.add("d-none");
     document.getElementById("cancel")?.addEventListener("click", closePopup2);
     document.getElementById("order")?.addEventListener("click", finishOrder);
     

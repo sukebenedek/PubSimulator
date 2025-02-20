@@ -1,6 +1,8 @@
 document.getElementById("gamble")?.addEventListener("click", showGamblePopup);
 document.getElementById("closeGamble")?.addEventListener("click", closeGamblePopup);
-document.getElementById("startGamble")?.addEventListener("click", start);
+
+const button = document.getElementById("startGamble")!;
+button.addEventListener("click", start);
 
 function showGamblePopup() {
     document.getElementById("gamblePopup")!.classList.remove("d-none");
@@ -12,8 +14,13 @@ function closeGamblePopup() {
     document.getElementById("gamble")!.classList.remove("d-none");
 }
 
-const player = document.getElementById("player")!;
-const dealer = document.getElementById("dealer")!;
+const Player = document.getElementById("player")!;
+let playerCards: String[] = [];
+let playerValue = 0;
+
+const Dealer = document.getElementById("dealer")!;
+let dealerCards: String[] = [];
+let dealerValue = 0;
 
 const cardImages = [
   "2_of_clubs.png", "2_of_diamonds.png", "_of_hearts.png", "2_of_spades.png",
@@ -78,6 +85,10 @@ async function draw(dir: number): Promise<boolean> {
 }
 
 async function start() {
+  button.removeEventListener("click", start);
+  button.classList.remove("btn-success");
+  button.classList.add("btn-secondary");
+
   await draw(1);
   giveCard(1);
   await draw(-1);
@@ -85,16 +96,40 @@ async function start() {
   await draw(1);
   giveCard(1);
   await draw(-1);
-  giveCard(-1);
+  giveCard(-2);
+
+  button.innerHTML = "Elég"
+  button.classList.remove("btn-secondary");
+  button.classList.add("btn-success");
+  button.addEventListener("click", dealersTurn)
 }
 
 function giveCard(dir: number) {
   let card = cards[Math.floor(Math.random()*cards.length)];
+  while (playerCards.includes(card) || dealerCards.includes(card)) {
+    card = cards[Math.floor(Math.random()*cards.length)];
+  }
 
   let cardImg = document.createElement("img");
-  cardImg.src = './img/cards/' + card;
-  cardImg.className = "w-10";
+  cardImg.src = dir == -1 || dir == 1 ? './img/cards/' + card : './img/cards/back.png';
+  cardImg.className = "w-20 mx-1";
 
-  if (dir == 1) player.appendChild(cardImg);
-  else dealer.appendChild(cardImg);
+  if (dir == 1) {
+    Player.appendChild(cardImg);
+    playerCards.push(card);
+    playerValue += value(card);
+  }
+  else {
+    Dealer.appendChild(cardImg);
+    dealerCards.push(card);
+  }
+}
+
+function value(card:string): number {
+  let value = card.split("_")[0];
+
+}
+
+function dealersTurn() {
+
 }

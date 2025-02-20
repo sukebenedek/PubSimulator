@@ -27,17 +27,21 @@ function closePopup() {
 }
 function closePopup2() {
     document.getElementById("popup2").classList.add("d-none");
+    document.getElementById("gamble").classList.remove("d-none");
 }
 async function openPopup3() {
     document.getElementById("popup3").classList.remove("d-none");
+    document.getElementById("gamble").classList.add("d-none");
 }
 function closePopup3() {
     document.getElementById("popup3").classList.add("d-none");
+    document.getElementById("gamble").classList.remove("d-none");
 }
 (_a = document.getElementById("okButton")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", closePopup);
 async function order() {
     var _a, _b;
     document.getElementById("popup2").classList.remove("d-none");
+    document.getElementById("gamble").classList.add("d-none");
     (_a = document.getElementById("cancel")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", closePopup2);
     (_b = document.getElementById("order")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", finishOrder);
     if (!loaded) {

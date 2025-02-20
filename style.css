@@ -276,6 +276,9 @@ html,body {
 .w-10 {
     width: 10%;
 }
+.w-20 {
+    width: 20%;
+}
 
 #deck {
     z-index: 3;
