@@ -19,7 +19,7 @@ export function loadGlass(index = 0) {
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 const users = await fetchData("http://localhost:3000/users");
-console.log(users);
+// console.log(users);
 let queue = [];
 let ingredients = await fetchData("http://localhost:3000/ingredients");
 let c = document.getElementById("canvas");
@@ -44,8 +44,8 @@ let div = document.getElementById("drinks");
 export async function incomingOrder() {
     users.forEach((u) => {
         if (!(queue.map(a => a.id).includes(u.id)) && u.order.length > 0) {
-            console.log(users.map(a => a.id));
-            console.log(u.id);
+            // console.log(users.map(a => a.id))
+            // console.log(u.id)
             queue.push(convertUserToGuest(u));
             sleep(randomNum(5000));
         }
@@ -105,6 +105,7 @@ export function receiveOrder() {
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
             let state;
+            // console.log(drink);
             if (drink.ingredientsInCup.length == 0) {
                 state = "empty";
             }
@@ -237,6 +238,7 @@ function declineOrder() {
     // console.log("asd");
 }
 function convertUserToGuest(u) {
+    // console.log(u.order);
     return {
         "name": u.username,
         "money": u.money,

@@ -1,9 +1,14 @@
 import { Drink, User } from './interfaces.js';
 import { fetchData, postData, patchData } from './functions.js';
-import { getUser, showUser } from './user.js';
 
-let user: User = getUser()!;
-showUser(document.body, user);
+let getuser = localStorage.getItem('user');
+let user: User;
+if (getuser == null) {
+    window.location.replace("./login.html");
+}
+else {
+    user = JSON.parse(getuser);
+}
 
 let welcome: boolean
 let getWelcome = localStorage.getItem("welcome");
@@ -73,7 +78,7 @@ function orderDrink(d: Drink) {
     
     document.getElementById(d.name + "span")!.innerHTML = `X${amounts[d.name]} <svg id="${d.name}trash" role="button" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-danger" viewBox="0 0 16 16">
     <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-    </svg>`;;
+    </svg>`;
     
     document.getElementById(d.name + "trash")?.addEventListener("click", () => trash(d));
     
@@ -117,6 +122,7 @@ async function finishOrder() {
         if (value > 0) {
             drinks.forEach(d => {
                 if (d.name == key) {
+                    d.ingredientsInCup = []
                     order.push(d);
                 }
             });

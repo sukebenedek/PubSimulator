@@ -27,7 +27,7 @@ const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guest
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 const users: User[] = await fetchData<User[]>("http://localhost:3000/users");
 
-console.log(users);
+// console.log(users);
 
 let queue: Guest[] = [];
 
@@ -60,8 +60,8 @@ let div = document.getElementById("drinks") as HTMLDivElement
 export async function incomingOrder() {
     users.forEach((u: User) => {
         if(!(queue.map(a => a.id).includes(u.id)) && u.order.length > 0){
-            console.log(users.map(a => a.id))
-            console.log(u.id)
+            // console.log(users.map(a => a.id))
+            // console.log(u.id)
             queue.push(convertUserToGuest(u))
             sleep(randomNum(5000))
         }
@@ -137,6 +137,8 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
             let state: string;
+            // console.log(drink);
+            
             if (drink.ingredientsInCup.length == 0) {
                 state = "empty"
             } else if (drink.ingredientsInCup == glass.ingredientsInCup && drink.name == glass.name) {
@@ -304,6 +306,8 @@ function declineOrder() {
 }
 
 function convertUserToGuest(u: User): Guest {
+    // console.log(u.order);
+    
     return {
         "name": u.username,
         "money": u.money,
@@ -311,6 +315,7 @@ function convertUserToGuest(u: User): Guest {
         "age": randomN(18, 99),
         "stinkness": randomN(0, 100),
         "img": u.img,
+        
         "order": u.order,
         "id": u.id,
     }
