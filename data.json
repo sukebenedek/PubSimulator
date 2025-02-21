@@ -1000,6 +1000,7 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/99.jpg",
       "role": true,
+      "isServed": false,
       "order": []
     },
     {
@@ -1010,6 +1011,7 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
       "role": false,
+      "isServed": false,
       "order": [
         {
           "name": "Jagermeister",
@@ -1063,43 +1065,8 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/women/97.jpg",
       "role": false,
+      "isServed": false,
       "order": []
-    }
-  ],
-  "queue": [
-    {
-      "id": "0",
-      "guests": [
-        {
-          "name": "Lakatos Tejszelet",
-          "money": 15000,
-          "drunkness": 40,
-          "age": 19,
-          "stinkness": 20,
-          "img": "https://randomuser.me/api/portraits/men/30.jpg",
-          "id": "37a0",
-          "order": [
-            {
-              "name": "Vodka Narancs",
-              "price": 2500,
-              "ingredientsRequired": [
-                {
-                  "name": "Vodka",
-                  "amount": 50
-                },
-                {
-                  "name": "Narancslé",
-                  "amount": 150
-                }
-              ],
-              "ingredientsInCup": [],
-              "img": "./img/menu/VodkaNarancsmenu.png",
-              "category": "koktelok",
-              "id": "fea1"
-            }
-          ]
-        }
-      ]
     }
   ]
 }

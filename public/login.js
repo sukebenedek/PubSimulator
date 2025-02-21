@@ -62,8 +62,8 @@ async function Register(event) {
                 else {
                     const role = document.getElementById("flexRadioDefault1").checked;
                     const img = document.getElementById("flexRadioDefault4").checked == true ? `https://randomuser.me/api/portraits/men/${99 - users.length}.jpg` : `https://randomuser.me/api/portraits/women/${99 - users.length}.jpg`;
-                    if (await postData("http://localhost:3000/users", { id: users.length, username: username, password: password, money: 1000, drunkness: 0, img: img, role: role, order: [] })) {
-                        succes({ id: String(users.length), username: username, password: password, money: 1000, drunkness: 0, img: img, role: role, order: [] });
+                    if (await postData("http://localhost:3000/users", { id: users.length, username: username, password: password, money: 1000, drunkness: 0, img: img, role: role, isServed: false, order: [] })) {
+                        succes({ id: String(users.length), username: username, password: password, money: 1000, drunkness: 0, img: img, role: role, isServed: false, order: [] });
                     }
                     else {
                         alert("Hiba! Próbálja újra!");

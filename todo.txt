@@ -1,11 +1,12 @@
 input.value refresh
 sör kiválasztva
-elmenti a queue-t
-
+A jsonbe at kell allitani rendeleskor hogz nem kisyolgalt uj cucc a jsonbe
+isserved de nem lehet atallitani mert guestte lett a user 
 
 
 opcionális:
 ne egybol jojjon order => valami undefined lesz a pohárral
+elmenti a queue-t 
 
 
 

@@ -1,4 +1,4 @@
-import { drawImage, drawRect, fetchData, randomN, randomNum, sleep } from "./functions.js";
+import { drawImage, drawRect, fetchData, randomN, randomNum } from "./functions.js";
 console.log();
 export let glass;
 export function loadGlass(index = 0) {
@@ -16,7 +16,7 @@ export function loadGlass(index = 0) {
 //     };
 //     queue.push(guest);
 // }
-const allGuests = fetchData("http://localhost:3000/guests");
+const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 const users = await fetchData("http://localhost:3000/users");
 // console.log(users);
@@ -42,16 +42,14 @@ cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads
 let liquidHeight = 0;
 let div = document.getElementById("drinks");
 export async function incomingOrder() {
+    let userAdded = false;
     users.forEach((u) => {
-        if (!(queue.map(a => a.id).includes(u.id)) && u.order.length > 0) {
-            // console.log(users.map(a => a.id))
-            // console.log(u.id)
+        if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false) {
             queue.push(convertUserToGuest(u));
-            sleep(randomNum(5000));
+            userAdded = true;
         }
     });
-    let orders = document.getElementById("orders");
-    if (queue.length < 10) {
+    if (!userAdded && queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
         let randomDrinks = [];
         while (randomDrinks.length < 1) {
@@ -62,22 +60,25 @@ export async function incomingOrder() {
                 }
             }
         }
-        while (queue.includes(randomGuest)) {
+        while (queue.some(g => g.id === randomGuest.id)) {
             randomGuest = allGuests[randomNum(allGuests.length)];
         }
         randomGuest.order = randomDrinks;
         queue.push(randomGuest);
-        orders.innerHTML = "";
-        queue.forEach(customer => {
-            orders.innerHTML +=
-                `<div class="order">
-            <img class="customerImg" src="${customer.img}"/>
-            <p class="customerName">${customer.name}</p>
-            </div>`;
-        });
     }
+    updateOrdersUI();
     receiveOrder();
-    // loadGlass(); nem tudom mit csinal !!!! 
+}
+function updateOrdersUI() {
+    let orders = document.getElementById("orders");
+    orders.innerHTML = "";
+    queue.forEach(customer => {
+        orders.innerHTML += `
+            <div class="order">
+                <img class="customerImg" src="${customer.img}"/>
+                <p class="customerName">${customer.name}</p>
+            </div>`;
+    });
 }
 function randomIncomingOrder() {
     const randomDelay = randomNum(10000);
@@ -163,7 +164,17 @@ export function receiveOrder() {
             };
             const acceptBtn = document.getElementById("accept");
             acceptBtn.onclick = () => {
-                acceptOrder();
+                console.log(queue);
+                if (users.some(user => user.username == queue[0].name)) {
+                    for (let i = 0; i < users.length; i++) {
+                        if (users[i].isServed == false && users[i].username == queue[0].name) {
+                            acceptOrder(users[i]);
+                        }
+                    }
+                }
+                else {
+                    acceptOrder(null);
+                }
             };
             document.getElementById("currentOrder").onmouseover = () => {
                 document.getElementById("currentOrder").style.cursor = "pointer";
@@ -185,6 +196,9 @@ export function receiveOrder() {
                     }
                     receiveOrder();
                 });
+                drinkClick.onmouseover = () => {
+                    drinkClick.style.cursor = "pointer";
+                };
             }
         }
     }
@@ -213,9 +227,14 @@ function getCustomerData() {
         receiveOrder();
     });
 }
-function acceptOrder() {
+function acceptOrder(u) {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
     let priceInput = document.getElementById("priceInput");
+    if (u != null) {
+        u.isServed = true;
+    }
+    console.log(u);
+    declineOrder();
     // if (priceInput!.value == orderSum.toString()) {
     // }
     // else {

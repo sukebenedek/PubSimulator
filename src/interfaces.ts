@@ -6,6 +6,7 @@ interface User {
     drunkness: number,
     img: string,
     role: boolean,
+    isServed : boolean,
     order: Drink[]
 }
 

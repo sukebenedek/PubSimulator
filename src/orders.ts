@@ -23,7 +23,7 @@ export function loadGlass(index: number = 0) {
 //     queue.push(guest);
 // }
 
-const allGuests: Guest[] = fetchData<Guest[]>("http://localhost:3000/guests");
+const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 const users: User[] = await fetchData<User[]>("http://localhost:3000/users");
 
@@ -58,22 +58,19 @@ let liquidHeight = 0
 let div = document.getElementById("drinks") as HTMLDivElement
 
 export async function incomingOrder() {
+    let userAdded = false;
+
     users.forEach((u: User) => {
-        if(!(queue.map(a => a.id).includes(u.id)) && u.order.length > 0){
-            // console.log(users.map(a => a.id))
-            // console.log(u.id)
-            queue.push(convertUserToGuest(u))
-            sleep(randomNum(5000))
+        if (!(queue.some(a => a.id === u.id)) && u.order.length > 0  && u.isServed === false) {
+            queue.push(convertUserToGuest(u));
+            userAdded = true; 
         }
+    });
 
-    })
-
-    
-
-    let orders = document.getElementById("orders");
-    if (queue.length < 10) {
+    if (!userAdded && queue.length < 10) { 
         let randomGuest = allGuests[randomNum(allGuests.length)];
         let randomDrinks: Drink[] = [];
+
         while (randomDrinks.length < 1) {
             for (let i = 0; i < randomNum(4); i++) {
                 let r = allDrinks[randomNum(allDrinks.length)];
@@ -83,25 +80,30 @@ export async function incomingOrder() {
             }
         }
 
-        while (queue.includes(randomGuest)) {
+        while (queue.some(g => g.id === randomGuest.id)) { 
             randomGuest = allGuests[randomNum(allGuests.length)];
         }
+
         randomGuest.order = randomDrinks;
         queue.push(randomGuest);
-
-
-        orders!.innerHTML = "";
-        queue.forEach(customer => {
-            orders!.innerHTML +=
-                `<div class="order">
-            <img class="customerImg" src="${customer.img}"/>
-            <p class="customerName">${customer.name}</p>
-            </div>`;
-        });
     }
+
+    updateOrdersUI();
     receiveOrder();
-    // loadGlass(); nem tudom mit csinal !!!! 
 }
+
+function updateOrdersUI() {
+    let orders = document.getElementById("orders");
+    orders!.innerHTML = "";
+    queue.forEach(customer => {
+        orders!.innerHTML += `
+            <div class="order">
+                <img class="customerImg" src="${customer.img}"/>
+                <p class="customerName">${customer.name}</p>
+            </div>`;
+    });
+}
+
 
 
 function randomIncomingOrder() {
@@ -185,13 +187,7 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             `;
 
             // console.log(drink.name);
-
-
-
-
         }
-
-
         orderListHTML += `
             </ul>
             <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;"> 
@@ -213,7 +209,21 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
 
             const acceptBtn = document.getElementById("accept");
             acceptBtn!.onclick = () => {
-                acceptOrder();
+                console.log(queue);
+                
+                if (users.some(user => user.username == queue[0].name)) {
+                    for (let i = 0; i < users.length; i++) {
+                        if(users[i].isServed == false && users[i].username == queue[0].name){
+                            acceptOrder(users[i]);
+                        }
+                        
+                    }
+                }
+
+                else{
+                    acceptOrder(null);
+                }
+                
             };
 
             document.getElementById("currentOrder")!.onmouseover = () => {
@@ -241,6 +251,10 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                     receiveOrder()
 
                 })
+
+                drinkClick!.onmouseover = () => {
+                    drinkClick!.style.cursor = "pointer";
+                };
 
             }
         }
@@ -277,9 +291,17 @@ function getCustomerData() {
     });
 }
 
-function acceptOrder() {
+function acceptOrder(u : User | null) {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
-    let priceInput = document.getElementById("priceInput") as HTMLInputElement;
+    let priceInput = document.getElementById("priceInput") as HTMLInputElement;    
+    if(u != null){
+        u.isServed = true;
+    }
+    console.log(u);
+    
+
+
+    declineOrder();
 
     // if (priceInput!.value == orderSum.toString()) {
 
