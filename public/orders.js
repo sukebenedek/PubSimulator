@@ -1,4 +1,4 @@
-import { drawImage, drawRect, fetchData, randomN, randomNum } from "./functions.js";
+import { drawImage, drawRect, fetchData, patchData, randomN, randomNum } from "./functions.js";
 console.log();
 export let glass;
 export function loadGlass(index = 0) {
@@ -19,6 +19,9 @@ export function loadGlass(index = 0) {
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 const users = await fetchData("http://localhost:3000/users");
+let balanceSpan = document.getElementById("balance");
+let balance = users.find(user => user.id == "0").money;
+balanceSpan.innerHTML = balance.toString();
 // console.log(users);
 let queue = [];
 let ingredients = await fetchData("http://localhost:3000/ingredients");
@@ -227,19 +230,24 @@ function getCustomerData() {
         receiveOrder();
     });
 }
-function acceptOrder(u) {
+async function acceptOrder(u) {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
     let priceInput = document.getElementById("priceInput");
-    if (u != null) {
+    if (u !== null) {
         u.isServed = true;
+        // Update the user in the database
+        try {
+            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true });
+            console.log(`User ${u.username} has been served.`);
+        }
+        catch (error) {
+            console.error("Error updating user status:", error);
+        }
+        localStorage.setItem("user", JSON.stringify(u));
     }
     console.log(u);
+    console.log(u === null || u === void 0 ? void 0 : u.isServed);
     declineOrder();
-    // if (priceInput!.value == orderSum.toString()) {
-    // }
-    // else {
-    //     // console.log("nem jo");
-    // }
 }
 function declineOrder() {
     queue.shift();
@@ -314,6 +322,10 @@ ingredients.forEach(i => {
     <p class="m-0">${i.name}</p>
     </div>
     </div>`;
+    if (i.name == "Sör") {
+        let a = document.querySelector(`.${i.name}`);
+        a.classList.add("selected");
+    }
 });
 ingredients.forEach(i => {
     let a = document.querySelector(`.${i.name}`);

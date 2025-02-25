@@ -1,12 +1,17 @@
 input.value refresh
-sör kiválasztva
-A jsonbe at kell allitani rendeleskor hogz nem kisyolgalt uj cucc a jsonbe
-isserved de nem lehet atallitani mert guestte lett a user 
+A jsonbe at kell allitani uj rendeleskor isserved false jsonbe ZALAN
+egyenleg
 
 
 opcionális:
 ne egybol jojjon order => valami undefined lesz a pohárral
 elmenti a queue-t 
+
+kész
+isserved de nem lehet atallitani mert guestte lett a user xx
+sör kiválasztva xx
+jsonbe atirja hogy served a user xx
+
 
 
 

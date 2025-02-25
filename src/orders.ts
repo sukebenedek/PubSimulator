@@ -26,7 +26,10 @@ export function loadGlass(index: number = 0) {
 const allGuests: Guest[] = await fetchData<Guest[]>("http://localhost:3000/guests");
 const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drinks");
 const users: User[] = await fetchData<User[]>("http://localhost:3000/users");
+let balanceSpan = document.getElementById("balance");
+let balance = users.find(user => user.id == "0")!.money;
 
+balanceSpan!.innerHTML = balance.toString();
 // console.log(users);
 
 let queue: Guest[] = [];
@@ -61,13 +64,13 @@ export async function incomingOrder() {
     let userAdded = false;
 
     users.forEach((u: User) => {
-        if (!(queue.some(a => a.id === u.id)) && u.order.length > 0  && u.isServed === false) {
+        if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false) {
             queue.push(convertUserToGuest(u));
-            userAdded = true; 
+            userAdded = true;
         }
     });
 
-    if (!userAdded && queue.length < 10) { 
+    if (!userAdded && queue.length < 10) {
         let randomGuest = allGuests[randomNum(allGuests.length)];
         let randomDrinks: Drink[] = [];
 
@@ -80,7 +83,7 @@ export async function incomingOrder() {
             }
         }
 
-        while (queue.some(g => g.id === randomGuest.id)) { 
+        while (queue.some(g => g.id === randomGuest.id)) {
             randomGuest = allGuests[randomNum(allGuests.length)];
         }
 
@@ -140,7 +143,7 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             const drink = queue[0].order[i];
             let state: string;
             // console.log(drink);
-            
+
             if (drink.ingredientsInCup.length == 0) {
                 state = "empty"
             } else if (drink.ingredientsInCup == glass.ingredientsInCup && drink.name == glass.name) {
@@ -210,20 +213,20 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             const acceptBtn = document.getElementById("accept");
             acceptBtn!.onclick = () => {
                 console.log(queue);
-                
+
                 if (users.some(user => user.username == queue[0].name)) {
                     for (let i = 0; i < users.length; i++) {
-                        if(users[i].isServed == false && users[i].username == queue[0].name){
+                        if (users[i].isServed == false && users[i].username == queue[0].name) {
                             acceptOrder(users[i]);
                         }
-                        
+
                     }
                 }
 
-                else{
+                else {
                     acceptOrder(null);
                 }
-                
+
             };
 
             document.getElementById("currentOrder")!.onmouseover = () => {
@@ -291,25 +294,30 @@ function getCustomerData() {
     });
 }
 
-function acceptOrder(u : User | null) {
+async function acceptOrder(u: User | null) {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
-    let priceInput = document.getElementById("priceInput") as HTMLInputElement;    
-    if(u != null){
-        u.isServed = true;
-    }
-    console.log(u);
-    
+    let priceInput = document.getElementById("priceInput") as HTMLInputElement;
 
+    if (u !== null) {
+        u.isServed = true;
+
+        // Update the user in the database
+        try {
+            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true });
+            console.log(`User ${u.username} has been served.`);
+        } catch (error) {
+            console.error("Error updating user status:", error);
+        }
+
+        localStorage.setItem("user", JSON.stringify(u));
+    }
+
+    console.log(u);
+    console.log(u?.isServed);
 
     declineOrder();
-
-    // if (priceInput!.value == orderSum.toString()) {
-
-    // }
-    // else {
-    //     // console.log("nem jo");
-    // }
 }
+
 
 function declineOrder() {
     queue.shift();
@@ -329,7 +337,7 @@ function declineOrder() {
 
 function convertUserToGuest(u: User): Guest {
     // console.log(u.order);
-    
+
     return {
         "name": u.username,
         "money": u.money,
@@ -337,7 +345,7 @@ function convertUserToGuest(u: User): Guest {
         "age": randomN(18, 99),
         "stinkness": randomN(0, 100),
         "img": u.img,
-        
+
         "order": u.order,
         "id": u.id,
     }
@@ -408,6 +416,11 @@ ingredients.forEach(i => {
     <p class="m-0">${i.name}</p>
     </div>
     </div>`
+
+    if(i.name == "Sör"){
+    let a = document.querySelector(`.${i.name}`) as HTMLDivElement
+        a.classList.add("selected");
+    }
 });
 ingredients.forEach(i => {
     let a = document.querySelector(`.${i.name}`) as HTMLDivElement

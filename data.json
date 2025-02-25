@@ -996,7 +996,7 @@
       "id": "0",
       "username": "admin",
       "password": "admin",
-      "money": 100000000000,
+      "money": 0,
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/99.jpg",
       "role": true,
@@ -1011,7 +1011,7 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
       "role": false,
-      "isServed": false,
+      "isServed": true,
       "order": [
         {
           "name": "Jagermeister",
@@ -1023,7 +1023,6 @@
             }
           ],
           "ingredientsInCup": [],
-
           "img": "./img/menu/Jagermeistermenu.png",
           "category": "rovidek"
         },
@@ -1037,7 +1036,6 @@
             }
           ],
           "ingredientsInCup": [],
-
           "img": "./img/menu/Jagermeistermenu.png",
           "category": "rovidek"
         },
