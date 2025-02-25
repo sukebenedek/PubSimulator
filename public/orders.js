@@ -176,7 +176,7 @@ export function receiveOrder() {
                     }
                 }
                 else {
-                    acceptOrder(null);
+                    acceptOrder(queue[0]);
                 }
             };
             document.getElementById("currentOrder").onmouseover = () => {
@@ -233,21 +233,25 @@ function getCustomerData() {
 async function acceptOrder(u) {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
     let priceInput = document.getElementById("priceInput");
-    if (u !== null) {
+    if (priceInput.value == "") {
+        alert("Kérem adja meg a fizetendő összeget!");
+        return;
+    }
+    if (isUser(u)) {
         u.isServed = true;
-        // Update the user in the database
+        u.money -= orderSum;
         try {
-            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true });
-            console.log(`User ${u.username} has been served.`);
+            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true, money: u.money });
         }
         catch (error) {
-            console.error("Error updating user status:", error);
+            console.log(error);
         }
         localStorage.setItem("user", JSON.stringify(u));
     }
-    console.log(u);
-    console.log(u === null || u === void 0 ? void 0 : u.isServed);
     declineOrder();
+}
+function isUser(u) {
+    return typeof u == "object" && "isServed" in u;
 }
 function declineOrder() {
     queue.shift();

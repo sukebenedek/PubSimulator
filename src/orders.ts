@@ -224,7 +224,7 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                 }
 
                 else {
-                    acceptOrder(null);
+                    acceptOrder(queue[0]);
                 }
 
             };
@@ -294,29 +294,33 @@ function getCustomerData() {
     });
 }
 
-async function acceptOrder(u: User | null) {
+async function acceptOrder(u: User | Guest) {
     let orderSum = queue[0].order.reduce((sum, drink) => sum + drink.price, 0);
     let priceInput = document.getElementById("priceInput") as HTMLInputElement;
 
-    if (u !== null) {
-        u.isServed = true;
-
-        // Update the user in the database
-        try {
-            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true });
-            console.log(`User ${u.username} has been served.`);
-        } catch (error) {
-            console.error("Error updating user status:", error);
-        }
-
-        localStorage.setItem("user", JSON.stringify(u));
+    if(priceInput.value == "") {
+        alert("Kérem adja meg a fizetendő összeget!");
+        return;
     }
 
-    console.log(u);
-    console.log(u?.isServed);
+    if (isUser(u)) {  
+        u.isServed = true;
+        u.money -= orderSum;
+        try {
+            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true, money: u.money });
+        } catch (error) {
+            console.log(error);
+        }
+         localStorage.setItem("user", JSON.stringify(u));
+    }
 
     declineOrder();
 }
+
+function isUser(u: any): u is User {
+    return typeof u == "object" && "isServed" in u;
+}
+
 
 
 function declineOrder() {
@@ -337,7 +341,6 @@ function declineOrder() {
 
 function convertUserToGuest(u: User): Guest {
     // console.log(u.order);
-
     return {
         "name": u.username,
         "money": u.money,

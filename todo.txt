@@ -1,6 +1,7 @@
 input.value refresh
 A jsonbe at kell allitani uj rendeleskor isserved false jsonbe ZALAN
 egyenleg
+acceptorder ellenorzesek - orderek hogyan vannak megcsinalva priceinput jo - penzt levon a vegosszegbol ha nem jo 
 
 
 opcionális:
