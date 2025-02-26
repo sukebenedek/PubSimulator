@@ -8,7 +8,18 @@ export function getUser() {
     }
     else {
         user = JSON.parse(getuser);
-        return user;
+        if (user.role) {
+            if (window.location.pathname.endsWith("index.html")) {
+                return user;
+            }
+            window.location.replace("./index.html");
+        }
+        if (!user.role) {
+            if (window.location.pathname.endsWith("guest.html")) {
+                return user;
+            }
+            window.location.replace("./guest.html");
+        }
     }
 }
 
