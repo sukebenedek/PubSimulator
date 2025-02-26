@@ -1052,6 +1052,20 @@
           "img": "./img/menu/Jagermeistermenu.png",
           "category": "rovidek",
           "id": "865f"
+        },
+        {
+          "name": "Jagermeister",
+          "price": 2500,
+          "ingredientsRequired": [
+            {
+              "name": "Jagermeister",
+              "amount": 50
+            }
+          ],
+          "ingredientsInCup": [],
+          "img": "./img/menu/Jagermeistermenu.png",
+          "category": "rovidek",
+          "id": "865f"
         }
       ]
     },

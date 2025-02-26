@@ -1,13 +1,16 @@
 var _a, _b;
 import { fetchData, patchData } from './functions.js';
-let getuser = localStorage.getItem('user');
-let user;
-if (getuser == null) {
-    window.location.replace("./login.html");
-}
-else {
-    user = JSON.parse(getuser);
-}
+import { getUser, showUser } from './user.js';
+let user = getUser();
+showUser(document.body, user);
+// let getuser = localStorage.getItem('user');
+// let user: User;
+// if (getuser == null) {
+//     window.location.replace("./login.html");
+// }
+// else {
+//     user = JSON.parse(getuser);
+// }
 let welcome;
 let getWelcome = localStorage.getItem("welcome");
 if (getWelcome == null) {

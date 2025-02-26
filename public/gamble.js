@@ -35,6 +35,7 @@ const cardImages = [
     "queen_of_clubs.png", "queen_of_diamonds.png", "queen_of_hearts.png", "queen_of_spades.png"
 ];
 let cards = cardImages;
+let currentCard = 52;
 function createDeck() {
     var _a;
     let dck = document.getElementById("table");
@@ -52,9 +53,11 @@ function createDeck() {
     (_a = document.getElementById("deck")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", playerDraw);
 }
 async function draw(dir) {
+    const speed = 10;
     return new Promise((resolve) => {
         document.getElementById("deck").classList.add("d-none");
-        const card = document.getElementById("card52");
+        const card = document.getElementById(`card${currentCard}`);
+        currentCard--;
         const X = parseFloat(getComputedStyle(card).top);
         const Y = parseFloat(getComputedStyle(card).right);
         let x = X;
@@ -63,14 +66,15 @@ async function draw(dir) {
         function frame() {
             if ((dir == 1 && x >= 400) || (dir == -1 && x <= 75)) {
                 clearInterval(id);
-                card.style.top = X + "px";
-                card.style.right = Y + "px";
+                // card.style.top = X + "px";
+                // card.style.right = Y + "px";
+                card.remove();
                 document.getElementById("deck").classList.remove("d-none");
                 resolve(true);
             }
             else {
-                x += 5 * dir;
-                y += 15;
+                x += 1 * speed * dir;
+                y += 3 * speed;
                 card.style.top = x + "px";
                 card.style.right = y + "px";
             }
@@ -78,6 +82,8 @@ async function draw(dir) {
     });
 }
 async function start() {
+    currentCard = 52;
+    document.getElementById("deck").classList.remove("d-none");
     button.removeEventListener("click", start);
     button.classList.remove("btn-success");
     button.classList.add("btn-secondary");
@@ -115,6 +121,7 @@ function giveCard(dir) {
         dealerCards.push(card);
         dealerValue += value(card, dealerValue);
         document.getElementById("dealer").title = String(dealerValue);
+        bust(2);
     }
 }
 function value(card, sum) {
@@ -135,7 +142,12 @@ async function playerDraw() {
     await draw(1);
     giveCard(1);
 }
-function dealersTurn() {
+async function dealerDraw() {
+    await draw(-1);
+    giveCard(-1);
+}
+async function dealersTurn() {
+    document.getElementById("deck").classList.add("d-none");
     document.getElementById("dealer").innerHTML = "";
     dealerCards.forEach(card => {
         let cardImg = document.createElement("img");
@@ -144,16 +156,48 @@ function dealersTurn() {
         Dealer.appendChild(cardImg);
         document.getElementById("dealer").title = String(dealerValue);
     });
+    while (dealerValue <= 16) {
+        await dealerDraw();
+        bust(2);
+    }
 }
 function bust(dir) {
     if (dir == 1) {
         if (playerValue > 21) {
-            //BUST
+            dealersTurn();
         }
     }
     else if (dir == -1) {
         if (dealerValue > 21) {
-            //BUST
+            result();
         }
     }
+}
+function result() {
+    if (playerValue > 21) {
+        lose();
+    }
+    else if (dealerValue > 21) {
+        win();
+    }
+    else if (playerValue == dealerValue) {
+        tie();
+    }
+    else if (playerValue == 21) {
+        blackjack();
+    }
+    else if (playerValue > dealerValue) {
+        win();
+    }
+    else if (playerValue < dealerValue) {
+        lose();
+    }
+}
+function lose() {
+}
+function win() {
+}
+function tie() {
+}
+function blackjack() {
 }
