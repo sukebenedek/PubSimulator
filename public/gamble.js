@@ -158,8 +158,9 @@ async function dealersTurn() {
     });
     while (dealerValue <= 16) {
         await dealerDraw();
-        bust(2);
+        bust(-1);
     }
+    result();
 }
 function bust(dir) {
     if (dir == 1) {
@@ -194,10 +195,39 @@ function result() {
     }
 }
 function lose() {
+    document.getElementById("lose").classList.remove("d-none");
 }
 function win() {
+    document.getElementById("win").classList.remove("d-none");
 }
 function tie() {
+    document.getElementById("tie").classList.remove("d-none");
 }
 function blackjack() {
+    document.getElementById("blackjack").classList.remove("d-none");
+}
+Array.from(document.getElementsByClassName("resultOkBtn")).forEach(element => {
+    element.addEventListener("click", end);
+});
+function end() {
+    var _a;
+    Array.from(document.getElementsByClassName("result")).forEach(element => {
+        if (!element.classList.contains("d-none")) {
+            element.classList.add("d-none");
+        }
+    });
+    for (let i = 1; i <= 52; i++) {
+        (_a = document.getElementById(`card${i}`)) === null || _a === void 0 ? void 0 : _a.remove;
+    }
+    createDeck();
+    button.removeEventListener("click", dealersTurn);
+    button.addEventListener("click", start);
+    button.innerHTML = "Játék";
+    document.getElementById("dealer").innerHTML = "";
+    document.getElementById("player").innerHTML = "";
+    playerCards = [];
+    playerValue = 0;
+    dealerCards = [];
+    dealerValue = 0;
+    document.getElementById("deck").classList.add("d-none");
 }
