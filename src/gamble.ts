@@ -1,4 +1,5 @@
 import { isNumber } from "./functions.js";
+import { getMoney, setMoney } from "./user.js";
 
 document.getElementById("gamble")?.addEventListener("click", showGamblePopup);
 document.getElementById("closeGamble")?.addEventListener("click", closeGamblePopup);
@@ -43,6 +44,8 @@ const cardImages = [
 let cards = cardImages;
 
 let currentCard = 52;
+
+//#region KEZDÉS
 
 function createDeck() {
     let dck = document.getElementById("table")!;
@@ -92,27 +95,34 @@ async function draw(dir: number): Promise<boolean> {
 }
 
 async function start() {
-  currentCard = 52;
-  document.getElementById("deck")!.classList.remove("d-none");
-  button.removeEventListener("click", start);
-  button.classList.remove("btn-success");
-  button.classList.add("btn-secondary");
+  if (issetTet()) {
+    setTet();
 
-  await draw(1);
-  giveCard(1);
-  await draw(-1);
-  giveCard(-1);
-  await draw(1);
-  giveCard(1);
-  await draw(-1);
-  giveCard(-2);
-  document.getElementById("dealer")!.title = value(dealerCards[0], dealerValue) + " + ?";
+    currentCard = 52;
+    document.getElementById("deck")!.classList.remove("d-none");
+    button.removeEventListener("click", start);
+    button.classList.remove("btn-success");
+    button.classList.add("btn-secondary");
 
-  button.innerHTML = "Elég"
-  button.classList.remove("btn-secondary");
-  button.classList.add("btn-success");
-  button.addEventListener("click", dealersTurn)
+    await draw(1);
+    giveCard(1);
+    await draw(-1);
+    giveCard(-1);
+    await draw(1);
+    giveCard(1);
+    await draw(-1);
+    giveCard(-2);
+    document.getElementById("dealer")!.title = value(dealerCards[0], dealerValue) + " + ?";
+
+    button.innerHTML = "Elég"
+    button.classList.remove("btn-secondary");
+    button.classList.add("btn-success");
+    button.addEventListener("click", dealersTurn)
+  }
 }
+//#endregion
+
+//#region JÁTÉK
 
 function giveCard(dir: number) {
   let card = cards[Math.floor(Math.random()*cards.length)];
@@ -194,8 +204,11 @@ function bust(dir:number) {
     }
   }
 }
+//#endregion
 
-function result() {
+//#region VÉGE
+
+function result() { //ez a fos valamiért tovább megy az ifeken és a win kétszer lesz meghívva
   if (playerValue > 21) {
     lose();
   }
@@ -221,18 +234,24 @@ function lose() {
 }
 function win() {
   document.getElementById("win")!.classList.remove("d-none");
+  console.log(tet * 2);
+  setMoney(tet * 2);
 }
 function tie() {
   document.getElementById("tie")!.classList.remove("d-none");
+  setMoney(tet);
 }
 function blackjack() {
   document.getElementById("blackjack")!.classList.remove("d-none");
+  setMoney(tet * 3 / 2);
 }
 Array.from(document.getElementsByClassName("resultOkBtn")).forEach(element => {
   element.addEventListener("click", end);
 });
 
 function end() {
+  clearTet();
+
   Array.from(document.getElementsByClassName("result")).forEach(element => {
     if (!element.classList.contains("d-none")) {
       element.classList.add("d-none");
@@ -258,3 +277,42 @@ function end() {
   document.getElementById("deck")!.classList.add("d-none");
 
 }
+//#endregion
+
+//#region TÉT
+
+const input = <HTMLInputElement>document.getElementById("tet")!;
+let tet:number;
+input.addEventListener("input", enoughMoney);
+
+function issetTet() {
+  if (!isNumber(input.value) || input.value == "") {
+    input.classList.add("bg-danger");
+    return false;
+  }
+  else {
+    return true;
+  }    
+}
+
+function enoughMoney() {
+  if (!isNumber(input.value) || Number(input.value) > getMoney()) {
+    input.classList.add("bg-danger");
+  }
+  else {
+    input.classList.remove("bg-danger");
+  }
+}
+
+function setTet() {
+  input.disabled = true;
+  tet = Number(input.value);
+  setMoney(-tet);
+}
+
+function clearTet() {
+  input.disabled = false;
+  input.value = "";
+  tet = 0;
+}
+//#endregion

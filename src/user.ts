@@ -10,12 +10,14 @@ export function getUser() {
         user = JSON.parse(getuser);
         if (user.role) {
             if (window.location.pathname.endsWith("index.html")) {
+                Money(user);
                 return user;
             }
             window.location.replace("./index.html");
         }
         if (!user.role) {
             if (window.location.pathname.endsWith("guest.html")) {
+                Money(user);
                 return user;
             }
             window.location.replace("./guest.html");
@@ -29,7 +31,7 @@ export function showUser(body:any, user: User) {
     userDiv.className = "position-absolute top-0 end-0 p-1 row bg-light dropdown";
     
     let money = document.createElement("div");
-    money.innerHTML = `<h3>${user.money} Ft</h3>`;
+    money.innerHTML = `<h3 id="usermoney">${getMoney()} Ft</h3>`;
     money.className = "col-6 d-flex align-items-center justify-content-center";
     userDiv.appendChild(money);
 
@@ -50,4 +52,29 @@ export function showUser(body:any, user: User) {
     userDiv.appendChild(pfp);
 
     body.appendChild(userDiv);
+}
+
+function Money(user:User) {
+    if (localStorage.getItem("money") == null) {
+        localStorage.setItem("money", JSON.stringify(user.money));
+    }
+}
+
+function refreshMoney() {
+    document.getElementById("usermoney")!.innerHTML = String(getMoney()) + " Ft";
+}
+
+export function getMoney():number {
+    return JSON.parse(localStorage.getItem("money")!);
+}
+export function setMoney(value:number):boolean { 
+    let money = getMoney() + value;
+    if (money >= 0) {
+        localStorage.setItem("money", JSON.stringify(money));
+        refreshMoney();
+        return true;    //ELLENŐRZI HOGY VAN-E ELÉG PÉNZ ÉS VISSZAADJA HOGY VAN VAGY NEM! ezt én írtam nem a chatgpt wtf/min = 0 
+    }
+    else {
+        return false;   //ELLENŐRZI HOGY VAN-E ELÉG PÉNZ ÉS VISSZAADJA HOGY VAN VAGY NEM! ezt én írtam nem a chatgpt wtf/min = 0 
+    }
 }

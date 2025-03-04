@@ -1,5 +1,6 @@
 var _a, _b;
 import { isNumber } from "./functions.js";
+import { getMoney, setMoney } from "./user.js";
 (_a = document.getElementById("gamble")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", showGamblePopup);
 (_b = document.getElementById("closeGamble")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", closeGamblePopup);
 const button = document.getElementById("startGamble");
@@ -36,6 +37,7 @@ const cardImages = [
 ];
 let cards = cardImages;
 let currentCard = 52;
+//#region KEZDÉS
 function createDeck() {
     var _a;
     let dck = document.getElementById("table");
@@ -82,25 +84,30 @@ async function draw(dir) {
     });
 }
 async function start() {
-    currentCard = 52;
-    document.getElementById("deck").classList.remove("d-none");
-    button.removeEventListener("click", start);
-    button.classList.remove("btn-success");
-    button.classList.add("btn-secondary");
-    await draw(1);
-    giveCard(1);
-    await draw(-1);
-    giveCard(-1);
-    await draw(1);
-    giveCard(1);
-    await draw(-1);
-    giveCard(-2);
-    document.getElementById("dealer").title = value(dealerCards[0], dealerValue) + " + ?";
-    button.innerHTML = "Elég";
-    button.classList.remove("btn-secondary");
-    button.classList.add("btn-success");
-    button.addEventListener("click", dealersTurn);
+    if (issetTet()) {
+        setTet();
+        currentCard = 52;
+        document.getElementById("deck").classList.remove("d-none");
+        button.removeEventListener("click", start);
+        button.classList.remove("btn-success");
+        button.classList.add("btn-secondary");
+        await draw(1);
+        giveCard(1);
+        await draw(-1);
+        giveCard(-1);
+        await draw(1);
+        giveCard(1);
+        await draw(-1);
+        giveCard(-2);
+        document.getElementById("dealer").title = value(dealerCards[0], dealerValue) + " + ?";
+        button.innerHTML = "Elég";
+        button.classList.remove("btn-secondary");
+        button.classList.add("btn-success");
+        button.addEventListener("click", dealersTurn);
+    }
 }
+//#endregion
+//#region JÁTÉK
 function giveCard(dir) {
     let card = cards[Math.floor(Math.random() * cards.length)];
     while (playerCards.includes(card) || dealerCards.includes(card)) {
@@ -174,6 +181,8 @@ function bust(dir) {
         }
     }
 }
+//#endregion
+//#region VÉGE
 function result() {
     if (playerValue > 21) {
         lose();
@@ -199,18 +208,23 @@ function lose() {
 }
 function win() {
     document.getElementById("win").classList.remove("d-none");
+    console.log(tet * 2);
+    setMoney(tet * 2);
 }
 function tie() {
     document.getElementById("tie").classList.remove("d-none");
+    setMoney(tet);
 }
 function blackjack() {
     document.getElementById("blackjack").classList.remove("d-none");
+    setMoney(tet * 3 / 2);
 }
 Array.from(document.getElementsByClassName("resultOkBtn")).forEach(element => {
     element.addEventListener("click", end);
 });
 function end() {
     var _a;
+    clearTet();
     Array.from(document.getElementsByClassName("result")).forEach(element => {
         if (!element.classList.contains("d-none")) {
             element.classList.add("d-none");
@@ -231,3 +245,36 @@ function end() {
     dealerValue = 0;
     document.getElementById("deck").classList.add("d-none");
 }
+//#endregion
+//#region TÉT
+const input = document.getElementById("tet");
+let tet;
+input.addEventListener("input", enoughMoney);
+function issetTet() {
+    if (!isNumber(input.value) || input.value == "") {
+        input.classList.add("bg-danger");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+function enoughMoney() {
+    if (!isNumber(input.value) || Number(input.value) > getMoney()) {
+        input.classList.add("bg-danger");
+    }
+    else {
+        input.classList.remove("bg-danger");
+    }
+}
+function setTet() {
+    input.disabled = true;
+    tet = Number(input.value);
+    setMoney(-tet);
+}
+function clearTet() {
+    input.disabled = false;
+    input.value = "";
+    tet = 0;
+}
+//#endregion
