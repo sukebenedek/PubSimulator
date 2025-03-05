@@ -1,5 +1,7 @@
 import { User } from './interfaces.js';
 
+//#region USER
+
 export function getUser() {
     let getuser = localStorage.getItem('user');
     let user: User;
@@ -40,9 +42,8 @@ export function showUser(body:any, user: User) {
         <img src="${user.img}" class="mx-auto shadow">
         <ul class="dropdown-menu">
             <li class="text-center border-bottom border-2 border-black text-uppercase fs-5">${user.username}</li>
-            <li><a class="dropdown-item text-success text-center" href="#">Pénzfeltöltés</a></li>
-            <li><a class="dropdown-item text-center" href="#">Szerepváltás</a></li>
-            <li><a class="dropdown-item text-danger text-center" href="#">Kijelentkezés</a></li>
+            <li id="uploadMoney"><a class="dropdown-item text-success text-center" href="#">Pénzfeltöltés</a></li>
+            <li id="logout"><a class="dropdown-item text-danger text-center" href="#">Kijelentkezés</a></li>
         </ul>
 
     `;
@@ -52,7 +53,13 @@ export function showUser(body:any, user: User) {
     userDiv.appendChild(pfp);
 
     body.appendChild(userDiv);
+
+    document.getElementById("logout")!.addEventListener("click", logout);
 }
+
+//#endregion
+
+//#region PÉNZ
 
 function Money(user:User) {
     if (localStorage.getItem("money") == null) {
@@ -78,3 +85,13 @@ export function setMoney(value:number):boolean {
         return false;   //ELLENŐRZI HOGY VAN-E ELÉG PÉNZ ÉS VISSZAADJA HOGY VAN VAGY NEM! ezt én írtam nem a chatgpt wtf/min = 0 
     }
 }
+
+//#endregion
+
+//#region LOGOUT
+
+function logout() {
+    //TODO
+}
+
+//#endregion 
