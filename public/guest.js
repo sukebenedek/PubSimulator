@@ -1,6 +1,6 @@
 var _a, _b;
 import { fetchData, patchData } from './functions.js';
-import { getUser, showUser } from './user.js';
+import { getUser, setMoney, showUser } from './user.js';
 let user = getUser();
 showUser(document.body, user);
 let welcome;
@@ -130,9 +130,10 @@ async function finishOrder() {
     }
 }
 async function succes(order) {
-    if (await patchData(`http://localhost:3000/users/${user.id}`, { "order": order })) {
+    if (await patchData(`http://localhost:3000/users/${user.id}`, { "order": order, "isServed": false })) {
         localStorage.setItem("user", JSON.stringify(await fetchData(`http://localhost:3000/users/${user.id}`)));
         localStorage.setItem("welcome", JSON.stringify(false));
+        setMoney(-Number(document.getElementById("price").innerHTML));
     }
     else {
         alert("Hiba! Próbálja újra!");
