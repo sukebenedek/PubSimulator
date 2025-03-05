@@ -1,6 +1,9 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
 import { drawImage, drawRect, fetchData, patchData, postData, randomN, randomNum, sleep } from "./functions.js";
+import { getUser, showUser, getMoney, setMoney } from './user.js';
 
+let user: User = getUser()!;
+showUser(document.body, user);
 
 console.log();
 
@@ -212,7 +215,7 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
 
             const acceptBtn = document.getElementById("accept");
             acceptBtn!.onclick = () => {
-                console.log(queue);
+                //console.log(queue);
 
                 if (users.some(user => user.username == queue[0].name)) {
                     for (let i = 0; i < users.length; i++) {
@@ -305,14 +308,28 @@ async function acceptOrder(u: User | Guest) {
 
     if (isUser(u)) {  
         u.isServed = true;
-        u.money -= orderSum;
         try {
-            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true, money: u.money });
+            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true,});
         } catch (error) {
             console.log(error);
         }
          localStorage.setItem("user", JSON.stringify(u));
     }
+
+    u.order.forEach(drink => {
+        for (let i = 0; i < drink.ingredientsInCup.length; i++) {
+            console.log(drink.ingredientsInCup[i]);
+            console.log(drink.ingredientsRequired[i]);
+            
+            if(drink.ingredientsInCup[i] == drink.ingredientsRequired[i]){
+                console.log("asd");
+                
+            }
+        }
+        console.log(drink.ingredientsRequired);
+        
+        
+    });
 
     declineOrder();
 }
@@ -320,8 +337,6 @@ async function acceptOrder(u: User | Guest) {
 function isUser(u: any): u is User {
     return typeof u == "object" && "isServed" in u;
 }
-
-
 
 function declineOrder() {
     queue.shift();

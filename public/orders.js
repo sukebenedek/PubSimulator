@@ -1,4 +1,7 @@
 import { drawImage, drawRect, fetchData, patchData, randomN, randomNum } from "./functions.js";
+import { getUser, showUser } from './user.js';
+let user = getUser();
+showUser(document.body, user);
 console.log();
 export let glass;
 export function loadGlass(index = 0) {
@@ -167,7 +170,7 @@ export function receiveOrder() {
             };
             const acceptBtn = document.getElementById("accept");
             acceptBtn.onclick = () => {
-                console.log(queue);
+                //console.log(queue);
                 if (users.some(user => user.username == queue[0].name)) {
                     for (let i = 0; i < users.length; i++) {
                         if (users[i].isServed == false && users[i].username == queue[0].name) {
@@ -239,15 +242,24 @@ async function acceptOrder(u) {
     }
     if (isUser(u)) {
         u.isServed = true;
-        u.money -= orderSum;
         try {
-            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true, money: u.money });
+            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true, });
         }
         catch (error) {
             console.log(error);
         }
         localStorage.setItem("user", JSON.stringify(u));
     }
+    u.order.forEach(drink => {
+        for (let i = 0; i < drink.ingredientsInCup.length; i++) {
+            console.log(drink.ingredientsInCup[i]);
+            console.log(drink.ingredientsRequired[i]);
+            if (drink.ingredientsInCup[i] == drink.ingredientsRequired[i]) {
+                console.log("asd");
+            }
+        }
+        console.log(drink.ingredientsRequired);
+    });
     declineOrder();
 }
 function isUser(u) {
