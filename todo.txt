@@ -4,6 +4,8 @@ egyenleg
 acceptorder ellenorzesek - orderek hogyan vannak megcsinalva priceinput jo - penzt levon a vegosszegbol ha nem jo 
 kijelentkezés menti a pénzt localstorageból
 a drinknek az ingredientsincupban 0 az amountja az osszetevoknek
+TZ - kijelentkezés menti a pénzt localstorageból
+TZ - rendelésnél pénzlevonás
 
 
 opcionális:

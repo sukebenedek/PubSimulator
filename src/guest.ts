@@ -1,6 +1,6 @@
 import { Drink, User } from './interfaces.js';
 import { fetchData, postData, patchData } from './functions.js';
-import { getUser, showUser } from './user.js';
+import { getUser, setMoney, showUser } from './user.js';
 
 let user: User = getUser()!;
 showUser(document.body, user);
@@ -149,9 +149,10 @@ async function finishOrder() {
 }
 
 async function succes(order: Drink[]) {    
-    if ( await patchData(`http://localhost:3000/users/${user.id}`, { "order": order })) {
+    if ( await patchData(`http://localhost:3000/users/${user.id}`, { "order": order, "isServed": false })) {
         localStorage.setItem("user", JSON.stringify(await fetchData(`http://localhost:3000/users/${user.id}`)));
         localStorage.setItem("welcome", JSON.stringify(false));
+        setMoney(-Number(document.getElementById("price")!.innerHTML));
     }
     else {
         alert("Hiba! Próbálja újra!");

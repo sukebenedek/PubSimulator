@@ -188,8 +188,9 @@ async function dealersTurn() {
     await dealerDraw();
     bust(-1);
   }
-
-  result();
+  if (dealerValue < 22) {
+    result();
+  }
 }
 
 function bust(dir:number) {
