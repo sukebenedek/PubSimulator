@@ -31,6 +31,15 @@ const allDrinks: Drink[] = await fetchData<Drink[]>("http://localhost:3000/drink
 const users: User[] = await fetchData<User[]>("http://localhost:3000/users");
 let balanceSpan = document.getElementById("balance");
 let balance = users.find(user => user.id == "0")!.money;
+let servedUsers: User[] ;
+if (localStorage.getItem("served") ==  null || localStorage.getItem("served") == undefined || localStorage.getItem("served") == "") {
+    servedUsers = [];
+} else {
+    servedUsers = JSON.parse(localStorage.getItem("served")!);
+}   
+
+console.log(servedUsers);
+
 
 balanceSpan!.innerHTML = balance.toString();
 // console.log(users);
@@ -64,10 +73,11 @@ let liquidHeight = 0
 let div = document.getElementById("drinks") as HTMLDivElement
 
 export async function incomingOrder() {
+    console.log(users);
     let userAdded = false;
 
     users.forEach((u: User) => {
-        if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false) {
+        if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false && !servedUsers.map(u => u.id).includes(u.id)) {
             queue.push(convertUserToGuest(u));
             userAdded = true;
         }
@@ -306,14 +316,15 @@ async function acceptOrder(u: User | Guest) {
         return;
     }
 
-    if (isUser(u)) {  
+    if (isUser(u)) {
+        console.log(users);
+          
         u.isServed = true;
-        try {
-            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true,});
-        } catch (error) {
-            console.log(error);
-        }
-         localStorage.setItem("user", JSON.stringify(u));
+        u.order = [];
+        servedUsers.push(u);
+        localStorage.setItem("served", JSON.stringify(servedUsers));
+        console.log(users);
+        
     }
 
     u.order.forEach(drink => {
@@ -335,6 +346,14 @@ async function acceptOrder(u: User | Guest) {
     });
 
     declineOrder();
+}
+
+function calculatePrice(order: Drink[]) {
+    let price = 0;
+    order.forEach(drink => {
+        price += drink.price;
+    });
+    return price;
 }
 
 function isUser(u: any): u is User {

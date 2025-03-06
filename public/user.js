@@ -4,7 +4,7 @@ let _user;
 export function getUser() {
     let getuser = localStorage.getItem('user');
     let user;
-    if (getuser == null) {
+    if (getuser == null || getuser == undefined || getuser == "") {
         window.location.replace("./login.html");
     }
     else {
@@ -55,7 +55,7 @@ export function showUser(body, user) {
 //#endregion
 //#region PÉNZ
 function Money(user) {
-    if (localStorage.getItem("money") == null) {
+    if (localStorage.getItem("money") == null || localStorage.getItem("money") == undefined || localStorage.getItem("money") == "") {
         localStorage.setItem("money", JSON.stringify(user.money));
     }
 }
@@ -81,10 +81,28 @@ export function setMoney(value) {
 async function logout() {
     let money = getMoney();
     if (await patchData(`http://localhost:3000/users/${_user.id}`, { "money": money })) {
-        localStorage.clear();
+        saveServed();
+        localStorage.setItem("user", "");
+        localStorage.setItem("money", "");
     }
     else {
         alert("error try again!");
+    }
+}
+async function saveServed() {
+    if (!_user.role) {
+        return;
+    }
+    let servedUsers = JSON.parse(localStorage.getItem("served"));
+    try {
+        const updatePromises = servedUsers.map(user => patchData(`http://localhost:3000/users/${user.id}`, { isServed: true, order: [] }));
+        await Promise.all(updatePromises);
+        localStorage.setItem("served", "");
+        console.log('Users updated successfully');
+    }
+    catch (error) {
+        console.error('Error updating users:', error);
+        alert("error try again logout !");
     }
 }
 //#endregion 

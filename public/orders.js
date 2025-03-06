@@ -1,4 +1,4 @@
-import { drawImage, drawRect, fetchData, patchData, randomN, randomNum } from "./functions.js";
+import { drawImage, drawRect, fetchData, randomN, randomNum } from "./functions.js";
 import { getUser, showUser } from './user.js';
 let user = getUser();
 showUser(document.body, user);
@@ -24,6 +24,14 @@ const allDrinks = await fetchData("http://localhost:3000/drinks");
 const users = await fetchData("http://localhost:3000/users");
 let balanceSpan = document.getElementById("balance");
 let balance = users.find(user => user.id == "0").money;
+let servedUsers;
+if (localStorage.getItem("served") == null || localStorage.getItem("served") == undefined || localStorage.getItem("served") == "") {
+    servedUsers = [];
+}
+else {
+    servedUsers = JSON.parse(localStorage.getItem("served"));
+}
+console.log(servedUsers);
 balanceSpan.innerHTML = balance.toString();
 // console.log(users);
 let queue = [];
@@ -48,9 +56,10 @@ cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads
 let liquidHeight = 0;
 let div = document.getElementById("drinks");
 export async function incomingOrder() {
+    console.log(users);
     let userAdded = false;
     users.forEach((u) => {
-        if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false) {
+        if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false && !servedUsers.map(u => u.id).includes(u.id)) {
             queue.push(convertUserToGuest(u));
             userAdded = true;
         }
@@ -241,14 +250,12 @@ async function acceptOrder(u) {
         return;
     }
     if (isUser(u)) {
+        console.log(users);
         u.isServed = true;
-        try {
-            await patchData(`http://localhost:3000/users/${u.id}`, { isServed: true, });
-        }
-        catch (error) {
-            console.log(error);
-        }
-        localStorage.setItem("user", JSON.stringify(u));
+        u.order = [];
+        servedUsers.push(u);
+        localStorage.setItem("served", JSON.stringify(servedUsers));
+        console.log(users);
     }
     u.order.forEach(drink => {
         for (let i = 0; i < drink.ingredientsInCup.length; i++) {
@@ -264,6 +271,13 @@ async function acceptOrder(u) {
         console.log(drink.ingredientsRequired);
     });
     declineOrder();
+}
+function calculatePrice(order) {
+    let price = 0;
+    order.forEach(drink => {
+        price += drink.price;
+    });
+    return price;
 }
 function isUser(u) {
     return typeof u == "object" && "isServed" in u;
