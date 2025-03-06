@@ -70,9 +70,9 @@ export async function incomingOrder() {
         while (randomDrinks.length < 1) {
             for (let i = 0; i < randomNum(4); i++) {
                 let r = allDrinks[randomNum(allDrinks.length)];
-                if (!randomDrinks.some(d => d.name === r.name)) {
-                    randomDrinks.push(r);
-                }
+                // if (!randomDrinks.some(d => d.name === r.name)) {
+                randomDrinks.push(r);
+                // }
             }
         }
         while (queue.some(g => g.id === randomGuest.id)) {
@@ -132,7 +132,7 @@ export function receiveOrder() {
                 state = "done";
             }
             orderListHTML += `
-                <li class="drinkListItem" id="${drink.name}">
+                <li class="drinkListItem" id="${drink.name + i}">
                     <div class="drinkItem">
        
                         <div class="shadow">
@@ -147,6 +147,7 @@ export function receiveOrder() {
                 const ingredient = drink.ingredientsRequired[j];
                 //  console.log(drink.ingredientsInCup);
                 const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
+                console.log(ingredientInCup);
                 const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
                 orderListHTML += `
@@ -199,10 +200,10 @@ export function receiveOrder() {
             };
             for (let i = 0; i < queue[0].order.length; i++) {
                 const drink = queue[0].order[i];
-                let drinkClick = document.getElementById(drink.name);
+                let drinkClick = document.getElementById(drink.name + i);
                 drinkClick === null || drinkClick === void 0 ? void 0 : drinkClick.addEventListener("click", () => {
-                    // console.log(drink.ingredientsRequired);
-                    // console.log(glass.ingredientsInCup);
+                    console.log(drink.ingredientsRequired);
+                    console.log(glass.ingredientsInCup);
                     if (queue[0].order[i].ingredientsInCup.length == 0) {
                         loadGlass(i);
                         emptyGlass(glass);
@@ -262,8 +263,7 @@ async function acceptOrder(u) {
             const ingredient = drink.ingredientsRequired[i];
             const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
             const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
-            console.log(ingredientInCup);
-            console.log(drink.ingredientsRequired[i]);
+            console.log(drink.ingredientsInCup);
             if (ingredientAmout == drink.ingredientsRequired[i].amount && (ingredientInCup === null || ingredientInCup === void 0 ? void 0 : ingredientInCup.name) == drink.ingredientsRequired[i].name) {
                 console.log("asd");
             }
@@ -340,6 +340,7 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
     clearInterval(interval);
     drinkType.amount += currentDrink;
     if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
+        console.log(drinkType);
         glass.ingredientsInCup.push(drinkType);
     }
     drawGlass(glass);
@@ -384,7 +385,8 @@ export function emptyGlass(g) {
     currentDrink = 0;
     ingredients.forEach(i => i.amount = 0);
     ctx.fillStyle = drinkType.color;
-    drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx);
+    // drawRect(glassStart - liquidHeight * glassConstant, height - gassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
+    //ez mi???
     ctx.drawImage(cup, 0, 0, width, height);
 }
 export { queue };
