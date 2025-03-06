@@ -1,6 +1,9 @@
 import { User } from './interfaces.js';
+import { patchData } from "./functions.js";
 
 //#region USER
+
+let _user: User;
 
 export function getUser() {
     let getuser = localStorage.getItem('user');
@@ -13,6 +16,7 @@ export function getUser() {
         if (user.role) {
             if (window.location.pathname.endsWith("index.html")) {
                 Money(user);
+                _user = user;
                 return user;
             }
             window.location.replace("./index.html");
@@ -20,6 +24,7 @@ export function getUser() {
         if (!user.role) {
             if (window.location.pathname.endsWith("guest.html")) {
                 Money(user);
+                _user = user;
                 return user;
             }
             window.location.replace("./guest.html");
@@ -90,8 +95,14 @@ export function setMoney(value:number):boolean {
 
 //#region LOGOUT
 
-function logout() {
-    //TODO
+async function logout() {
+    let money = getMoney();
+    if (await patchData(`http://localhost:3000/users/${_user.id}`, {"money": money})) {
+        localStorage.clear();
+    }
+    else {
+        alert("error try again!")
+    }
 }
 
 //#endregion 
