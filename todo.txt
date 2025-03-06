@@ -1,12 +1,9 @@
 input.value refresh
-A jsonbe at kell allitani uj rendeleskor isserved false jsonbe ZALAN
 egyenleg
 acceptorder ellenorzesek - orderek hogyan vannak megcsinalva priceinput jo - penzt levon a vegosszegbol ha nem jo 
-kijelentkezés menti a pénzt localstorageból
 a drinknek az ingredientsincupban 0 az amountja az osszetevoknek
 TZ - kijelentkezés menti a pénzt localstorageból
-TZ - rendelésnél pénzlevonás
-
+több ugyanolyan rendelésnél a pohár
 
 opcionális:
 ne egybol jojjon order => valami undefined lesz a pohárral
@@ -16,6 +13,8 @@ kész
 isserved de nem lehet atallitani mert guestte lett a user xx
 sör kiválasztva xx
 jsonbe atirja hogy served a user xx
+A jsonbe at kell allitani uj rendeleskor isserved false jsonbe ZALAN
+TZ - rendelésnél pénzlevonás
 
 
 
