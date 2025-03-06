@@ -125,7 +125,7 @@
       "price": 2500,
       "ingredientsRequired": [
         {
-          "name": "Jagermeister",
+          "name": "Jager",
           "amount": 50
         }
       ],
@@ -1011,14 +1011,14 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
       "role": false,
-      "isServed": true,
+      "isServed": false,
       "order": [
         {
           "name": "Jagermeister",
           "price": 2500,
           "ingredientsRequired": [
             {
-              "name": "Jagermeister",
+              "name": "Jager",
               "amount": 50
             }
           ],
@@ -1031,7 +1031,7 @@
           "price": 2500,
           "ingredientsRequired": [
             {
-              "name": "Jagermeister",
+              "name": "Jager",
               "amount": 50
             }
           ],
@@ -1044,7 +1044,7 @@
           "price": 2500,
           "ingredientsRequired": [
             {
-              "name": "Jagermeister",
+              "name": "Jager",
               "amount": 50
             }
           ],
@@ -1058,7 +1058,7 @@
           "price": 2500,
           "ingredientsRequired": [
             {
-              "name": "Jagermeister",
+              "name": "Jager",
               "amount": 50
             }
           ],
@@ -1078,7 +1078,22 @@
       "img": "https://randomuser.me/api/portraits/women/97.jpg",
       "role": false,
       "isServed": false,
-      "order": []
+      "order": [
+        {
+          "name": "Sör",
+          "price": 600,
+          "ingredientsRequired": [
+            {
+              "name": "Sör",
+              "amount": 500
+            }
+          ],
+          "ingredientsInCup": [],
+          "img": "./img/menu/Sormenu.png",
+          "category": "sorok",
+          "id": "3a78"
+        }
+      ]
     }
   ]
 }

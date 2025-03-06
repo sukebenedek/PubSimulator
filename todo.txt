@@ -10,6 +10,7 @@ ne egybol jojjon order => valami undefined lesz a pohárral
 elmenti a queue-t 
 
 kész
+jager anomália
 isserved de nem lehet atallitani mert guestte lett a user xx
 sör kiválasztva xx
 jsonbe atirja hogy served a user xx
