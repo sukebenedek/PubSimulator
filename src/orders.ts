@@ -318,16 +318,19 @@ async function acceptOrder(u: User | Guest) {
 
     u.order.forEach(drink => {
         for (let i = 0; i < drink.ingredientsInCup.length; i++) {
-            console.log(drink.ingredientsInCup[i]);
+            const ingredient = drink.ingredientsRequired[i];
+            const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
+            const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
+            console.log(ingredientInCup);
             console.log(drink.ingredientsRequired[i]);
             
-            if(drink.ingredientsInCup[i] == drink.ingredientsRequired[i]){
+            if(ingredientAmout == drink.ingredientsRequired[i].amount && ingredientInCup?.name == drink.ingredientsRequired[i].name) {
                 console.log("asd");
                 
             }
         }
         console.log(drink.ingredientsRequired);
-        
+         
         
     });
 
