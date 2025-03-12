@@ -5,8 +5,6 @@ import { getUser, showUser, getMoney, setMoney } from './user.js';
 let user: User = getUser()!;
 showUser(document.body, user);
 
-console.log();
-
 export let glass: Drink;
 
 export function loadGlass(index: number = 0) {
@@ -38,7 +36,7 @@ if (localStorage.getItem("served") ==  null || localStorage.getItem("served") ==
     servedUsers = JSON.parse(localStorage.getItem("served")!);
 }   
 
-console.log(servedUsers);
+// console.log(servedUsers);
 
 
 balanceSpan!.innerHTML = balance.toString();
@@ -73,7 +71,7 @@ let liquidHeight = 0
 let div = document.getElementById("drinks") as HTMLDivElement
 
 export async function incomingOrder() {
-    console.log(users);
+    // console.log(users);
     let userAdded = false;
 
     users.forEach((u: User) => {
@@ -185,7 +183,7 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                 //  console.log(drink.ingredientsInCup);
 
                 const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
-                console.log(ingredientInCup);
+                // console.log(ingredientInCup);
                 
                 const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
                 
@@ -320,13 +318,13 @@ async function acceptOrder(u: User | Guest) {
     }
 
     if (isUser(u)) {
-        console.log(users);
+        // console.log(users);
           
         u.isServed = true;
         u.order = [];
         servedUsers.push(u);
         localStorage.setItem("served", JSON.stringify(servedUsers));
-        console.log(users);
+        // console.log(users);
         
     }
 
@@ -335,14 +333,14 @@ async function acceptOrder(u: User | Guest) {
             const ingredient = drink.ingredientsRequired[i];
             const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
             const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
-            console.log(drink.ingredientsInCup);
+            // console.log(drink.ingredientsInCup);
             
             if(ingredientAmout == drink.ingredientsRequired[i].amount && ingredientInCup?.name == drink.ingredientsRequired[i].name) {
-                console.log("asd");
+                // console.log("asd");
                 
             }
         }
-        console.log(drink.ingredientsRequired);
+        // console.log(drink.ingredientsRequired);
          
         
     });
@@ -440,10 +438,15 @@ c?.addEventListener("mouseup", (e) => {
     clearInterval(interval);
     drinkType.amount += currentDrink
     if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
-        console.log(drinkType);
-        
         glass.ingredientsInCup.push(drinkType);
     }
+    else {
+
+        glass.ingredientsInCup.find((a) => a.name == drinkType.name)!.amount = drinkType.amount;
+    }
+    //mitől működik félig???
+    console.log(glass);
+    
 
     drawGlass(glass);
     // console.log(glass);
