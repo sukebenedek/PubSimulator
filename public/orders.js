@@ -3,11 +3,13 @@ import { getUser, showUser } from './user.js';
 let user = getUser();
 showUser(document.body, user);
 export let glass;
-export function loadGlass(index = 0) {
-    saveGlassState();
+function loadGlass(index = 0) {
+    saveGlassState(index);
     glass = queue[0].order[index];
-    if (drinkFillLevels[glass.name]) {
-        glass.ingredientsInCup = [...drinkFillLevels[glass.name]];
+    const savedState = drinkFillLevels[`${glass.name}_${index}`];
+    console.log(`${glass.name}_${index}:`, savedState);
+    if (savedState) {
+        glass.ingredientsInCup = savedState.map(ingredient => (Object.assign({}, ingredient)));
     }
     else {
         glass.ingredientsInCup = [];
@@ -38,10 +40,7 @@ if (localStorage.getItem("served") == null || localStorage.getItem("served") == 
 else {
     servedUsers = JSON.parse(localStorage.getItem("served"));
 }
-// console.log(servedUsers);
-//console.log(servedUsers);
 balanceSpan.innerHTML = balance.toString();
-// console.log(users);
 let queue = [];
 let ingredients = await fetchData("http://localhost:3000/ingredients");
 let c = document.getElementById("canvas");
@@ -64,7 +63,6 @@ cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads
 let liquidHeight = 0;
 let div = document.getElementById("drinks");
 export async function incomingOrder() {
-    // console.log(users);
     let userAdded = false;
     users.forEach((u) => {
         if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false && !servedUsers.map(u => u.id).includes(u.id)) {
@@ -121,7 +119,6 @@ export function receiveOrder() {
         if (glass == undefined) {
             loadGlass();
         }
-        // console.log(glass);
         let orderListHTML = `
             <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
             <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
@@ -132,7 +129,6 @@ export function receiveOrder() {
             const drink = queue[0].order[i];
             let state;
             drink.index = i;
-            // console.log(drink);
             if (drink.ingredientsInCup.length == 0) {
                 state = "empty";
             }
@@ -154,19 +150,13 @@ export function receiveOrder() {
                     <ul class="ingredientsList">
 
             `;
-            console.log(queue[0].order);
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
                 const ingredientInCup = drink.ingredientsInCup.find((i) => {
                     return i.name == ingredient.name; //&& drink.index === glass.index
-                    console.log(ingredient.name);
-                    console.log(i.name);
                 });
                 const ingredientAmout = ingredientInCup == undefined ? 0 : ingredientInCup.amount * 10;
-                console.log(ingredientInCup);
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
-                console.log("glass: ");
-                console.log(glass.index);
                 orderListHTML += `
                     <li style="${red} list-style-type: none; margin-bottom: 5px;">
                         ${ingredient.name}: ${ingredientAmout}ml / ${ingredient.amount}ml
@@ -177,7 +167,6 @@ export function receiveOrder() {
                     </ul>
                 </li>
             `;
-            // console.log(drink.name);
         }
         let priceInput = document.getElementById("priceInput");
         if (!priceInput || priceInput.value == "") {
@@ -208,7 +197,6 @@ export function receiveOrder() {
             };
             const acceptBtn = document.getElementById("accept");
             acceptBtn.onclick = () => {
-                //console.log(queue);
                 if (users.some(user => user.username == queue[0].name)) {
                     for (let i = 0; i < users.length; i++) {
                         if (users[i].isServed == false && users[i].username == queue[0].name) {
@@ -246,7 +234,6 @@ function getCustomerData() {
     let sum = document.getElementById('sum');
     sum.innerHTML = "";
     const customer = queue[0];
-    // console.log(customer.name);
     const customerDataDiv = document.createElement('div');
     customerDataDiv.classList.add('customerData');
     customerDataDiv.innerHTML = `
@@ -274,19 +261,16 @@ async function acceptOrder(u) {
         return;
     }
     if (isUser(u)) {
-        //console.log(users);
         u.isServed = true;
         u.order = [];
         servedUsers.push(u);
         localStorage.setItem("served", JSON.stringify(servedUsers));
-        //console.log(users);
     }
     u.order.forEach(drink => {
         drink.ingredientsRequired.forEach(ingredient => {
             const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
             if (ingredientInCup) {
                 const ingredientAmount = ingredientInCup.amount * 10;
-                console.log(ingredientAmount);
             }
         });
     });
@@ -317,10 +301,8 @@ function declineOrder() {
     });
     emptyGlass(glass);
     receiveOrder();
-    // console.log("asd");
 }
 function convertUserToGuest(u) {
-    // console.log(u.order);
     return {
         "name": u.username,
         "money": u.money,
@@ -332,9 +314,9 @@ function convertUserToGuest(u) {
         "id": u.id,
     };
 }
-function saveGlassState() {
-    if (glass) {
-        drinkFillLevels[glass.name] = [...glass.ingredientsInCup];
+function saveGlassState(index) {
+    if (glass && glass.name) {
+        drinkFillLevels[`${glass.name}_${index}`] = [...glass.ingredientsInCup];
     }
 }
 randomIncomingOrder();
@@ -348,18 +330,15 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mousedown", (e) => {
         if (!(liquidHeight >= height - glassBottom)) {
             currentDrink++;
             r = randomN(50, 100);
-            // console.log(currentDrink);
             liquidHeight = pre + currentDrink * rowHeight;
             // glass.ingredientsInCup.forEach((ingredient) => {
             //     liquidHeight += ingredient.amount
             // })
-            // console.log(liquidHeight);
             drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx);
             ctx.drawImage(cup, 0, 0, width, height);
             // drawRect(10, 100, 100, 100, ctx)
         }
         else {
-            // console.log("tele van"); 
         }
     }, r);
 });
@@ -367,18 +346,14 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
     clearInterval(interval);
     drinkType.amount += currentDrink;
     if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
-        //console.log(drinkType);
         glass.ingredientsInCup.push(drinkType);
     }
     glass.ingredientsInCup.find((a) => a.name == drinkType.name).amount = drinkType.amount;
     //mitől működik félig???
-    console.log(glass);
     drawGlass(glass);
-    // console.log(glass);
     receiveOrder();
 });
 ingredients.forEach(i => {
-    // console.log(i);
     div.innerHTML += `<div class="ingredientCard card m-1 ${i.name} asd" id=""  style="width: 140px;">
     <img src="${i.img}" class="card-img-top my-2 ingredient" alt="...">
     <div class="card-body m-0">
@@ -404,7 +379,6 @@ function selectIngredient(i) {
     drinkDiv.classList.add("selected");
 }
 function drawGlass(g) {
-    // console.log(height);
 }
 export function emptyGlass(g) {
     ctx.clearRect(0, 0, width, height);
