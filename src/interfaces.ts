@@ -40,8 +40,5 @@ interface Guest {
     id: string
 }
 
-interface Order {
-    //TODO OLIVÉR
-}
 
 export { User, Ingredient, Drink, Guest};
