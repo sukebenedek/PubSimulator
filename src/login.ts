@@ -1,6 +1,7 @@
 import { User } from './interfaces.js';
 import { fetchData, postData } from './functions.js';
 
+localStorage.clear();
 localStorage.setItem("welcome", JSON.stringify(true));
 
 const chooseDIV = document.getElementById("choose");

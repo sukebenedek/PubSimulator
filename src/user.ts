@@ -99,8 +99,9 @@ async function logout() {
     let money = getMoney();
     if (await patchData(`http://localhost:3000/users/${_user.id}`, {"money": money})) {
         saveServed();
-        localStorage.setItem("user", "");
-        localStorage.setItem("money", "");
+        localStorage.removeItem("user");
+        localStorage.removeItem("money");
+        location.reload();
     }
     else {
         alert("error try again!")
@@ -112,15 +113,14 @@ async function saveServed(){
         return;
     }
     let servedUsers: User[] = JSON.parse(localStorage.getItem("served")!);
-    try {
+    if (Array.isArray(servedUsers) && servedUsers.length > 0) {
         const updatePromises = servedUsers.map(user => patchData(`http://localhost:3000/users/${user.id}`, {isServed: true, order: []}));
         await Promise.all(updatePromises);
-        localStorage.setItem("served", "");
+        localStorage.removeItem("served");
         console.log('Users updated successfully');
     }
-    catch (error) {
-        console.error('Error updating users:', error);
-        alert("error try again logout !")
+    else {
+        return;
     }
 }
 
