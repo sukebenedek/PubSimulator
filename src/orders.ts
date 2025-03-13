@@ -325,7 +325,7 @@ function getCustomerData() {
 
 async function acceptOrder(u: User | Guest) {
     let priceInput = document.getElementById("priceInput") as HTMLInputElement;
-    let orderSum = calculatePrice(u.order);
+    let orderSum = user.order.reduce((sum, drink) => sum + drink.price, 0);
 
     if(priceInput.value == "") {
         alert("Kérem adja meg a fizetendő összeget!");
@@ -344,18 +344,14 @@ async function acceptOrder(u: User | Guest) {
     }
 
     u.order.forEach(drink => {
-        for (let i = 0; i < drink.ingredientsInCup.length; i++) {
-            const ingredient = drink.ingredientsRequired[i];
+        drink.ingredientsRequired.forEach(ingredient => {
             const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
-            const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
-            console.log(glass.ingredientsInCup);
-            
-            if(ingredientAmout == drink.ingredientsRequired[i].amount && ingredientInCup?.name == drink.ingredientsRequired[i].name) {
-                // console.log("asd");
-                
+            if (ingredientInCup) {
+                const ingredientAmount = ingredientInCup.amount * 10;
+                console.log(ingredientAmount);
             }
-        }
-        //console.log(drink.ingredientsRequired);
+        });
+        
          
         
     });
@@ -376,6 +372,8 @@ function isUser(u: any): u is User {
 }
 
 function declineOrder() {
+    let priceInput = document.getElementById("priceInput")! as HTMLInputElement;
+    priceInput.value = ""
     queue.shift();
     let orders = document.getElementById("orders");
     orders!.innerHTML = "";

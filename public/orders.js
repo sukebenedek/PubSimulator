@@ -57,7 +57,7 @@ cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads
 let liquidHeight = 0;
 let div = document.getElementById("drinks");
 export async function incomingOrder() {
-    //console.log(users);
+    console.log(users);
     let userAdded = false;
     users.forEach((u) => {
         if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false && !servedUsers.map(u => u.id).includes(u.id)) {
@@ -257,7 +257,7 @@ function getCustomerData() {
 }
 async function acceptOrder(u) {
     let priceInput = document.getElementById("priceInput");
-    let orderSum = calculatePrice(u.order);
+    let orderSum = user.order.reduce((sum, drink) => sum + drink.price, 0);
     if (priceInput.value == "") {
         alert("Kérem adja meg a fizetendő összeget!");
         return;
@@ -271,16 +271,13 @@ async function acceptOrder(u) {
         //console.log(users);
     }
     u.order.forEach(drink => {
-        for (let i = 0; i < drink.ingredientsInCup.length; i++) {
-            const ingredient = drink.ingredientsRequired[i];
+        drink.ingredientsRequired.forEach(ingredient => {
             const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
-            const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
-            console.log(glass.ingredientsInCup);
-            if (ingredientAmout == drink.ingredientsRequired[i].amount && (ingredientInCup === null || ingredientInCup === void 0 ? void 0 : ingredientInCup.name) == drink.ingredientsRequired[i].name) {
-                // console.log("asd");
+            if (ingredientInCup) {
+                const ingredientAmount = ingredientInCup.amount * 10;
+                console.log(ingredientAmount);
             }
-        }
-        //console.log(drink.ingredientsRequired);
+        });
     });
     declineOrder();
 }
@@ -295,6 +292,8 @@ function isUser(u) {
     return typeof u == "object" && "isServed" in u;
 }
 function declineOrder() {
+    let priceInput = document.getElementById("priceInput");
+    priceInput.value = "";
     queue.shift();
     let orders = document.getElementById("orders");
     orders.innerHTML = "";

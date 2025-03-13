@@ -8,6 +8,7 @@ TZ - kotelezo legyen kijelentkezni nehogz a localstorage osszeszarja magat
 TESZT TEOFIL VISSZATERO VENDEG
 TZ - served localstorage valami nem jó 
 lehessen gorgetni az ingredienteket
+kiuriti a poharat ha elkattintunk
 
 opcionális:
 elmenti a queue-t 
