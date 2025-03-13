@@ -296,6 +296,22 @@ html,body {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
+.stone{
+    background-color: #ddb500;
+}
+
+.wood{
+    background-color: #8b4a00;
+}
+
+.stone .wood{
+    background-size: cover;
+    border: none;
+}
+
+.stone:hover .wood:hover{
+
+}
 
 
 
