@@ -4,8 +4,14 @@ let user = getUser();
 showUser(document.body, user);
 export let glass;
 export function loadGlass(index = 0) {
+    saveGlassState();
     glass = queue[0].order[index];
-    glass.index = 0;
+    if (drinkFillLevels[glass.name]) {
+        glass.ingredientsInCup = [...drinkFillLevels[glass.name]];
+    }
+    else {
+        glass.ingredientsInCup = [];
+    }
 }
 // export function addToQueue(user: User) {
 //     let guest: Guest = {
@@ -25,7 +31,7 @@ const users = await fetchData("http://localhost:3000/users");
 let balanceSpan = document.getElementById("balance");
 let balance = users.find(user => user.id == "0").money;
 let servedUsers;
-let priceInput = document.getElementById("priceInput");
+let drinkFillLevels = {};
 if (localStorage.getItem("served") == null || localStorage.getItem("served") == undefined || localStorage.getItem("served") == "") {
     servedUsers = [];
 }
@@ -224,15 +230,10 @@ export function receiveOrder() {
                 const drink = queue[0].order[i];
                 let drinkClick = document.getElementById(drink.name + i);
                 drinkClick === null || drinkClick === void 0 ? void 0 : drinkClick.addEventListener("click", () => {
-                    //console.log(drink.ingredientsRequired);
-                    //console.log(glass.ingredientsInCup);
                     if (queue[0].order[i].ingredientsInCup.length == 0) {
                         loadGlass(i);
                         emptyGlass(glass);
                     }
-                    else {
-                    }
-                    receiveOrder();
                 });
                 drinkClick.onmouseover = () => {
                     drinkClick.style.cursor = "pointer";
@@ -330,6 +331,11 @@ function convertUserToGuest(u) {
         "order": u.order,
         "id": u.id,
     };
+}
+function saveGlassState() {
+    if (glass) {
+        drinkFillLevels[glass.name] = [...glass.ingredientsInCup];
+    }
 }
 randomIncomingOrder();
 receiveOrder();

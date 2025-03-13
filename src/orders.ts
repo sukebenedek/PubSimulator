@@ -8,9 +8,17 @@ showUser(document.body, user);
 export let glass: Drink;
 
 export function loadGlass(index: number = 0) {
-    glass = queue[0].order[index]
-    glass.index = 0
+    saveGlassState();
+    glass = queue[0].order[index];
+    
+    if (drinkFillLevels[glass.name]) {
+        glass.ingredientsInCup = [...drinkFillLevels[glass.name]];
+    } else {
+        glass.ingredientsInCup = [];
+    }
 }
+
+
 
 // export function addToQueue(user: User) {
 //     let guest: Guest = {
@@ -31,7 +39,7 @@ const users: User[] = await fetchData<User[]>("http://localhost:3000/users");
 let balanceSpan = document.getElementById("balance");
 let balance = users.find(user => user.id == "0")!.money;
 let servedUsers: User[] ;
-let priceInput = document.getElementById("priceInput") as HTMLInputElement;
+let drinkFillLevels: { [key: string]: Ingredient[] } = {};
 
 if (localStorage.getItem("served") ==  null || localStorage.getItem("served") == undefined || localStorage.getItem("served") == "") {
     servedUsers = [];
@@ -283,19 +291,11 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                 const drink = queue[0].order[i];
                 let drinkClick = document.getElementById(drink.name + i) as HTMLDivElement
                 drinkClick?.addEventListener("click", () => {
-                    //console.log(drink.ingredientsRequired);
-                    //console.log(glass.ingredientsInCup);
-
                     if (queue[0].order[i].ingredientsInCup.length == 0) {
-                        loadGlass(i)
-                        emptyGlass(glass)   
+                        loadGlass(i);
+                        emptyGlass(glass); 
                     }
-                    else {
-
-                    }
-                    receiveOrder()
-
-                })
+                });
 
                 drinkClick!.onmouseover = () => {
                     drinkClick!.style.cursor = "pointer";
@@ -416,6 +416,13 @@ function convertUserToGuest(u: User): Guest {
         "id": u.id,
     }
 }
+
+function saveGlassState() {
+    if (glass) { 
+        drinkFillLevels[glass.name] = [...glass.ingredientsInCup];
+    }
+}
+
 
 
 randomIncomingOrder();
