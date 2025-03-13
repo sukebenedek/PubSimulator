@@ -1,18 +1,19 @@
 egyenleg
 acceptorder ellenorzesek - orderek hogyan vannak megcsinalva priceinput jo - penzt levon a vegosszegbol ha nem jo 
 a drinknek az ingredientsincupban 0 az amountja az osszetevoknek
-TZ - kijelentkezés menti a pénzt localstorageból
 több ugyanolyan rendelésnél a pohár
 patch ujratolti az oldalt ha ki van szolgalva a user
-TZ - kotelezo legyen kijelentkezni nehogz a localstorage osszeszarja magat
-TESZT TEOFIL VISSZATERO VENDEG
-TZ - served localstorage valami nem jó 
 lehessen gorgetni az ingredienteket
+TZ - az ászok nem jók le se fut a chatgpt szara
 
 opcionális:
 elmenti a queue-t 
 
 kész
+TZ - kotelezo legyen kijelentkezni nehogz a localstorage osszeszarja magat
+TESZT TEOFIL VISSZATERO VENDEG
+TZ - served localstorage valami nem jó 
+TZ - kijelentkezés menti a pénzt localstorageból
 ne egybol jojjon order => valami undefined lesz a pohárral xx
 jager anomália
 isserved de nem lehet atallitani mert guestte lett a user xx

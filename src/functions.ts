@@ -2,7 +2,10 @@ import { NodeBuilderFlags, nodeModuleNameResolver } from "typescript";
 import { receiveOrder } from "./orders";
 
 async function load<T>(url: string): Promise<T> {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+        method: 'GET',
+        cache: 'no-store'
+    });
     if (!response.ok) {
         throw new Error("Error");
     }

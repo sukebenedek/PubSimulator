@@ -20,6 +20,8 @@ let playerValue = 0;
 const Dealer = document.getElementById("dealer");
 let dealerCards = [];
 let dealerValue = 0;
+let playerAceCount = 0; // Tracks how many Aces are treated as 11 for the player
+let dealerAceCount = 0; // Tracks how many Aces are treated as 11 for the dealer
 const cardImages = [
     "2_of_clubs.png", "2_of_diamonds.png", "2_of_hearts.png", "2_of_spades.png",
     "3_of_clubs.png", "3_of_diamonds.png", "3_of_hearts.png", "3_of_spades.png",
@@ -99,7 +101,7 @@ async function start() {
         giveCard(1);
         await draw(-1);
         giveCard(-2);
-        document.getElementById("dealer").title = value(dealerCards[0], dealerValue) + " + ?";
+        document.getElementById("dealer").title = value(dealerCards[0], dealerValue, dealerAceCount) + " + ?";
         button.innerHTML = "Elég";
         button.classList.remove("btn-secondary");
         button.classList.add("btn-success");
@@ -117,33 +119,53 @@ function giveCard(dir) {
     cardImg.src = dir == -1 || dir == 1 ? './img/cards/' + card : './img/cards/back.png';
     cardImg.className = "w-20 mx-1";
     if (dir == 1) {
+        // Player's turn
         Player.appendChild(cardImg);
         playerCards.push(card);
-        playerValue += value(card, playerValue);
+        playerValue += value(card, playerValue, playerAceCount);
+        playerAceCount = updateAceCount(playerValue, playerAceCount); // Update aceCount after value change
         document.getElementById("player").title = String(playerValue);
         bust(1);
     }
     else {
+        // Dealer's turn
         Dealer.appendChild(cardImg);
         dealerCards.push(card);
-        dealerValue += value(card, dealerValue);
+        dealerValue += value(card, dealerValue, dealerAceCount);
+        dealerAceCount = updateAceCount(dealerValue, dealerAceCount); // Update aceCount after value change
         document.getElementById("dealer").title = String(dealerValue);
         bust(2);
     }
 }
-function value(card, sum) {
-    let value = card.split("_")[0];
-    if (isNumber(value)) {
-        return Number(value);
+function updateAceCount(sum, aceCount) {
+    // If the sum exceeds 21 and we have Aces treated as 11, reduce the sum by 10 for each Ace
+    while (sum > 21 && aceCount > 0) {
+        sum -= 10;
+        aceCount--;
+        console.log(playerCards);
     }
-    else if (value == "jack" || value == "queen" || value == "king") {
+    return aceCount;
+}
+function value(card, sum, aceCount) {
+    let cardValue = card.split("_")[0];
+    if (isNumber(cardValue)) {
+        return Number(cardValue);
+    }
+    else if (cardValue == "jack" || cardValue == "queen" || cardValue == "king") {
         return 10;
     }
-    else {
-        if (sum + 11 > 21)
+    else if (cardValue == "ace") {
+        // Initially treat Ace as 11
+        if (sum + 11 > 21 && aceCount > 0) {
+            // If adding 11 would bust, treat it as 1
             return 1;
-        return 11;
+        }
+        else {
+            aceCount++; // Increment aceCount
+            return 11; // Treat Ace as 11
+        }
     }
+    return 0;
 }
 async function playerDraw() {
     await draw(1);

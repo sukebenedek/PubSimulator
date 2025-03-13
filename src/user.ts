@@ -47,7 +47,7 @@ export function showUser(body:any, user: User) {
         <img src="${user.img}" class="mx-auto shadow">
         <ul class="dropdown-menu">
             <li class="text-center border-bottom border-2 border-black text-uppercase fs-5">${user.username}</li>
-            <li id="uploadMoney"><a class="dropdown-item text-success text-center" href="#">Pénzfeltöltés</a></li>
+            <li id="withdraw"><a class="dropdown-item text-success text-center" href="#">Pénzfeltöltés</a></li>
             <li id="logout"><a class="dropdown-item text-danger text-center" href="#">Kijelentkezés</a></li>
         </ul>
 
@@ -59,6 +59,7 @@ export function showUser(body:any, user: User) {
 
     body.appendChild(userDiv);
 
+    document.getElementById("withdraw")!.addEventListener("click", withdraw);
     document.getElementById("logout")!.addEventListener("click", logout);
 }
 
@@ -89,6 +90,12 @@ export function setMoney(value:number):boolean {
     else {
         return false;   //ELLENŐRZI HOGY VAN-E ELÉG PÉNZ ÉS VISSZAADJA HOGY VAN VAGY NEM! ezt én írtam nem a chatgpt wtf/min = 0 
     }
+}
+
+function withdraw() {
+    console.log("fasz");
+    
+    location.replace("./withdraw.html");
 }
 
 //#endregion
