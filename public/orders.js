@@ -57,7 +57,7 @@ cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads
 let liquidHeight = 0;
 let div = document.getElementById("drinks");
 export async function incomingOrder() {
-    console.log(users);
+    // console.log(users);
     let userAdded = false;
     users.forEach((u) => {
         if (!(queue.some(a => a.id === u.id)) && u.order.length > 0 && u.isServed === false && !servedUsers.map(u => u.id).includes(u.id)) {
@@ -146,10 +146,14 @@ export function receiveOrder() {
             `;
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
-                //  console.log(drink.ingredientsInCup);
-                const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
-                //console.log(ingredientInCup);
-                const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
+                const ingredientInCup = drink.ingredientsInCup.find((i) => {
+                    return i.name == ingredient.name;
+                    console.log(ingredient.name);
+                    console.log(i.name);
+                });
+                // console.log(ingredientInCup);
+                const ingredientAmout = ingredientInCup == undefined ? 0 : ingredientInCup.amount * 10;
+                console.log(ingredientInCup);
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
                 orderListHTML += `
                     <li style="${red} list-style-type: none; margin-bottom: 5px;">
@@ -354,9 +358,7 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
         //console.log(drinkType);
         glass.ingredientsInCup.push(drinkType);
     }
-    else {
-        glass.ingredientsInCup.find((a) => a.name == drinkType.name).amount = drinkType.amount;
-    }
+    glass.ingredientsInCup.find((a) => a.name == drinkType.name).amount = drinkType.amount;
     //mitől működik félig???
     console.log(glass);
     drawGlass(glass);
