@@ -74,7 +74,7 @@ let liquidHeight = 0
 let div = document.getElementById("drinks") as HTMLDivElement
 
 export async function incomingOrder() {
-    console.log(users);
+    // console.log(users);
     let userAdded = false;
 
     users.forEach((u: User) => {
@@ -183,12 +183,17 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
 
-                //  console.log(drink.ingredientsInCup);
-
-                const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
-                //console.log(ingredientInCup);
                 
-                const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
+                const ingredientInCup = drink.ingredientsInCup.find((i )=> {
+                   return i.name == ingredient.name
+                    console.log(ingredient.name);
+                    console.log(i.name);
+                    
+                });
+                // console.log(ingredientInCup);
+                
+                const ingredientAmout = ingredientInCup == undefined ? 0 : ingredientInCup.amount * 10 ;
+                console.log(ingredientInCup);
                 
 
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
@@ -455,10 +460,8 @@ c?.addEventListener("mouseup", (e) => {
         
         glass.ingredientsInCup.push(drinkType);
     }
-    else {
 
         glass.ingredientsInCup.find((a) => a.name == drinkType.name)!.amount = drinkType.amount;
-    }
     //mitől működik félig???
     console.log(glass);
     
