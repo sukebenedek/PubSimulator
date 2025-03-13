@@ -9,6 +9,8 @@ TESZT TEOFIL VISSZATERO VENDEG
 TZ - served localstorage valami nem jó 
 lehessen gorgetni az ingredienteket
 kiuriti a poharat ha elkattintunk
+KOMMENTELNI KELL MI MIT CSINAL 
+region 
 
 opcionális:
 elmenti a queue-t 

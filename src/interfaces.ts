@@ -25,7 +25,8 @@ interface Drink { //rendel vodka redbul vagy tölt egy vodka redbul
     img: string,
     ingredientsRequired: Ingredient[],
     ingredientsInCup: Ingredient[],
-    category: string
+    category: string,
+    index: number
 }
 
 

@@ -5,6 +5,7 @@ showUser(document.body, user);
 export let glass;
 export function loadGlass(index = 0) {
     glass = queue[0].order[index];
+    glass.index = 0;
 }
 // export function addToQueue(user: User) {
 //     let guest: Guest = {
@@ -104,6 +105,7 @@ function randomIncomingOrder() {
     }, randomDelay);
 }
 export function receiveOrder() {
+    //darabokba bonáts
     let sum = document.getElementById("sum");
     let customerData = document.querySelector(".customerData");
     if (queue.length == 0) {
@@ -119,9 +121,11 @@ export function receiveOrder() {
             <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
             <ul class="h4" id="orderList">
         `;
+        //drinkek kiirása
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
             let state;
+            drink.index = i;
             // console.log(drink);
             if (drink.ingredientsInCup.length == 0) {
                 state = "empty";
@@ -144,17 +148,19 @@ export function receiveOrder() {
                     <ul class="ingredientsList">
 
             `;
+            console.log(queue[0].order);
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
                 const ingredientInCup = drink.ingredientsInCup.find((i) => {
-                    return i.name == ingredient.name;
+                    return i.name == ingredient.name; //&& drink.index === glass.index
                     console.log(ingredient.name);
                     console.log(i.name);
                 });
-                // console.log(ingredientInCup);
                 const ingredientAmout = ingredientInCup == undefined ? 0 : ingredientInCup.amount * 10;
                 console.log(ingredientInCup);
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
+                console.log("glass: ");
+                console.log(glass.index);
                 orderListHTML += `
                     <li style="${red} list-style-type: none; margin-bottom: 5px;">
                         ${ingredient.name}: ${ingredientAmout}ml / ${ingredient.amount}ml
@@ -367,7 +373,6 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
 });
 ingredients.forEach(i => {
     // console.log(i);
-    i.amount = 0;
     div.innerHTML += `<div class="ingredientCard card m-1 ${i.name} asd" id=""  style="width: 140px;">
     <img src="${i.img}" class="card-img-top my-2 ingredient" alt="...">
     <div class="card-body m-0">
