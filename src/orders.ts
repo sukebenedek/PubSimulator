@@ -8,8 +8,17 @@ showUser(document.body, user);
 export let glass: Drink;
 
 export function loadGlass(index: number = 0) {
-    glass = queue[0].order[index]
+    saveGlassState();
+    glass = queue[0].order[index];
+    
+    if (drinkFillLevels[glass.name]) {
+        glass.ingredientsInCup = [...drinkFillLevels[glass.name]];
+    } else {
+        glass.ingredientsInCup = [];
+    }
 }
+
+
 
 // export function addToQueue(user: User) {
 //     let guest: Guest = {
@@ -30,7 +39,7 @@ const users: User[] = await fetchData<User[]>("http://localhost:3000/users");
 let balanceSpan = document.getElementById("balance");
 let balance = users.find(user => user.id == "0")!.money;
 let servedUsers: User[] ;
-let priceInput = document.getElementById("priceInput") as HTMLInputElement;
+let drinkFillLevels: { [key: string]: Ingredient[] } = {};
 
 if (localStorage.getItem("served") ==  null || localStorage.getItem("served") == undefined || localStorage.getItem("served") == "") {
     servedUsers = [];
@@ -74,7 +83,7 @@ let liquidHeight = 0
 let div = document.getElementById("drinks") as HTMLDivElement
 
 export async function incomingOrder() {
-    console.log(users);
+    // console.log(users);
     let userAdded = false;
 
     users.forEach((u: User) => {
@@ -132,6 +141,7 @@ function randomIncomingOrder() {
 }
 
 export function receiveOrder() { //kiírja a rendelést és frissíti az ital mennyiséget
+    //darabokba bonáts
     let sum = document.getElementById("sum");
 
     let customerData = document.querySelector(".customerData");
@@ -152,10 +162,12 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             <ul class="h4" id="orderList">
         `;
 
+        //drinkek kiirása
 
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
             let state: string;
+            drink.index = i
             // console.log(drink);
 
             if (drink.ingredientsInCup.length == 0) {
@@ -180,19 +192,28 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
 
             `;
 
+            console.log(queue[0].order);
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
 
-                //  console.log(drink.ingredientsInCup);
-
-                const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
-                //console.log(ingredientInCup);
                 
-                const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
+                const ingredientInCup = drink.ingredientsInCup.find((i )=> {
+                   return i.name == ingredient.name //&& drink.index === glass.index
+                    console.log(ingredient.name);
+                    console.log(i.name);
+                    
+                });
+                
+                const ingredientAmout = ingredientInCup == undefined ? 0 : ingredientInCup.amount * 10 ;
+                console.log(ingredientInCup);
                 
 
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
 
+                console.log("glass: ")
+                console.log(glass.index);
+                 
+                
                 orderListHTML += `
                     <li style="${red} list-style-type: none; margin-bottom: 5px;">
                         ${ingredient.name}: ${ingredientAmout}ml / ${ingredient.amount}ml
@@ -270,19 +291,11 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
                 const drink = queue[0].order[i];
                 let drinkClick = document.getElementById(drink.name + i) as HTMLDivElement
                 drinkClick?.addEventListener("click", () => {
-                    //console.log(drink.ingredientsRequired);
-                    //console.log(glass.ingredientsInCup);
-
                     if (queue[0].order[i].ingredientsInCup.length == 0) {
-                        loadGlass(i)
-                        emptyGlass(glass)   
+                        loadGlass(i);
+                        emptyGlass(glass); 
                     }
-                    else {
-
-                    }
-                    receiveOrder()
-
-                })
+                });
 
                 drinkClick!.onmouseover = () => {
                     drinkClick!.style.cursor = "pointer";
@@ -325,7 +338,7 @@ function getCustomerData() {
 
 async function acceptOrder(u: User | Guest) {
     let priceInput = document.getElementById("priceInput") as HTMLInputElement;
-    let orderSum = calculatePrice(u.order);
+    let orderSum = user.order.reduce((sum, drink) => sum + drink.price, 0);
 
     if(priceInput.value == "") {
         alert("Kérem adja meg a fizetendő összeget!");
@@ -344,18 +357,14 @@ async function acceptOrder(u: User | Guest) {
     }
 
     u.order.forEach(drink => {
-        for (let i = 0; i < drink.ingredientsInCup.length; i++) {
-            const ingredient = drink.ingredientsRequired[i];
+        drink.ingredientsRequired.forEach(ingredient => {
             const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
-            const ingredientAmout = ingredientInCup ? ingredientInCup.amount * 10 : 0;
-            console.log(glass.ingredientsInCup);
-            
-            if(ingredientAmout == drink.ingredientsRequired[i].amount && ingredientInCup?.name == drink.ingredientsRequired[i].name) {
-                // console.log("asd");
-                
+            if (ingredientInCup) {
+                const ingredientAmount = ingredientInCup.amount * 10;
+                console.log(ingredientAmount);
             }
-        }
-        //console.log(drink.ingredientsRequired);
+        });
+        
          
         
     });
@@ -376,6 +385,8 @@ function isUser(u: any): u is User {
 }
 
 function declineOrder() {
+    let priceInput = document.getElementById("priceInput")! as HTMLInputElement;
+    priceInput.value = ""
     queue.shift();
     let orders = document.getElementById("orders");
     orders!.innerHTML = "";
@@ -405,6 +416,13 @@ function convertUserToGuest(u: User): Guest {
         "id": u.id,
     }
 }
+
+function saveGlassState() {
+    if (glass) { 
+        drinkFillLevels[glass.name] = [...glass.ingredientsInCup];
+    }
+}
+
 
 
 randomIncomingOrder();
@@ -457,10 +475,8 @@ c?.addEventListener("mouseup", (e) => {
         
         glass.ingredientsInCup.push(drinkType);
     }
-    else {
 
         glass.ingredientsInCup.find((a) => a.name == drinkType.name)!.amount = drinkType.amount;
-    }
     //mitől működik félig???
     console.log(glass);
     
@@ -473,7 +489,6 @@ c?.addEventListener("mouseup", (e) => {
 
 ingredients.forEach(i => {
     // console.log(i);
-    i.amount = 0
     div.innerHTML += `<div class="ingredientCard card m-1 ${i.name} asd" id=""  style="width: 140px;">
     <img src="${i.img}" class="card-img-top my-2 ingredient" alt="...">
     <div class="card-body m-0">
@@ -489,7 +504,6 @@ ingredients.forEach(i => {
 ingredients.forEach(i => {
     let a = document.querySelector(`.${i.name}`) as HTMLDivElement
     a?.addEventListener("click", () => { selectIngredient(i) })
-
 })
 
 function selectIngredient(i: Ingredient) {
@@ -498,6 +512,7 @@ function selectIngredient(i: Ingredient) {
         div.classList.remove("selected");
     });
     drinkType = i;
+
     const drinkDiv = document.querySelector(`.${i.name}`) as HTMLDivElement;
     drinkDiv.classList.add("selected")
 }

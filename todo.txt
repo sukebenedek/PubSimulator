@@ -5,6 +5,9 @@ több ugyanolyan rendelésnél a pohár
 patch ujratolti az oldalt ha ki van szolgalva a user
 lehessen gorgetni az ingredienteket
 TZ - az ászok nem jók le se fut a chatgpt szara
+kiuriti a poharat ha elkattintunk
+KOMMENTELNI KELL MI MIT CSINAL 
+region 
 
 opcionális:
 elmenti a queue-t 

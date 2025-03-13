@@ -20,7 +20,7 @@
       "name": "Jager",
       "price": 5,
       "alcohol": 35,
-      "img": "./img/ingredients/Jagermeister.png",
+      "img": "./img/ingredients/Jager.png",
       "color": "rgba(102, 51, 0, 0.4)",
       "id": "d699"
     },
@@ -121,7 +121,7 @@
       "id": "3a78"
     },
     {
-      "name": "Jagermeister",
+      "name": "Jager",
       "price": 2500,
       "ingredientsRequired": [
         {
@@ -1011,8 +1011,63 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
       "role": false,
-      "isServed": true,
-      "order": []
+      "isServed": false,
+      "order": [
+         {
+           "name": "Jager",
+           "price": 2500,
+           "ingredientsRequired": [
+             {
+               "name": "Jager",
+               "amount": 50
+             }
+           ],
+           "ingredientsInCup": [],
+           "img": "./img/menu/Jagermeistermenu.png",
+           "category": "rovidek"
+         },
+         {
+           "name": "Jager",
+           "price": 2500,
+           "ingredientsRequired": [
+             {
+               "name": "Jager",
+               "amount": 50
+             }
+           ],
+           "ingredientsInCup": [],
+           "img": "./img/menu/Jagermeistermenu.png",
+           "category": "rovidek"
+         },
+         {
+           "name": "Jager",
+           "price": 2500,
+           "ingredientsRequired": [
+             {
+               "name": "Jager",
+               "amount": 50
+             }
+           ],
+           "ingredientsInCup": [],
+           "img": "./img/menu/Jagermeistermenu.png",
+           "category": "rovidek",
+           "id": "865f"
+         },
+         {
+           "name": "Jager",
+           "price": 2500,
+           "ingredientsRequired": [
+             {
+               "name": "Jager",
+               "amount": 50
+             }
+           ],
+           "ingredientsInCup": [],
+           "img": "./img/menu/Jagermeistermenu.png",
+           "category": "rovidek",
+           "id": "865f"
+         }
+       ]
     },
     {
       "id": "2",
