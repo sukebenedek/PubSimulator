@@ -9,6 +9,7 @@ export let glass: Drink;
 
 export function loadGlass(index: number = 0) {
     glass = queue[0].order[index]
+    glass.index = 0
 }
 
 // export function addToQueue(user: User) {
@@ -132,6 +133,7 @@ function randomIncomingOrder() {
 }
 
 export function receiveOrder() { //kiírja a rendelést és frissíti az ital mennyiséget
+    //darabokba bonáts
     let sum = document.getElementById("sum");
 
     let customerData = document.querySelector(".customerData");
@@ -152,10 +154,12 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
             <ul class="h4" id="orderList">
         `;
 
+        //drinkek kiirása
 
         for (let i = 0; i < queue[0].order.length; i++) {
             const drink = queue[0].order[i];
             let state: string;
+            drink.index = i
             // console.log(drink);
 
             if (drink.ingredientsInCup.length == 0) {
@@ -180,17 +184,17 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
 
             `;
 
+            console.log(queue[0].order);
             for (let j = 0; j < drink.ingredientsRequired.length; j++) {
                 const ingredient = drink.ingredientsRequired[j];
 
                 
                 const ingredientInCup = drink.ingredientsInCup.find((i )=> {
-                   return i.name == ingredient.name
+                   return i.name == ingredient.name //&& drink.index === glass.index
                     console.log(ingredient.name);
                     console.log(i.name);
                     
                 });
-                // console.log(ingredientInCup);
                 
                 const ingredientAmout = ingredientInCup == undefined ? 0 : ingredientInCup.amount * 10 ;
                 console.log(ingredientInCup);
@@ -198,6 +202,10 @@ export function receiveOrder() { //kiírja a rendelést és frissíti az ital me
 
                 const red = ingredientAmout < ingredient.amount ? "color: red;" : "";
 
+                console.log("glass: ")
+                console.log(glass.index);
+                 
+                
                 orderListHTML += `
                     <li style="${red} list-style-type: none; margin-bottom: 5px;">
                         ${ingredient.name}: ${ingredientAmout}ml / ${ingredient.amount}ml
@@ -474,7 +482,6 @@ c?.addEventListener("mouseup", (e) => {
 
 ingredients.forEach(i => {
     // console.log(i);
-    i.amount = 0
     div.innerHTML += `<div class="ingredientCard card m-1 ${i.name} asd" id=""  style="width: 140px;">
     <img src="${i.img}" class="card-img-top my-2 ingredient" alt="...">
     <div class="card-body m-0">
@@ -490,7 +497,6 @@ ingredients.forEach(i => {
 ingredients.forEach(i => {
     let a = document.querySelector(`.${i.name}`) as HTMLDivElement
     a?.addEventListener("click", () => { selectIngredient(i) })
-
 })
 
 function selectIngredient(i: Ingredient) {
@@ -499,6 +505,7 @@ function selectIngredient(i: Ingredient) {
         div.classList.remove("selected");
     });
     drinkType = i;
+
     const drinkDiv = document.querySelector(`.${i.name}`) as HTMLDivElement;
     drinkDiv.classList.add("selected")
 }
