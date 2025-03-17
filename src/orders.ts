@@ -113,7 +113,7 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
         sum!.innerHTML = "Nincs rendelés!";
     } else {
 
-        if (glass == undefined) {
+        if (glass == undefined) { //Ez nullazza a poharat?
             loadGlass()
         }
 
@@ -130,12 +130,12 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
             drink.index = i
 
             if (drink.ingredientsInCup.length == 0) {
-                state = "empty"
+                state = "ÜRES"
             } else if (drink.ingredientsInCup == glass.ingredientsInCup && drink.name == glass.name) {
-                state = "current"
+                state = "JELENLEGI"
             }
             else {
-                state = "done"
+                state = "KÉSZ"
             }
 
             orderListHTML += `
@@ -185,15 +185,15 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
             orderListHTML += `
                 </ul>
                 <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;"> 
-                <button id="accept" class="btn btn-success" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
-                <button id="decline" class="btn btn-danger" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
+                <button id="accept" class="btn login greenGlow" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
+                <button id="decline" class="btn login redGlow" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
             `;
         } else { //ha van beleirva benenmarad
             orderListHTML += `
                 </ul>
                 <input type="number" id="priceInput" value="${priceInput.value}" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;"> 
-                <button id="accept" class="btn btn-success" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
-                <button id="decline" class="btn btn-danger" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
+                <button id="accept" class="btn login greenGlow" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
+                <button id="decline" class="btn login redGlow" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
             `;
         }
         
@@ -287,7 +287,6 @@ function getCustomerData() { //eppen aktualis vendeg adatainak kiirasa
 
 async function acceptOrder(u: User | Guest) { //rendeles elfogadasa
     let priceInput = document.getElementById("priceInput") as HTMLInputElement; //a fizetendo osszeg inputja
-    let orderSum = user.order.reduce((sum, drink) => sum + drink.price, 0); //a rendeles tenyleges erteke
 
     if(priceInput.value == "") { //ha ures nem enged tovabb
         alert("Kérem adja meg a fizetendő összeget!");
@@ -299,23 +298,12 @@ async function acceptOrder(u: User | Guest) { //rendeles elfogadasa
         u.order = [];
         servedUsers.push(u);
         localStorage.setItem("served", JSON.stringify(servedUsers));
-        
     }
 
-    u.order.forEach(drink => { //TODO!!
-        drink.ingredientsRequired.forEach(ingredient => {
-            const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name);
-            if (ingredientInCup) {
-                const ingredientAmount = ingredientInCup.amount * 10;
-            }
-        });
-        
-         
-        
-    });
-
+    calculatePrice(u);
     declineOrder(); //az aktualis vasarlo eltavolitasa a sorbol es a kovetkezo kiszolgalasa
 }
+
 
 function declineOrder() { //az aktualis vasarlo eltavolitasa a sorbol es a kovetkezo kiszolgalasa
     let priceInput = document.getElementById("priceInput")! as HTMLInputElement;
@@ -334,13 +322,49 @@ function declineOrder() { //az aktualis vasarlo eltavolitasa a sorbol es a kovet
     receiveOrder();
 }
 
-function calculatePrice(order: Drink[]) { //kapott osszeg szamolasa a kitolott ital alapjan TODO!!
+function calculatePrice(u: User | Guest) { //kapott osszeg szamolasa a kitolott ital alapjan TODO!!
     let price = 0;
-    order.forEach(drink => {
+    u.order.forEach(drink => {
         price += drink.price;
     });
-    return price;
+    
+    for (let i = 0; i < u.order.length; i++) { //vegigmegy az orderen
+        const drink = u.order[i];
+        for (let j = 0; j < drink.ingredientsRequired.length; j++) { //vegigmegy a drink osszetevoin
+            const ingredient = drink.ingredientsRequired[j];
+            const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name); //ezek csak azok amik benne vannak ES kellenek is bele
+            
+            console.log(`Kell: ${ingredient.name} ${ingredient.amount}ml`); // Kilogolja aminek benne kene lennie
+            console.log(`Van: ${ingredientInCup ? ingredientInCup.name : 'None'} ${ingredientInCup ? ingredientInCup.amount * 10 : '0'}ml`); // Kilogolja ami benne van
+            console.log(`Ital ara: ${price} Ft`);
+            
+            if (ingredientInCup) { //TODO NEM JOL SZAMOLJA KI
+                const ingredientAmount = ingredientInCup.amount * 10;
+                let accuracy = 0;
+                // Osszetevo mennyiseg ellenorzes
+                if (ingredientAmount === ingredient.amount) {
+                    accuracy = 1; 
+                } else if (ingredientAmount > ingredient.amount) {
+                    accuracy = 0.8; 
+                } else {
+                    accuracy = 0.5;
+                }
+
+                // Jo osszetevo?
+                if (ingredientInCup.name !== ingredient.name) {
+                    accuracy *= 0.5;
+                }
+                // Kalkulacio
+                price += drink.price * accuracy;
+
+                console.log(`${ingredient.name}: ${ingredientAmount}ml / ${ingredient.amount}ml, Pontossag: ${accuracy * 100}%`);
+            }
+        }
+    }
+    console.log(`Kapott penz: ${price} Ft`);
 }
+
+
 //#endregion - lehetosegek a rendeleskor
 
 //#region - tovabbi funkciok
@@ -411,14 +435,12 @@ receiveOrder();
 
 
 function loadGlass(index: number = 0) {
-    saveGlassState(index);
-    glass = queue[0].order[index];
-
-    const savedState = drinkFillLevels[`${glass.name}_${index}`];
-    console.log(`${glass.name}_${index}:`, savedState);
-
+    saveGlassState(index); 
+    glass = queue[0].order[index]; 
+    const savedState = drinkFillLevels[`${glass.name}_${index}`]; 
+    
     if (savedState) {
-        glass.ingredientsInCup = savedState.map(ingredient => ({ ...ingredient }));
+        glass.ingredientsInCup = savedState.map(ingredient => ({ ...ingredient })); 
     } else {
         glass.ingredientsInCup = [];
     }
@@ -454,6 +476,7 @@ c?.addEventListener("mousedown", (e) => {
 })
 
 c?.addEventListener("mouseup", (e) => {
+    saveGlassState(currentDrink);
     clearInterval(interval);
     drinkType.amount += currentDrink
     if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {

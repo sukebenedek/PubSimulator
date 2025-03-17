@@ -4,6 +4,7 @@ a drinknek az ingredientsincupban 0 az amountja az osszetevoknek
 több ugyanolyan rendelésnél a pohár
 $lehessen gorgetni az ingredienteket es a rendeles osszesitot
 TZ - az ászok nem jók le se fut a chatgpt szara
+kiuriti a poharat ha elkattintunk xx VISSZATERT
 
 opcionális:
 elmenti a queue-t 
@@ -21,7 +22,6 @@ input.value refresh xx
 jsonbe atirja hogy served a user xx
 A jsonbe at kell allitani uj rendeleskor isserved false jsonbe ZALAN
 TZ - rendelésnél pénzlevonás
-kiuriti a poharat ha elkattintunk xx
 region xx
 KOMMENTELNI KELL MI MIT CSINAL xx
 patch ujratolti az oldalt ha ki van szolgalva a user xx

@@ -455,9 +455,30 @@ html,body {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.9);
 }
 
+.redGlow {
+    background-color: rgba(255, 0, 0, 0.5);
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.9);
+}
+
+.greenGlow {
+    background-color: rgba(0, 255, 0, 0.5);
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.8), 0 0 10px rgba(0, 255, 0, 0.9);
+}
+
+
 .goldenGlow {
     color: #ffd700;
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 1);
+}
+
+.redGlow:hover {
+    color: #ff0000;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.9);
+}
+
+.greenGlow:hover {
+    color: #00ff00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.9);
 }
 
 .customerData {
@@ -507,6 +528,30 @@ html,body {
 
 .order:hover {
     transform: scale(1.05);
+}
+
+#priceInput {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    font-size: 18px;
+}
+
+#priceInput::placeholder {
+    color: white;
+}
+
+.priceValue{
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    font-size: 18px;
 }
 
 @keyframes glowingText {
