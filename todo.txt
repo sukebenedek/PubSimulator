@@ -1,10 +1,10 @@
 egyenleg
 acceptorder ellenorzesek - orderek hogyan vannak megcsinalva priceinput jo - penzt levon a vegosszegbol ha nem jo 
-a drinknek az ingredientsincupban 0 az amountja az osszetevoknek
 több ugyanolyan rendelésnél a pohár
 $lehessen gorgetni az ingredienteket es a rendeles osszesitot
 TZ - az ászok nem jók le se fut a chatgpt szara
 kiuriti a poharat ha elkattintunk xx VISSZATERT
+jager anomália amelyik italban jager van nem mukodik
 
 opcionális:
 elmenti a queue-t 
@@ -15,7 +15,6 @@ TESZT TEOFIL VISSZATERO VENDEG
 TZ - served localstorage valami nem jó 
 TZ - kijelentkezés menti a pénzt localstorageból
 ne egybol jojjon order => valami undefined lesz a pohárral xx
-jager anomália
 isserved de nem lehet atallitani mert guestte lett a user xx
 sör kiválasztva xx
 input.value refresh xx
@@ -25,8 +24,9 @@ TZ - rendelésnél pénzlevonás
 region xx
 KOMMENTELNI KELL MI MIT CSINAL xx
 patch ujratolti az oldalt ha ki van szolgalva a user xx
+a drinknek az ingredientsincupban 0 az amountja az osszetevoknek xx
 
-TESZT TEOFIL VISSZATERO VENDEG???
+TESZT TEOFIL VISSZATERO VENDEG??? neha
 
 
 
