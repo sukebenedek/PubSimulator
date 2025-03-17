@@ -6,80 +6,85 @@
     <title>PUB SIMULATOR - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body style="background-image: url(img/login.jpg); background-size: cover;" class="bg-dark">
-  <h1 class="text-center display-1 text-light">PUB SIMULATOR</h1>
+  <h1 class="text-center display-1 text-light mainText">PUB SIMULATOR</h1>
   <div class="container position-absolute top-50 start-50 translate-middle w-50 h-50">
 
     <div id="choose" class="w-100 h-100 d-flex justify-content-center ailgn-items-center flex-column">
-      <button id="loginbtn" type="button" class="btn btn-info mx-5 my-2 fs-2 stone">LOGIN</button>
-      <button id="registerbtn" type="button" class="btn btn-primary mx-5 my-2 fs-2 wood">REGISTER</button>
+      <button id="loginbtn" type="button" class="btn btn-info mx-5 my-2 fs-2 login">Bejelentkezés</button>
+      <button id="registerbtn" type="button" class="btn btn-primary mx-5 my-2 fs-2 register">Regisztráció</button>
     </div>
 
     <div id="login" class="d-none">
       <form>
-        <button type="button" class="backbtn btn btn-dark text-white stone">&#8249;Vissza</button>
-        <div class="mb-3">
-          <label for="usernameInput" class="form-label text-white">Username</label>
+        <button type="button" class="backbtn btn btn-dark text-white login">&#8249;Vissza</button>
+        <div class="mb-3 glowing-input-wrapper">
+          <label for="usernameInput" class="form-label text-white">Felhasználónév</label>
           <input type="text" class="form-control" id="usernameInput" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-          <label for="passwordInput" class="form-label text-white">Password</label>
+      </div>
+      <div class="mb-3 glowing-input-wrapper">
+          <label for="passwordInput" class="form-label text-white">Jelszó</label>
           <input type="password" class="form-control" id="passwordInput" aria-describedby="emailHelp">
-        </div>
-        <h5 id="error" class="text-danger"></h5>
-        <button id="submitLogin" type="submit" class="btn btn-primary">Login</button>
+      </div>
+      <h5 id="error" class="text-danger"></h5>
+      <button id="submitLogin" type="submit" class="btn btn-primary login">Bejelentkezés</button>
+      
       </form>
     </div>
 
     <div id="register" class="d-none">
       <form>
-        <button type="button" class="backbtn btn btn-dark text-white">&#8249;Vissza</button>
-        <div class="mb-3">
-          <label for="usernameInput1" class="form-label text-white">Username</label>
-          <input type="text" class="form-control" id="usernameInput1"aria-describedby="emailHelp">
+        <button type="button" class="backbtn btn btn-dark text-white login">&#8249;Vissza</button>
+        <div class="mb-3 glowing-input-wrapper">
+          <label for="usernameInput1" class="form-label text-white">Felhasználónév</label>
+          <input type="text" class="form-control" id="usernameInput1" aria-describedby="emailHelp">
           <div id="usernameError" class="form-text text-danger"></div>
-        </div>
-        <div class="mb-3">
-          <label for="passwordInput1" class="form-label text-white">Password</label>
+      </div>
+      <div class="mb-3 glowing-input-wrapper">
+          <label for="passwordInput1" class="form-label text-white">Jelszó</label>
           <input type="password" class="form-control" id="passwordInput1">
           <div id="passwordHelpBlock" class="form-text text-white">
-            A jelszó maximum 20 karaktert tartalmazhat. 
+              A jelszó maximum 20 karaktert tartalmazhat. 
           </div>
-        </div>
-        <div class="radios row">
-          <div class="radio col-6">
+      </div>
+      <div class="radios row">
+        <div class="radio col-6">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label text-white" for="flexRadioDefault1">
-                Kocsmáros
-              </label>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label text-white" for="flexRadioDefault1">
+                    <i class="fas fa-shield-alt"></i> Kocsmáros
+                </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-              <label class="form-check-label text-white" for="flexRadioDefault2">
-                Alkoholista
-              </label>
-            </div>
-          </div>
-
-          <div class="radio col-6">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault3">
-              <label class="form-check-label text-white" for="flexRadioDefault3">
-                Nő
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault4" checked>
-              <label class="form-check-label text-white" for="flexRadioDefault4">
-                Férfi
-              </label>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label text-white" for="flexRadioDefault2">
+                    <i class="fas fa-beer"></i> Alkoholista
+                </label>
             </div>
         </div>
-        <button id="submitRegiser" type="submit" class="btn btn-primary">Register</button>
+    
+        <div class="radio col-6">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault3">
+                <label class="form-check-label text-white" for="flexRadioDefault3">
+                    <i class="fas fa-female"></i> Nő
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault4" checked>
+                <label class="form-check-label text-white" for="flexRadioDefault4">
+                    <i class="fas fa-male"></i> Férfi
+                </label>
+            </div>
+        </div>
+    </div>
+        <button id="submitRegiser" type="submit" class="btn btn-primary register">Regisztráció</button>
       </form>
     </div>
   </div>

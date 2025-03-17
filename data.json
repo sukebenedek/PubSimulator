@@ -1011,63 +1011,8 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
       "role": false,
-      "isServed": false,
-      "order": [
-        {
-          "name": "Jager",
-          "price": 2500,
-          "ingredientsRequired": [
-            {
-              "name": "Jager",
-              "amount": 50
-            }
-          ],
-          "ingredientsInCup": [],
-          "img": "./img/menu/Jagermeistermenu.png",
-          "category": "rovidek"
-        },
-        {
-          "name": "Jager",
-          "price": 2500,
-          "ingredientsRequired": [
-            {
-              "name": "Jager",
-              "amount": 50
-            }
-          ],
-          "ingredientsInCup": [],
-          "img": "./img/menu/Jagermeistermenu.png",
-          "category": "rovidek"
-        },
-        {
-          "name": "Jager",
-          "price": 2500,
-          "ingredientsRequired": [
-            {
-              "name": "Jager",
-              "amount": 50
-            }
-          ],
-          "ingredientsInCup": [],
-          "img": "./img/menu/Jagermeistermenu.png",
-          "category": "rovidek",
-          "id": "865f"
-        },
-        {
-          "name": "Jager",
-          "price": 2500,
-          "ingredientsRequired": [
-            {
-              "name": "Jager",
-              "amount": 50
-            }
-          ],
-          "ingredientsInCup": [],
-          "img": "./img/menu/Jagermeistermenu.png",
-          "category": "rovidek",
-          "id": "865f"
-        }
-      ]
+      "isServed": true,
+      "order": []
     },
     {
       "id": "2",

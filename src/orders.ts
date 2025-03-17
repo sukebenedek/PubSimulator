@@ -92,7 +92,7 @@ function updateOrdersUI() { //a queue alapjan megjeleniti a rendeleseket a felso
         orders!.innerHTML += `
             <div class="order">
                 <img class="customerImg" src="${customer.img}"/>
-                <p class="customerName">${customer.name}</p>
+                <p class="customerName goldenGlow">${customer.name}</p>
             </div>`;
     });
 }
@@ -118,8 +118,8 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
         }
 
         let orderListHTML = `
-            <h1 class="text-center" style="margin-top:10px">Rendelés összesítő</h1>
-            <h3 id="currentOrder" class="text-center mb-4">${queue[0].name}</h3>
+            <h1 class="text-center whiteGlow" style="margin-top:10px">Rendelés összesítő</h1>
+            <h3 id="currentOrder" class="text-center mb-4 whiteGlow login">${queue[0].name}</h3>
             <ul class="h4" id="orderList">
         `;
 
@@ -273,7 +273,7 @@ function getCustomerData() { //eppen aktualis vendeg adatainak kiirasa
         <p>Vagyon: ${customer.money}Ft</p>
         <p>Részegség: ${customer.drunkness}%</p>
         <p>Büdösség: ${customer.stinkness}%</p>
-        <button class="closeBtn">Bezár</button>
+        <button class="closeBtn login">[Bezár]</button>
     `;
 
     sum!.appendChild(customerDataDiv); //belerakja az adatgokt a sumba

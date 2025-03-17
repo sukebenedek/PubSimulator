@@ -1,8 +1,8 @@
 html,body {
     height: 100%;
-    font-family: 'Comic Sans MS';
     overflow-x: hidden;
     overflow-x: hidden;
+    font-family: 'MedievalSharp', sans-serif;
 }
 
 :root {
@@ -296,22 +296,251 @@ html,body {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.stone{
-    background-color: #ddb500;
-}
-
-.wood{
-    background-color: #8b4a00;
-}
-
-.stone .wood{
-    background-size: cover;
+.login, .register {
+    background: none;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     border: none;
+    box-shadow: none;
+    position: relative;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4);
+    
 }
 
-.stone:hover .wood:hover{
-
+.login:hover, .register:hover {
+    color: #fff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.7), 0 0 60px rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
 }
+
+.login:before, .register:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.login:hover:before, .register:hover:before {
+    opacity: 1;
+}
+
+.login, .register {
+    background-color: transparent !important;
+}
+
+.login:active, .register:active {
+    color: #ffd700 !important;
+}
+
+.mainText {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4);
+    animation: glowingText 5s infinite alternate;
+}
+
+.glowing-input-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.glowing-input-wrapper label {
+    font-weight: bold;
+    color: #fff;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.glowing-input-wrapper input {
+    background-color: #2a2a2a;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glowing-input {
+    transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+.glowing-input:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 15px #ffd700;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.glowing-input-wrapper input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.glowing-input-wrapper input:focus + label {
+    color: #ff00ff; 
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+.form-check-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    border-color: rgba(255, 215, 0, 0.7);
+}
+
+.form-check-input {
+    display: none;
+}
+
+.form-check-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.form-check-label i {
+    font-size: 1.5em;
+    color: #ffcc00;
+}
+
+.form-check-input:checked + label {
+    color: #ffcc00;
+    animation: glowBreathing 2s infinite alternate ease-in-out;
+}
+
+.form-check:hover .form-check-label {
+    color: #ffd700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.9);
+}
+
+#submitRegiser, #submitLogin {
+    display: block;
+    width: 100%;
+    font-size: 3.5em;
+    padding: 10px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+
+.text-danger, .form-text.text-danger {
+    font-family: 'MedievalSharp', cursive;
+    color: red;
+    font-size: 1.2em;
+    text-shadow: 2px 2px 8px black;
+    animation: shake 0.5s infinite alternate;
+}
+
+@keyframes shake {
+    0% { transform: translateX(-2px); }
+    100% { transform: translateX(2px); }
+}
+
+.whiteGlow{
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+.goldenGlow {
+    color: #ffd700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 1);
+}
+
+.customerData {
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid #ffd700;
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 15px #ffd700;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px #ffd700; }
+    100% { box-shadow: 0 0 20px #ffd700; }
+}
+
+.customerData h2 {
+    font-family: 'MedievalSharp', cursive;
+    color: #ffd700;
+    text-shadow: 0 0 10px #ffd700;
+}
+
+.customerData img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid #ffd700;
+    margin: 20px;
+}
+
+.customerData p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.customerImg {
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+}
+
+.order {
+    transition: 0.3s ease-in-out;
+}
+
+.order:hover {
+    transform: scale(1.05);
+}
+
+@keyframes glowingText {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+    50% {
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.7), 0 0 60px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+}
+
+@keyframes glowBreathing {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.9);
+    }
+    50% {
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 1);
+    }
+    100% {
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.9);
+    }
+}
+
+#ingredientListContainer {
+    max-height: 300px; 
+    overflow-y: auto; 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
 
 
 
