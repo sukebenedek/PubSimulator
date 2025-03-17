@@ -327,6 +327,9 @@ function calculatePrice(u: User | Guest) { //kapott osszeg szamolasa a kitolott 
     u.order.forEach(drink => {
         price += drink.price;
     });
+
+    console.log(`Osszes ital ara: ${price} Ft`);
+    price = 0;
     
     for (let i = 0; i < u.order.length; i++) { //vegigmegy az orderen
         const drink = u.order[i];
@@ -336,9 +339,8 @@ function calculatePrice(u: User | Guest) { //kapott osszeg szamolasa a kitolott 
             
             console.log(`Kell: ${ingredient.name} ${ingredient.amount}ml`); // Kilogolja aminek benne kene lennie
             console.log(`Van: ${ingredientInCup ? ingredientInCup.name : 'None'} ${ingredientInCup ? ingredientInCup.amount * 10 : '0'}ml`); // Kilogolja ami benne van
-            console.log(`Ital ara: ${price} Ft`);
             
-            if (ingredientInCup) { //TODO NEM JOL SZAMOLJA KI
+            if (ingredientInCup) { //ha van benne olyan osszetevo ami kell bele kiszamolja a kapott penzt maskulonben nem is ad
                 const ingredientAmount = ingredientInCup.amount * 10;
                 let accuracy = 0;
                 // Osszetevo mennyiseg ellenorzes
@@ -356,6 +358,10 @@ function calculatePrice(u: User | Guest) { //kapott osszeg szamolasa a kitolott 
                 }
                 // Kalkulacio
                 price += drink.price * accuracy;
+                console.log(`${drink.name} ara: ${drink.price} Ft`);
+                console.log(`${drink.name} utan kapott penz: ${drink.price * accuracy} Ft`);
+                console.log(`Eddig: ${price} Ft`);
+                
 
                 console.log(`${ingredient.name}: ${ingredientAmount}ml / ${ingredient.amount}ml, Pontossag: ${accuracy * 100}%`);
             }
@@ -434,17 +440,19 @@ receiveOrder();
 
 
 
-function loadGlass(index: number = 0) {
-    saveGlassState(index); 
+function loadGlass(index = 0) {
+    if (glass) {
+        saveGlassState(index); 
+    }
     glass = queue[0].order[index]; 
     const savedState = drinkFillLevels[`${glass.name}_${index}`]; 
-    
     if (savedState) {
-        glass.ingredientsInCup = savedState.map(ingredient => ({ ...ingredient })); 
+        glass.ingredientsInCup = savedState.map(ingredient => ({ ...ingredient }));
     } else {
-        glass.ingredientsInCup = [];
+        glass.ingredientsInCup = []; 
     }
 }
+
 
 c?.addEventListener("mousedown", (e) => {
     ctx.fillStyle = drinkType.color;

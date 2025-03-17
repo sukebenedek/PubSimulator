@@ -3,7 +3,7 @@ acceptorder ellenorzesek - orderek hogyan vannak megcsinalva priceinput jo - pen
 több ugyanolyan rendelésnél a pohár
 $lehessen gorgetni az ingredienteket es a rendeles osszesitot
 TZ - az ászok nem jók le se fut a chatgpt szara
-kiuriti a poharat ha elkattintunk xx VISSZATERT
+kiuriti a poharat ha elkattintok es beletolti mind a 2 poharba az osszeetevot
 jager anomália amelyik italban jager van nem mukodik
 
 opcionális:
