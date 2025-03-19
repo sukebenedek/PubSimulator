@@ -329,11 +329,6 @@ function convertUserToGuest(u) {
         "id": u.id,
     };
 }
-function saveGlassState(index) {
-    if (glass && glass.name) {
-        drinkFillLevels[`${glass.name}_${index}`] = [...glass.ingredientsInCup];
-    }
-}
 function selectIngredient(i) {
     const allDrinkDiv = document.getElementsByClassName("selected");
     Array.from(allDrinkDiv).forEach(div => {
@@ -367,9 +362,6 @@ displayIngredients();
 randomIncomingOrder();
 receiveOrder();
 function loadGlass(index = 0) {
-    if (glass) {
-        saveGlassState(index);
-    }
     glass = queue[0].order[index];
     const savedState = drinkFillLevels[`${glass.name}_${index}`];
     if (savedState) {
@@ -389,38 +381,40 @@ c === null || c === void 0 ? void 0 : c.addEventListener("mousedown", (e) => {
             currentDrink++;
             r = randomN(50, 100);
             liquidHeight = pre + currentDrink * rowHeight;
-            // glass.ingredientsInCup.forEach((ingredient) => {
-            //     liquidHeight += ingredient.amount
-            // })
             drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx);
             ctx.drawImage(cup, 0, 0, width, height);
-            // drawRect(10, 100, 100, 100, ctx)
         }
         else {
         }
     }, r);
 });
 c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
-    saveGlassState(currentDrink);
     clearInterval(interval);
-    drinkType.amount += currentDrink;
+    (drinkType.amount == undefined) ? drinkType.amount = 0 : drinkType.amount += currentDrink;
     if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
-        glass.ingredientsInCup.push(drinkType);
+        glass.ingredientsInCup.push({
+            "name": drinkType.name,
+            "price": drinkType.price,
+            "alcohol": drinkType.alcohol,
+            "img": drinkType.img,
+            "amount": drinkType.amount,
+            "color": drinkType.color
+        });
     }
     glass.ingredientsInCup.find((a) => a.name == drinkType.name).amount = drinkType.amount;
     //mitől működik félig???
-    drawGlass(glass);
     receiveOrder();
 });
-function drawGlass(g) {
-}
 export function emptyGlass(g) {
     ctx.clearRect(0, 0, width, height);
     drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx);
     g.ingredientsInCup = [];
     liquidHeight = 0;
     currentDrink = 0;
-    ingredients.forEach(i => i.amount = 0);
+    console.log(ingredients);
+    ingredients.forEach(i => {
+        i.amount = 0;
+    });
     ctx.fillStyle = drinkType.color;
     // drawRect(glassStart - liquidHeight * glassConstant, height - gassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
     //ez mi???

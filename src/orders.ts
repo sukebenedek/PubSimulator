@@ -2,6 +2,7 @@
 import { User, Ingredient, Drink, Guest, } from './interfaces.js';
 import { drawImage, drawRect, fetchData, patchData, postData, randomN, randomNum, sleep } from "./functions.js";
 import { getUser, showUser, getMoney, setMoney } from './user.js';
+import { addSyntheticLeadingComment, ScriptKind } from 'typescript';
 //#endregion - import
 
 //#region - canvas valtozok
@@ -241,7 +242,7 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
                 drinkClick?.addEventListener("click", () => {
                     if (queue[0].order[i].ingredientsInCup.length == 0) {
                         loadGlass(i);
-                        emptyGlass(glass); 
+                        emptyGlass(glass);
                     }
                 });
 
@@ -392,12 +393,6 @@ function convertUserToGuest(u: User): Guest { //user konvertalas guestre
     }
 }
 
-function saveGlassState(index: number) { //TODO NEM MUKODIK
-    if (glass && glass.name) { 
-        drinkFillLevels[`${glass.name}_${index}`] = [...glass.ingredientsInCup];
-    }
-}
-
 function selectIngredient(i: Ingredient) { //ingredientek kozotti valtas
     const allDrinkDiv = document.getElementsByClassName("selected");
     Array.from(allDrinkDiv).forEach(div => {
@@ -441,9 +436,6 @@ receiveOrder();
 
 
 function loadGlass(index = 0) {
-    if (glass) {
-        saveGlassState(index); 
-    }
     glass = queue[0].order[index]; 
     const savedState = drinkFillLevels[`${glass.name}_${index}`]; 
     if (savedState) {
@@ -464,17 +456,11 @@ c?.addEventListener("mousedown", (e) => {
             currentDrink++
             r = randomN(50, 100)
             liquidHeight = pre + currentDrink * rowHeight
-            // glass.ingredientsInCup.forEach((ingredient) => {
-            //     liquidHeight += ingredient.amount
-            // })
-
-
 
 
             drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
             ctx.drawImage(cup, 0, 0, width, height);
 
-            // drawRect(10, 100, 100, 100, ctx)
 
 
 
@@ -484,29 +470,32 @@ c?.addEventListener("mousedown", (e) => {
 })
 
 c?.addEventListener("mouseup", (e) => {
-    saveGlassState(currentDrink);
     clearInterval(interval);
-    drinkType.amount += currentDrink
+    (drinkType.amount == undefined) ? drinkType.amount = 0 : drinkType.amount += currentDrink
+   
+    
     if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
         
-        glass.ingredientsInCup.push(drinkType);
+        glass.ingredientsInCup.push(
+            {
+            "name": drinkType.name,
+            "price": drinkType.price,
+            "alcohol": drinkType.alcohol,
+            "img" : drinkType.img,
+            "amount" : drinkType.amount,
+            "color" : drinkType.color
+            }
+            
+        );
     }
 
         glass.ingredientsInCup.find((a) => a.name == drinkType.name)!.amount = drinkType.amount;
     //mitől működik félig???
 
-    drawGlass(glass);
     receiveOrder();
 })
 
 
-
-
-
-
-function drawGlass(g: Drink) {
-
-}
 
 export function emptyGlass(g: Drink) {
     ctx.clearRect(0, 0, width, height);
@@ -516,7 +505,12 @@ export function emptyGlass(g: Drink) {
     liquidHeight = 0;
     currentDrink = 0;
 
-    ingredients.forEach(i => i.amount = 0);
+    console.log(ingredients);
+    
+    ingredients.forEach(i => {
+        i.amount = 0
+        
+    });    
 
     ctx.fillStyle = drinkType.color;
     // drawRect(glassStart - liquidHeight * glassConstant, height - gassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
