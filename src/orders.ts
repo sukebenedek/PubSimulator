@@ -322,7 +322,6 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
 
 //#region - lehetosegek a rendeleskor
 
-
 async function acceptOrder(u: User | Guest) { //rendeles elfogadasa
     let priceInput = document.getElementById("priceInput") as HTMLInputElement; //a fizetendo osszeg inputja
 

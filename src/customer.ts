@@ -1,4 +1,4 @@
-import { queue, receiveOrder, emptyGlass, glass } from './orders';
+import { queue, receiveOrder, emptyGlass, glass } from './orders.js';
 
 export function getCustomerData() { //eppen aktualis vendeg adatainak kiirasa
     let sum = document.getElementById('sum');
