@@ -247,19 +247,18 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
         if (!priceInput || priceInput.value == "") { //ha nincs beleirva nullazza
             orderListHTML += `
                 </ul>
-                <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;"> 
-                <button id="accept" class="btn login greenGlow" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
-                <button id="decline" class="btn login redGlow" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
+                <input type="number" id="priceInput" class="form-control" placeholder="Fizetendő összeg" style="margin: 40px 0px 0px 70px; height: 50px; width: 300px;"> 
             `;
         } else { //ha van beleirva benenmarad
             orderListHTML += `
                 </ul>
-                <input type="number" id="priceInput" value="${priceInput.value}" class="form-control" placeholder="Fizetendő összeg" style="margin: 100px 0px 0px 70px; height: 50px; width: 300px;"> 
-                <button id="accept" class="btn login greenGlow" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
-                <button id="decline" class="btn login redGlow" style="margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
+                <input type="number" id="priceInput" value="${priceInput.value}" class="form-control" placeholder="Fizetendő összeg" style="margin: 40px 0px 0px 70px; height: 50px; width: 300px;"> 
             `;
         }
-        
+        orderListHTML += `
+            <button id="accept" class="btn login greenGlow" style=" margin: 30px 0px 0px 80px; width: 100px; height: 50px">igen</button>
+            <button id="decline" class="btn login redGlow" style=" margin: 30px 0px 0px 80px; width: 100px; height: 50px">nem</button>
+        `;
 
         sum!.innerHTML = orderListHTML;
 
