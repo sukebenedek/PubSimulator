@@ -65,3 +65,18 @@ export function sleep(ms) {
 export function isNumber(str) {
     return !isNaN(Number(str)) && str.trim() !== '';
 }
+export function isUser(u) {
+    return typeof u == "object" && "isServed" in u;
+}
+export function convertUserToGuest(u) {
+    return {
+        "name": u.username,
+        "money": u.money,
+        "drunkness": u.drunkness,
+        "age": randomN(18, 99),
+        "stinkness": randomN(0, 100),
+        "img": u.img,
+        "order": u.order,
+        "id": u.id,
+    };
+}

@@ -1,5 +1,8 @@
-import { drawImage, drawRect, fetchData, randomN, randomNum } from "./functions.js";
+import { drawImage, drawRect, fetchData, randomN, randomNum, isUser, convertUserToGuest } from "./functions.js";
 import { getUser, showUser } from './user.js';
+import { getCustomerData, declineOrder } from './customer.js';
+import { calculatePrice } from './money.js';
+import { displayIngredients } from './ingredients.js';
 //#endregion - import
 //#region - canvas valtozok
 let c = document.getElementById("canvas");
@@ -14,7 +17,7 @@ export let glass;
 const allGuests = await fetchData("http://localhost:3000/guests");
 const allDrinks = await fetchData("http://localhost:3000/drinks");
 const users = await fetchData("http://localhost:3000/users");
-let ingredients = await fetchData("http://localhost:3000/ingredients");
+export let ingredients = await fetchData("http://localhost:3000/ingredients");
 let queue = [];
 let user = getUser();
 showUser(document.body, user);
@@ -42,7 +45,49 @@ const glassStart = 230;
 const cup = new Image();
 cup.src = "https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png";
 let liquidHeight = 0;
-let div = document.getElementById("drinks");
+c === null || c === void 0 ? void 0 : c.addEventListener("mousedown", (e) => {
+    ctx.fillStyle = drinkType.color;
+    currentDrink = 0;
+    let r = randomN(50, 100);
+    let pre = liquidHeight;
+    interval = setInterval(function () {
+        if (!(liquidHeight >= height - glassBottom)) {
+            currentDrink++;
+            r = randomN(50, 100);
+            liquidHeight = pre + currentDrink * rowHeight;
+            drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx);
+            ctx.drawImage(cup, 0, 0, width, height);
+        }
+        else {
+        }
+    }, r);
+});
+c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
+    clearInterval(interval);
+    (drinkType.amount == undefined) ? drinkType.amount = 0 : drinkType.amount += currentDrink;
+    if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
+        glass.ingredientsInCup.push({
+            "name": drinkType.name,
+            "price": drinkType.price,
+            "alcohol": drinkType.alcohol,
+            "img": drinkType.img,
+            "amount": drinkType.amount,
+            "color": drinkType.color
+        });
+    }
+    glass.ingredientsInCup.find((a) => a.name == drinkType.name).amount = drinkType.amount;
+    //mitől működik félig???
+    receiveOrder();
+});
+export function selectIngredient(i) {
+    const allDrinkDiv = document.getElementsByClassName("selected");
+    Array.from(allDrinkDiv).forEach(div => {
+        div.classList.remove("selected");
+    });
+    drinkType = i;
+    const drinkDiv = document.querySelector(`.${i.name}`);
+    drinkDiv.classList.add("selected");
+}
 //#endregion - pohar valtozok
 //#region - rendelesfelvetel
 export async function incomingOrder() {
@@ -216,29 +261,6 @@ export function receiveOrder() {
 }
 //#endregion - rendelesfelvetel
 //#region - lehetosegek a rendeleskor
-function getCustomerData() {
-    let sum = document.getElementById('sum');
-    sum.innerHTML = ""; //kiuriti a sumot hogy ne legyen benne semmi
-    const customer = queue[0];
-    const customerDataDiv = document.createElement('div');
-    customerDataDiv.classList.add('customerData');
-    customerDataDiv.innerHTML = `
-        <h2>Információk</h2>
-        <img style = "border-radius:20px;" src="${customer.img}"/>
-        <p>Név: ${customer.name}</p>
-        <p>Életkor: ${customer.age} év</p>
-        <p>Vagyon: ${customer.money}Ft</p>
-        <p>Részegség: ${customer.drunkness}%</p>
-        <p>Büdösség: ${customer.stinkness}%</p>
-        <button class="closeBtn login">[Bezár]</button>
-    `;
-    sum.appendChild(customerDataDiv); //belerakja az adatgokt a sumba
-    const closeBtn = customerDataDiv.querySelector('.closeBtn');
-    closeBtn.addEventListener('click', () => {
-        sum.removeChild(customerDataDiv);
-        receiveOrder(); //bezaras gomb megnyomasakor meghivja a receiveordert hogy kiirja az aktualis adatokat
-    });
-}
 async function acceptOrder(u) {
     let priceInput = document.getElementById("priceInput"); //a fizetendo osszeg inputja
     if (priceInput.value == "") { //ha ures nem enged tovabb
@@ -254,109 +276,7 @@ async function acceptOrder(u) {
     calculatePrice(u);
     declineOrder(); //az aktualis vasarlo eltavolitasa a sorbol es a kovetkezo kiszolgalasa
 }
-function declineOrder() {
-    let priceInput = document.getElementById("priceInput");
-    priceInput.value = "";
-    queue.shift();
-    let orders = document.getElementById("orders");
-    orders.innerHTML = "";
-    queue.forEach(customer => {
-        orders.innerHTML +=
-            `<div class="order">
-        <img class="customerImg" src="${customer.img}"/>
-        <p class="customerName">${customer.name}</p>
-        </div>`;
-    });
-    emptyGlass(glass);
-    receiveOrder();
-}
-function calculatePrice(u) {
-    let price = 0;
-    u.order.forEach(drink => {
-        price += drink.price;
-    });
-    console.log(`Osszes ital ara: ${price} Ft`);
-    price = 0;
-    for (let i = 0; i < u.order.length; i++) { //vegigmegy az orderen
-        const drink = u.order[i];
-        for (let j = 0; j < drink.ingredientsRequired.length; j++) { //vegigmegy a drink osszetevoin
-            const ingredient = drink.ingredientsRequired[j];
-            const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name); //ezek csak azok amik benne vannak ES kellenek is bele
-            console.log(`Kell: ${ingredient.name} ${ingredient.amount}ml`); // Kilogolja aminek benne kene lennie
-            console.log(`Van: ${ingredientInCup ? ingredientInCup.name : 'None'} ${ingredientInCup ? ingredientInCup.amount * 10 : '0'}ml`); // Kilogolja ami benne van
-            if (ingredientInCup) { //ha van benne olyan osszetevo ami kell bele kiszamolja a kapott penzt maskulonben nem is ad
-                const ingredientAmount = ingredientInCup.amount * 10;
-                let accuracy = 0;
-                // Osszetevo mennyiseg ellenorzes
-                if (ingredientAmount === ingredient.amount) {
-                    accuracy = 1;
-                }
-                else if (ingredientAmount > ingredient.amount) {
-                    accuracy = 0.8;
-                }
-                else {
-                    accuracy = 0.5;
-                }
-                // Jo osszetevo?
-                if (ingredientInCup.name !== ingredient.name) {
-                    accuracy *= 0.5;
-                }
-                // Kalkulacio
-                price += drink.price * accuracy;
-                console.log(`${drink.name} ara: ${drink.price} Ft`);
-                console.log(`${drink.name} utan kapott penz: ${drink.price * accuracy} Ft`);
-                console.log(`Eddig: ${price} Ft`);
-                console.log(`${ingredient.name}: ${ingredientAmount}ml / ${ingredient.amount}ml, Pontossag: ${accuracy * 100}%`);
-            }
-        }
-    }
-    console.log(`Kapott penz: ${price} Ft`);
-}
 //#endregion - lehetosegek a rendeleskor
-//#region - tovabbi funkciok
-function isUser(u) {
-    return typeof u == "object" && "isServed" in u;
-}
-function convertUserToGuest(u) {
-    return {
-        "name": u.username,
-        "money": u.money,
-        "drunkness": u.drunkness,
-        "age": randomN(18, 99),
-        "stinkness": randomN(0, 100),
-        "img": u.img,
-        "order": u.order,
-        "id": u.id,
-    };
-}
-function selectIngredient(i) {
-    const allDrinkDiv = document.getElementsByClassName("selected");
-    Array.from(allDrinkDiv).forEach(div => {
-        div.classList.remove("selected");
-    });
-    drinkType = i;
-    const drinkDiv = document.querySelector(`.${i.name}`);
-    drinkDiv.classList.add("selected");
-}
-function displayIngredients() {
-    ingredients.forEach(i => {
-        div.innerHTML += `<div class="ingredientCard card m-1 ${i.name} asd" id=""  style="width: 140px;">
-        <img src="${i.img}" class="card-img-top my-2 ingredient" alt="...">
-        <div class="card-body m-0">
-        <p class="m-0">${i.name}</p>
-        </div>
-        </div>`;
-        if (i.name == "Sör") { //sor alapertelmezett kivalasztasa
-            let a = document.querySelector(`.${i.name}`);
-            a.classList.add("selected");
-        }
-    });
-    ingredients.forEach(i => {
-        let a = document.querySelector(`.${i.name}`);
-        a === null || a === void 0 ? void 0 : a.addEventListener("click", () => { selectIngredient(i); });
-    });
-}
-//#endregion  - tovabbi funkciok
 //program kezdetehez meg kell hivni
 displayIngredients();
 randomIncomingOrder();
@@ -371,40 +291,6 @@ function loadGlass(index = 0) {
         glass.ingredientsInCup = [];
     }
 }
-c === null || c === void 0 ? void 0 : c.addEventListener("mousedown", (e) => {
-    ctx.fillStyle = drinkType.color;
-    currentDrink = 0;
-    let r = randomN(50, 100);
-    let pre = liquidHeight;
-    interval = setInterval(function () {
-        if (!(liquidHeight >= height - glassBottom)) {
-            currentDrink++;
-            r = randomN(50, 100);
-            liquidHeight = pre + currentDrink * rowHeight;
-            drawRect(glassStart - liquidHeight * glassConstant, height - glassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx);
-            ctx.drawImage(cup, 0, 0, width, height);
-        }
-        else {
-        }
-    }, r);
-});
-c === null || c === void 0 ? void 0 : c.addEventListener("mouseup", (e) => {
-    clearInterval(interval);
-    (drinkType.amount == undefined) ? drinkType.amount = 0 : drinkType.amount += currentDrink;
-    if (!glass.ingredientsInCup.some(ingredient => ingredient.name === drinkType.name)) {
-        glass.ingredientsInCup.push({
-            "name": drinkType.name,
-            "price": drinkType.price,
-            "alcohol": drinkType.alcohol,
-            "img": drinkType.img,
-            "amount": drinkType.amount,
-            "color": drinkType.color
-        });
-    }
-    glass.ingredientsInCup.find((a) => a.name == drinkType.name).amount = drinkType.amount;
-    //mitől működik félig???
-    receiveOrder();
-});
 export function emptyGlass(g) {
     ctx.clearRect(0, 0, width, height);
     drawImage("https://raw.githubusercontent.com/sukebenedek/PubSimulator/refs/heads/main/img/ingredients/cup3.png", 0, 0, width, height, ctx);
@@ -416,8 +302,6 @@ export function emptyGlass(g) {
         i.amount = 0;
     });
     ctx.fillStyle = drinkType.color;
-    // drawRect(glassStart - liquidHeight * glassConstant, height - gassBottom - liquidHeight, width - glassStart - glassStart + liquidHeight * glassConstant * 2, rowHeight, ctx)
-    //ez mi???
     ctx.drawImage(cup, 0, 0, width, height);
 }
 export { queue };
