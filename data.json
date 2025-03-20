@@ -1058,7 +1058,7 @@
       "id": "3",
       "username": "Martin",
       "password": "asd",
-      "money": 200,
+      "money": 0,
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/96.jpg",
       "role": false,

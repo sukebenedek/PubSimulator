@@ -445,6 +445,12 @@ html,body {
     animation: shake 0.5s infinite alternate;
 }
 
+#display-3 {
+    font-size: calc(1.525rem + 3.3vw) !important;
+    font-weight: 300 !important;
+    line-height: 1.2 !important;
+}
+
 @keyframes shake {
     0% { transform: translateX(-2px); }
     100% { transform: translateX(2px); }

@@ -106,12 +106,14 @@ async function finishOrder() {
     let order = [];
     for (const [key, value] of Object.entries(amounts)) {
         if (value > 0) {
-            drinks.forEach(d => {
-                if (d.name == key) {
-                    d.ingredientsInCup = [];
-                    order.push(d);
-                }
-            });
+            for (let i = 0; i < value; i++) {
+                drinks.forEach(d => {
+                    if (d.name == key) {
+                        d.ingredientsInCup = [];
+                        order.push(d);
+                    }
+                });
+            }
         }
         document.getElementById(key + "span").innerHTML = "";
     }
