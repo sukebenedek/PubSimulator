@@ -171,7 +171,7 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
     let customerData = document.querySelector(".customerData");
 
     if (queue.length == 0) {
-        sum!.innerHTML = "Nincs rendelés!";
+        sum!.innerHTML = `<h1 class="whiteGlow text-danger disply-1 mt-3 text-center">Nincs rendelés!</h1>`;
     } else {
 
         if (glass == undefined) { //Ez nullazza a poharat?

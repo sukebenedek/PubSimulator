@@ -1,7 +1,11 @@
 import { User, Ingredient, Drink, Guest } from './interfaces.js';
 import { setMoney } from './user.js';
 
-export function calculatePrice(u: User | Guest, s: number) { // kapott összeg számolása a kitöltött ital alapján TODO!!    
+export function calculatePrice(u: User | Guest, s: number) { // kapott összeg számolása a kitöltött ital alapján TODO!!
+    let drinkSum = 0;
+    for (let i = 0; i < u.order.length; i++) {
+        drinkSum! += u.order[i].price;
+    }
     let price = 0;
     
     for (let i = 0; i < u.order.length; i++) { // végigmegy az orderen
@@ -44,11 +48,14 @@ export function calculatePrice(u: User | Guest, s: number) { // kapott összeg s
         console.log(`${drink.name} után kapott pénz: ${drink.price * totalAccuracy} Ft`);
     }
 
-    if(s < price){
+    console.log(`${s} beleirva`);
+    console.log(`${drinkSum} vegosszeg`);
+    
+    if(s < drinkSum!){
         console.log("Kevesebb lett beleirva");
         price = s
     }
-    else if(s > price){
+    else if(s > drinkSum!){
         console.log("Több lett beleirva");
         price *= 0.5
     }
@@ -56,5 +63,7 @@ export function calculatePrice(u: User | Guest, s: number) { // kapott összeg s
         console.log("Pontosan beleírták");
     }
 
-    console.log(`Kapott pénz: ${price} Ft`);
+    console.log(`Kapott pénz: ${Math.floor(price)} Ft`);
+
+    setMoney(Math.floor(price));
 }
