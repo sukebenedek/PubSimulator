@@ -1007,25 +1007,25 @@
       "id": "1",
       "username": "Teszt Teofil",
       "password": "asd123",
-      "money": 10000000,
+      "money": 4996400,
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
       "role": false,
       "isServed": false,
       "order": [
         {
-          "name": "Jager",
-          "price": 2500,
+          "name": "Sör",
+          "price": 600,
           "ingredientsRequired": [
             {
-              "name": "Jager",
-              "amount": 50
+              "name": "Sör",
+              "amount": 500
             }
           ],
           "ingredientsInCup": [],
-          "img": "./img/menu/Jagermeistermenu.png",
-          "category": "rovidek",
-          "id": "865f"
+          "img": "./img/menu/Sormenu.png",
+          "category": "sorok",
+          "id": "3a78"
         },
         {
           "name": "Sör",
