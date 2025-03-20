@@ -1,5 +1,7 @@
 import { NodeBuilderFlags, nodeModuleNameResolver } from "typescript";
 import { receiveOrder } from "./orders";
+import { User, Ingredient, Drink, Guest, } from './interfaces.js';
+
 
 async function load<T>(url: string): Promise<T> {
     const response = await fetch(url, {
@@ -79,4 +81,21 @@ export function sleep(ms: number) {
 
 export function isNumber(str: string) {
     return !isNaN(Number(str)) && str.trim() !== '';
+}
+
+export function isUser(u: any): u is User { //ellenorzi hogy user e
+    return typeof u == "object" && "isServed" in u;
+}
+
+export function convertUserToGuest(u: User): Guest { //user konvertalas guestre
+    return {
+        "name": u.username,
+        "money": u.money,
+        "drunkness": u.drunkness,
+        "age": randomN(18, 99),
+        "stinkness": randomN(0, 100),
+        "img": u.img,
+        "order": u.order,
+        "id": u.id,
+    }
 }

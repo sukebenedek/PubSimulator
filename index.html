@@ -15,18 +15,19 @@
 
 </head>
 
-<body style="margin: 0; background-image: url(img/barInside.jpg);">
+<body style="margin: 0; background-image: url(img/barInside.jpg); background-size: cover; overflow: none;">
     <div id="balance-container" style="position: absolute; top: 10px; right: 20px; background: rgba(0, 0, 0, 0.7); color: white; padding: 10px 20px; border-radius: 10px; font-size: 18px; margin-right: 20px;">
         Egyenleg: <span id="balance"></span> Ft
     </div>    
     <div class="container-fluid h-100">
-        <div id="orders" class="row" style="height: var(--header-height); background-color: blue; display: flex; flex-wrap: wrap;">
+        <div id="orders" class="row" style="height: var(--header-height); background-color: rgba(77, 67, 55, 0.7); display: flex; flex-wrap: wrap;">
 
         </div>
         <div class="row " style="height: calc(100% - var(--header-height));">
-            <div id="sum" class="col-3" style="background-image: url(img/sum.jpg)"></div>
+            <div id="sum" class="col-3" style="background-image: url(img/sum.jpg); background-size: cover; overflow-y: auto; width: calc(100% - 950px - 490px); height: calc(100% );"></div>
            <canvas class="col-6 p-0" style = "height: 775px; width: 950px;" id="canvas"></canvas> <!--  ne változtasd a canvas dimenzióit -->
-            <div class="col-3 row ms-0" id="drinks" style = "user-select: none; "></div>
+            <div class="col-3 row ms-0" id="drinks" style = "user-select: none; overflow-y: auto; width: 490px; 
+  height: calc(100% );"></div>
         </div>
     </div>
 </body>

@@ -1,15 +1,13 @@
 egyenleg
 acceptorder ellenorzesek - orderek hogyan vannak megcsinalva priceinput jo - penzt levon a vegosszegbol ha nem jo 
-több ugyanolyan rendelésnél a pohár
-$lehessen gorgetni az ingredienteket es a rendeles osszesitot
 TZ - az ászok nem jók le se fut a chatgpt szara
-kiuriti a poharat ha elkattintok es beletolti mind a 2 poharba az osszeetevot - vagy loadglass vagy saveglass vagy receiveiorder hiba
-jager anomália amelyik italban jager van nem mukodik
 
 opcionális:
 elmenti a queue-t 
 
 kész
+lehessen gorgetni az ingredienteket es a rendeles osszesitot
+jager anomália amelyik italban jager van nem mukodik
 TZ - kotelezo legyen kijelentkezni nehogz a localstorage osszeszarja magat
 TESZT TEOFIL VISSZATERO VENDEG
 TZ - served localstorage valami nem jó 
