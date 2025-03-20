@@ -104,9 +104,7 @@ export async function incomingOrder() {
         while (randomDrinks.length < 1) { //rendeles generalasa
             for (let i = 0; i < randomNum(4); i++) {
                 let r = allDrinks[randomNum(allDrinks.length)];
-                if (!randomDrinks.some(d => d.name === r.name)) {
-                    randomDrinks.push(r);
-                }
+                randomDrinks.push(r);
             }
         }
         while (queue.some(g => g.id === randomGuest.id)) { //nem engedi belerakni ketszer ugyyanazt a guestet
@@ -263,9 +261,13 @@ export function receiveOrder() {
 //#region - lehetosegek a rendeleskor
 async function acceptOrder(u) {
     let priceInput = document.getElementById("priceInput"); //a fizetendo osszeg inputja
+    let s;
     if (priceInput.value == "") { //ha ures nem enged tovabb
         alert("Kérem adja meg a fizetendő összeget!");
         return;
+    }
+    else {
+        s = Number(priceInput.value);
     }
     if (isUser(u)) { //ha user akkor frissiti a statuszt servedre
         u.isServed = true;
@@ -273,7 +275,7 @@ async function acceptOrder(u) {
         servedUsers.push(u);
         localStorage.setItem("served", JSON.stringify(servedUsers));
     }
-    calculatePrice(u);
+    calculatePrice(u, s);
     declineOrder(); //az aktualis vasarlo eltavolitasa a sorbol es a kovetkezo kiszolgalasa
 }
 //#endregion - lehetosegek a rendeleskor

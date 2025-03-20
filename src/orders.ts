@@ -129,9 +129,8 @@ export async function incomingOrder() { //berakja a queueba a guesteket es a use
         while (randomDrinks.length < 1) { //rendeles generalasa
             for (let i = 0; i < randomNum(4); i++) {
                 let r = allDrinks[randomNum(allDrinks.length)];
-                    if (!randomDrinks.some(d => d.name === r.name)) {
-                        randomDrinks.push(r);
-                    }
+                randomDrinks.push(r);
+                    
             }
         }
 
@@ -323,10 +322,13 @@ export function receiveOrder() { //kiirja az aktualis rendelest es frissiti a po
 
 async function acceptOrder(u: User | Guest) { //rendeles elfogadasa
     let priceInput = document.getElementById("priceInput") as HTMLInputElement; //a fizetendo osszeg inputja
-
+    let s;
     if(priceInput.value == "") { //ha ures nem enged tovabb
         alert("Kérem adja meg a fizetendő összeget!");
         return;
+    }
+    else{
+        s = Number(priceInput.value);
     }
 
     if (isUser(u)) { //ha user akkor frissiti a statuszt servedre
@@ -336,7 +338,7 @@ async function acceptOrder(u: User | Guest) { //rendeles elfogadasa
         localStorage.setItem("served", JSON.stringify(servedUsers));
     }
 
-    calculatePrice(u);
+    calculatePrice(u, s);
     declineOrder(); //az aktualis vasarlo eltavolitasa a sorbol es a kovetkezo kiszolgalasa
 }
 

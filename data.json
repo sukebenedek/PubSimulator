@@ -1014,18 +1014,18 @@
       "isServed": false,
       "order": [
         {
-          "name": "Jager",
-          "price": 2500,
+          "name": "Sör",
+          "price": 600,
           "ingredientsRequired": [
             {
-              "name": "Jager",
-              "amount": 50
+              "name": "Sör",
+              "amount": 500
             }
           ],
           "ingredientsInCup": [],
-          "img": "./img/menu/Jagermeistermenu.png",
-          "category": "rovidek",
-          "id": "865f"
+          "img": "./img/menu/Sormenu.png",
+          "category": "sorok",
+          "id": "3a78"
         },
         {
           "name": "Sör",

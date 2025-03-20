@@ -1,27 +1,25 @@
-import { User, Ingredient, Drink, Guest, } from './interfaces.js';
+import { User, Ingredient, Drink, Guest } from './interfaces.js';
+import { setMoney } from './user.js';
 
-export function calculatePrice(u: User | Guest) { //kapott osszeg szamolasa a kitolott ital alapjan TODO!!
+export function calculatePrice(u: User | Guest, s: number) { // kapott összeg számolása a kitöltött ital alapján TODO!!    
     let price = 0;
-    u.order.forEach(drink => {
-        price += drink.price;
-    });
-
-    console.log(`Osszes ital ara: ${price} Ft`);
-    price = 0;
     
-    for (let i = 0; i < u.order.length; i++) { //vegigmegy az orderen
+    for (let i = 0; i < u.order.length; i++) { // végigmegy az orderen
         const drink = u.order[i];
-        for (let j = 0; j < drink.ingredientsRequired.length; j++) { //vegigmegy a drink osszetevoin
+        let totalAccuracy = 1;  // Default accuracy to 100%
+
+        for (let j = 0; j < drink.ingredientsRequired.length; j++) { // végigmegy a drink összetevőin
             const ingredient = drink.ingredientsRequired[j];
-            const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name); //ezek csak azok amik benne vannak ES kellenek is bele
+            const ingredientInCup = drink.ingredientsInCup.find(i => i.name == ingredient.name); // ezek csak azok amik benne vannak ÉS kellenek is bele
             
-            console.log(`Kell: ${ingredient.name} ${ingredient.amount}ml`); // Kilogolja aminek benne kene lennie
+            console.log(`Kell: ${ingredient.name} ${ingredient.amount}ml`); // Kilogolja aminek benne kéne lennie
             console.log(`Van: ${ingredientInCup ? ingredientInCup.name : 'None'} ${ingredientInCup ? ingredientInCup.amount * 10 : '0'}ml`); // Kilogolja ami benne van
             
-            if (ingredientInCup) { //ha van benne olyan osszetevo ami kell bele kiszamolja a kapott penzt maskulonben nem is ad
+            if (ingredientInCup) { // ha van benne olyan összetevő ami kell bele, kiszámolja a kapott pénzt, máskülönben nem is ad
                 const ingredientAmount = ingredientInCup.amount * 10;
                 let accuracy = 0;
-                // Osszetevo mennyiseg ellenorzes
+
+                // Összetevő mennyiség ellenőrzés
                 if (ingredientAmount === ingredient.amount) {
                     accuracy = 1; 
                 } else if (ingredientAmount > ingredient.amount) {
@@ -30,20 +28,33 @@ export function calculatePrice(u: User | Guest) { //kapott osszeg szamolasa a ki
                     accuracy = 0.5;
                 }
 
-                // Jo osszetevo?
+                // Jó összetevő?
                 if (ingredientInCup.name !== ingredient.name) {
                     accuracy *= 0.5;
                 }
-                // Kalkulacio
-                price += drink.price * accuracy;
-                console.log(`${drink.name} ara: ${drink.price} Ft`);
-                console.log(`${drink.name} utan kapott penz: ${drink.price * accuracy} Ft`);
-                console.log(`Eddig: ${price} Ft`);
-                
 
-                console.log(`${ingredient.name}: ${ingredientAmount}ml / ${ingredient.amount}ml, Pontossag: ${accuracy * 100}%`);
+                totalAccuracy *= accuracy; // Ingredienteknetni pontossag
+            } else {
+                totalAccuracy = 0; // Ha egy összetevő hiányzik, akkor az ital értéke 0
             }
         }
+
+        price += drink.price * totalAccuracy; // Alkalmazza az accuracy-t egyszer per ital
+        console.log(`${drink.name} ára: ${drink.price} Ft`);
+        console.log(`${drink.name} után kapott pénz: ${drink.price * totalAccuracy} Ft`);
     }
-    console.log(`Kapott penz: ${price} Ft`);
+
+    if(s < price){
+        console.log("Kevesebb lett beleirva");
+        price = s
+    }
+    else if(s > price){
+        console.log("Több lett beleirva");
+        price *= 0.5
+    }
+    else{
+        console.log("Pontosan beleírták");
+    }
+
+    console.log(`Kapott pénz: ${price} Ft`);
 }
