@@ -1,4 +1,4 @@
-var _a, _b;
+var _a, _b, _c;
 import { fetchData, patchData } from './functions.js';
 import { getUser, setMoney, showUser } from './user.js';
 let user = getUser();
@@ -142,3 +142,6 @@ async function succes(order) {
     }
 }
 (_b = document.getElementById("counter")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", order);
+(_c = document.getElementById("atm")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", () => {
+    location.replace("./withdraw.html");
+});

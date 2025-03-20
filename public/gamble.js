@@ -100,7 +100,7 @@ async function start() {
         giveCard(1);
         await draw(-1);
         giveCard(-2);
-        document.getElementById("dealer").title = value(dealerCards[0], sum(dealerValue)) + " + ?";
+        document.getElementById("dealer").title = (value(dealerCards[0], sum(dealerValue), true) == 0 ? "11/1" : value(dealerCards[0], sum(dealerValue))) + " + ?";
         button.innerHTML = "Elég";
         button.classList.remove("btn-secondary");
         button.classList.add("btn-success");
@@ -132,7 +132,7 @@ function giveCard(dir) {
         document.getElementById("dealer").title = String(sum(dealerValue));
     }
 }
-function value(card, sum) {
+function value(card, sum, dealerAtStart = false) {
     let value = card.split("_")[0];
     if (isNumber(value)) {
         return Number(value);
@@ -141,6 +141,8 @@ function value(card, sum) {
         return 10;
     }
     else {
+        if (dealerAtStart)
+            return 0;
         if (sum + 11 > 21)
             return 1;
         return 11;
