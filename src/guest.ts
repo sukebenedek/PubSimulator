@@ -127,7 +127,6 @@ async function finishOrder() {
                         order.push(d);
                     }
                 });
-                
             }
         }
         document.getElementById(key + "span")!.innerHTML = "";
