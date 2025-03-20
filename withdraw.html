@@ -11,21 +11,27 @@
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
+<style>
+  body {
+    background-image: url(img/atmgép.jpg);
+    background-size: cover;
+    overflow: none;
+  }
+</style>
 <body class="bg-dark">
-  <h1 class="text-center display-1 text-light mainText">Pénzfeltöltés</h1>
+  <h1 class="text-center display-1 text-light  goldenGlow">Pénzfeltöltés</h1>
   <div class="container position-absolute top-50 start-50 translate-middle w-50 h-50">
     <form>
-        <button id="cancel" type="button" class="backbtn btn btn-dark text-white login">&#8249;Mégsem</button>
+        <button id="cancel" type="button" class="backbtn btn btn-dark text-white login goldenGlow text-center">&#8249;Mégsem</button>
         <div class="mb-3">
-          <label for="usernameInput" class="form-label text-white">Bankkártyaszám</label>
-          <input type="number" class="form-control" id="carNumberInput" aria-describedby="emailHelp">
+          <input placeholder="Bankkártyaszám" type="number" class="form-control" id="carNumberInput" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
-          <label for="passwordInput" class="form-label text-white">Összeg</label>
-          <input type="number" class="form-control" id="amountInput" aria-describedby="emailHelp">
+          <input placeholder="Összeg" type="number" class="form-control" id="amountInput" aria-describedby="emailHelp">
         </div>
         <h5 id="error" class="text-danger"></h5>
-        <button id="withdrawButton" type="button" class="btn btn-primary login">Feltölt</button>
+        <button id="withdrawButton" type="button" class="btn btn-primary login goldenGlow text-center" >Feltölt</button>
       </form>
   </div>
 

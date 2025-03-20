@@ -996,7 +996,7 @@
       "id": "0",
       "username": "admin",
       "password": "admin",
-      "money": 0,
+      "money": 5941,
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/99.jpg",
       "role": true,
@@ -1011,37 +1011,8 @@
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/98.jpg",
       "role": false,
-      "isServed": false,
-      "order": [
-        {
-          "name": "Sör",
-          "price": 600,
-          "ingredientsRequired": [
-            {
-              "name": "Sör",
-              "amount": 500
-            }
-          ],
-          "ingredientsInCup": [],
-          "img": "./img/menu/Sormenu.png",
-          "category": "sorok",
-          "id": "3a78"
-        },
-        {
-          "name": "Sör",
-          "price": 600,
-          "ingredientsRequired": [
-            {
-              "name": "Sör",
-              "amount": 500
-            }
-          ],
-          "ingredientsInCup": [],
-          "img": "./img/menu/Sormenu.png",
-          "category": "sorok",
-          "id": "3a78"
-        }
-      ]
+      "isServed": true,
+      "order": []
     },
     {
       "id": "2",

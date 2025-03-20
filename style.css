@@ -49,7 +49,7 @@ html,body {
     z-index: 1;
 }
 .almostTransparent {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .top-60 {
@@ -427,7 +427,7 @@ html,body {
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.9);
 }
 
-#submitRegiser, #submitLogin {
+#submitRegiser, #submitLogin, #withdrawButton {
     display: block;
     width: 100%;
     font-size: 3.5em;
@@ -475,6 +475,8 @@ html,body {
 .goldenGlow {
     color: #ffd700;
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 1);
+    animation: glowText 1.5s infinite alternate;
+
 }
 
 .redGlow:hover {
@@ -486,6 +488,7 @@ html,body {
     color: #00ff00;
     text-shadow: 0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.9);
 }
+
 
 .customerData {
     background: rgba(0, 0, 0, 0.85);
@@ -500,7 +503,12 @@ html,body {
 
 @keyframes glow {
     0% { box-shadow: 0 0 5px #ffd700; }
-    100% { box-shadow: 0 0 20px #ffd700; }
+    100% { box-shadow: 0 0 20px #ffd700;}
+}
+
+@keyframes glowText{
+    0%  {text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 1);}
+    100%  {text-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.9), 0 0 25px rgba(255, 215, 0, 1);}
 }
 
 .customerData h2 {
