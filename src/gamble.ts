@@ -19,14 +19,11 @@ function closeGamblePopup() {
 
 const Player = document.getElementById("player")!;
 let playerCards: String[] = [];
-let playerValue = 0;
+let playerValue: number[] = [];
 
 const Dealer = document.getElementById("dealer")!;
 let dealerCards: String[] = [];
-let dealerValue = 0;
-
-let playerAceCount = 0;  // Tracks how many Aces are treated as 11 for the player
-let dealerAceCount = 0;  // Tracks how many Aces are treated as 11 for the dealer
+let dealerValue: number[] = [];
 
 const cardImages = [
   "2_of_clubs.png", "2_of_diamonds.png", "2_of_hearts.png", "2_of_spades.png",
@@ -43,6 +40,8 @@ const cardImages = [
   "king_of_clubs.png", "king_of_diamonds.png", "king_of_hearts.png", "king_of_spades.png",
   "queen_of_clubs.png", "queen_of_diamonds.png", "queen_of_hearts.png", "queen_of_spades.png"
 ];
+
+let goodTet = true; 
 
 let cards = cardImages;
 
@@ -98,7 +97,7 @@ async function draw(dir: number): Promise<boolean> {
 }
 
 async function start() {
-  if (issetTet()) {
+  if (issetTet() && goodTet) {
     setTet();
 
     currentCard = 52;
@@ -115,7 +114,7 @@ async function start() {
     giveCard(1);
     await draw(-1);
     giveCard(-2);
-    document.getElementById("dealer")!.title = value(dealerCards[0], dealerValue, dealerAceCount) + " + ?";
+    document.getElementById("dealer")!.title = value(dealerCards[0], sum(dealerValue)) + " + ?";
 
     button.innerHTML = "Elég"
     button.classList.remove("btn-secondary");
@@ -128,9 +127,9 @@ async function start() {
 //#region JÁTÉK
 
 function giveCard(dir: number) {
-  let card = cards[Math.floor(Math.random() * cards.length)];
+  let card = cards[Math.floor(Math.random()*cards.length)];
   while (playerCards.includes(card) || dealerCards.includes(card)) {
-    card = cards[Math.floor(Math.random() * cards.length)];
+    card = cards[Math.floor(Math.random()*cards.length)];
   }
 
   let cardImg = document.createElement("img");
@@ -138,53 +137,37 @@ function giveCard(dir: number) {
   cardImg.className = "w-20 mx-1";
 
   if (dir == 1) {
-    // Player's turn
     Player.appendChild(cardImg);
     playerCards.push(card);
-    playerValue += value(card, playerValue, playerAceCount);
-    playerAceCount = updateAceCount(playerValue, playerAceCount);  // Update aceCount after value change
-    document.getElementById("player")!.title = String(playerValue);
+    playerValue.push(value(card, sum(playerValue)));
     bust(1);
-  } else {
-    // Dealer's turn
+    document.getElementById("player")!.title = String(sum(playerValue));
+  }
+  else {
     Dealer.appendChild(cardImg);
     dealerCards.push(card);
-    dealerValue += value(card, dealerValue, dealerAceCount);
-    dealerAceCount = updateAceCount(dealerValue, dealerAceCount);  // Update aceCount after value change
-    document.getElementById("dealer")!.title = String(dealerValue);
+    dealerValue.push(value(card, sum(dealerValue)));
     bust(2);
+    document.getElementById("dealer")!.title = String(sum(dealerValue));
   }
 }
 
-function updateAceCount(sum: number, aceCount: number): number {
-  // If the sum exceeds 21 and we have Aces treated as 11, reduce the sum by 10 for each Ace
-  while (sum > 21 && aceCount > 0) {
-    sum -= 10;
-    aceCount--;
-    console.log(playerCards);    
+function value(card:String, sum:number): number {
+  let value = card.split("_")[0];
+  if (isNumber(value)) {
+    return Number(value);
   }
-  return aceCount;
-}
-
-function value(card: String, sum: number, aceCount: number): number {
-  let cardValue = card.split("_")[0];
-  
-  if (isNumber(cardValue)) {
-    return Number(cardValue);
-  } else if (cardValue == "jack" || cardValue == "queen" || cardValue == "king") {
+  else if (value == "jack" || value == "queen" || value == "king") {
     return 10;
-  } else if (cardValue == "ace") {
-    // Initially treat Ace as 11
-    if (sum + 11 > 21 && aceCount > 0) {
-      // If adding 11 would bust, treat it as 1
-      return 1;
-    } else {
-      aceCount++; // Increment aceCount
-      return 11; // Treat Ace as 11
-    }
   }
-  
-  return 0;
+  else {
+    if (sum + 11 > 21) return 1;
+    return 11;
+  }
+}
+
+function sum(numbers: number[]) {
+  return numbers.reduce((s, a) => s + a, 0);
 }
 
 
@@ -205,27 +188,41 @@ async function dealersTurn() {
     cardImg.src = './img/cards/' + card;
     cardImg.className = "w-20 mx-1";
     Dealer.appendChild(cardImg);
-    document.getElementById("dealer")!.title = String(dealerValue);
+    document.getElementById("dealer")!.title = String(sum(dealerValue));
   });
 
-  while (dealerValue <= 16) {
+  while (sum(dealerValue) <= 16) {
     await dealerDraw();
     bust(-1);
   }
-  if (dealerValue < 22) {
+  if (sum(dealerValue) < 22) {
     result();
   }
 }
 
 function bust(dir:number) {
   if (dir == 1) {
-    if (playerValue > 21) {
-      dealersTurn()
+    if (sum(playerValue) > 21) {
+      if (playerValue.includes(11)) {
+        let i = playerValue.indexOf(11);
+        if (i !== -1) playerValue.splice(i, 1);
+        bust(1);
+      }
+      else {
+        dealersTurn()
+      }
     }
   }
   else if (dir == -1) {
-    if (dealerValue > 21) {
-      result();
+    if (sum(dealerValue) > 21) {
+      if (dealerValue.includes(11)) {
+        let i = dealerValue.indexOf(11);
+        if (i !== -1) dealerValue.splice(i, 1);
+        bust(-1);
+      }
+      else {
+        result();
+      }
     }
   }
 }
@@ -234,22 +231,22 @@ function bust(dir:number) {
 //#region VÉGE
 
 function result() { //ez a fos valamiért tovább megy az ifeken és a win kétszer lesz meghívva
-  if (playerValue > 21) {
+  if (sum(playerValue) > 21) {
     lose();
   }
-  else if (dealerValue > 21) {
+  else if (sum(dealerValue) > 21) {
     win()
   }
-  else if (playerValue == dealerValue) {
+  else if (sum(playerValue) == sum(dealerValue)) {
     tie()
   }
-  else if (playerValue == 21) {
+  else if (sum(playerValue) == 21) {
     blackjack()
   }
-  else if (playerValue > dealerValue) {
+  else if (sum(playerValue) > sum(dealerValue)) {
     win();
   }
-  else if (playerValue < dealerValue) {
+  else if (sum(playerValue) < sum(dealerValue)) {
     lose();
   }
 }
@@ -295,9 +292,9 @@ function end() {
   document.getElementById("dealer")!.innerHTML = "";
   document.getElementById("player")!.innerHTML = "";
   playerCards = [];
-  playerValue = 0;
+  playerValue = [];
   dealerCards = [];
-  dealerValue = 0;
+  dealerValue = [];
 
   document.getElementById("deck")!.classList.add("d-none");
 
@@ -323,9 +320,11 @@ function issetTet() {
 function enoughMoney() {
   if (!isNumber(input.value) || Number(input.value) > getMoney()) {
     input.classList.add("bg-danger");
+    goodTet = false;
   }
   else {
     input.classList.remove("bg-danger");
+    goodTet = true;
   }
 }
 
