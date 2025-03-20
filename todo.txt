@@ -1,11 +1,11 @@
 egyenleg
 acceptorder ellenorzesek - orderek hogyan vannak megcsinalva priceinput jo - penzt levon a vegosszegbol ha nem jo 
-TZ - az ászok nem jók le se fut a chatgpt szara
 
 opcionális:
 elmenti a queue-t 
 
 kész
+TZ - az ászok nem jók le se fut a chatgpt szara
 lehessen gorgetni az ingredienteket es a rendeles osszesitot
 jager anomália amelyik italban jager van nem mukodik
 TZ - kotelezo legyen kijelentkezni nehogz a localstorage osszeszarja magat
