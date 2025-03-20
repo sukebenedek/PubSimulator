@@ -162,3 +162,6 @@ async function succes(order: Drink[]) {
 }
 
 document.getElementById("counter")?.addEventListener("click", order);
+document.getElementById("atm")?.addEventListener("click", ()=> {
+    location.replace("./withdraw.html");
+});
