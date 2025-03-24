@@ -996,7 +996,7 @@
       "id": "0",
       "username": "admin",
       "password": "admin",
-      "money": 5941,
+      "money": 100000000000,
       "drunkness": 0,
       "img": "https://randomuser.me/api/portraits/men/99.jpg",
       "role": true,

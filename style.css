@@ -49,7 +49,7 @@ html,body {
     z-index: 1;
 }
 .almostTransparent {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .top-60 {
@@ -63,7 +63,7 @@ html,body {
     border-radius: 50%;
     border: none;
     background-color: transparent;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.8s infinite ease-in-out;
     overflow: hidden;
     outline: none; /* Ensures no focus border appears */
 }
@@ -71,7 +71,7 @@ html,body {
 #counter:hover {
     border: none;
     cursor: pointer;
-    animation: pulseEffect 2s infinite ease-in-out;
+    animation: pulseEffect 5s infinite ease-in-out;
 }
 
 #counter::before {
@@ -415,7 +415,7 @@ html,body {
 .glowing-input {
     transition: all 0.3s ease-in-out;
     border: 2px solid transparent;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(139, 139, 139, 0.7);
     color: white;
 }
 
@@ -423,7 +423,7 @@ html,body {
     outline: none;
     border-color: #ffd700;
     box-shadow: 0 0 15px #ffd700;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(170, 170, 170, 0.9);
 }
 
 .glowing-input-wrapper input:focus {
@@ -502,6 +502,11 @@ html,body {
 .whiteGlow{
     color: #fff;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.9);
+}
+
+.grayGlow{
+    color: #000000;
+    text-shadow: 0 0 5px rgba(129, 129, 129, 0.8),0 0 10px rgba(129, 129, 129, 0.9);
 }
 
 .redGlow {
@@ -641,6 +646,38 @@ html,body {
     display: flex;
     flex-wrap: wrap;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
+
+.btn-medieval {
+    font-family: 'Uncial Antiqua', cursive;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 3px solid gold;
+    background: linear-gradient(145deg, #4b2c20, #7f4f24);
+    color: #ffd700;
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7), inset 0 0 5px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-medieval:hover {
+    background: linear-gradient(145deg, #7f4f24, #aa6f3f);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 1), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.btn-medieval:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+
 
 
 
